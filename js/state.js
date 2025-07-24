@@ -6,9 +6,11 @@ export const appState = {
     currentWaveformIndex: 1,
     get currentWaveform() { return waveforms[this.currentWaveformIndex]; },
 
-    // Key
+    // Key & Scale
     currentKeyIndex: 0,
     get currentMusicalKey() { return musicalKeys[this.currentKeyIndex]; },
+    availableScales: ['Major', 'Natural Minor'],
+    currentScale: 'Major',
 
     // Time Signature
     currentTimeSignatureIndex: 0,
