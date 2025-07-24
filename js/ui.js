@@ -128,18 +128,28 @@ export function updateRhythmPictures() {
     const firstOfPair = states[i * 2];
     const secondOfPair = states[i * 2 + 1];
 
+    // Combination 1: Only the first eighth note is active (1, -)
+    // Should display: Quarter Note picture
     if (firstOfPair && !secondOfPair) {
-      // Pattern: 1- (Quarter Note)
-      pictureImgs[i].src = dashImgUrl;
-    } else if (firstOfPair && secondOfPair) {
-      // Pattern: 12 (Two Eighths) - Corrected based on your feedback
+      pictureImgs[i].src = rhythmBox2;
+    } 
+    
+    // Combination 2: Both eighth notes are active (1, 2)
+    // Should display: Two Eighth Notes picture
+    else if (firstOfPair && secondOfPair) {
       pictureImgs[i].src = rhythmBox3;
-    } else if (!firstOfPair && secondOfPair) {
-      // Pattern: -2 (Syncopated Eighth) - Corrected based on your feedback
+    } 
+    
+    // Combination 3: Only the second eighth note is active (-, 2)
+    // Should display: Syncopated (rest, then eighth) picture
+    else if (!firstOfPair && secondOfPair) {
       pictureImgs[i].src = rhythmBox4;
-    } else {
-      // Pattern: -- (Rest)
-      pictureImgs[i].src = restDashImgUrl;
+    } 
+    
+    // Combination 4: Neither eighth note is active (-, -)
+    // Should display: Rest picture
+    else {
+      pictureImgs[i].src = dashImgUrl;
     }
   }
 }
