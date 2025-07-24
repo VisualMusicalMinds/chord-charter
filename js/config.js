@@ -18,7 +18,7 @@ export const optionColors = {
 };
 
 // --- Chord Data for Each Key ---
-export const keyChordMap = {
+const majorKeyChordMap = {
   'C': [ { value: 'C',  display: 'C / I' }, { value: 'Dm', display: 'Dm / ii' }, { value: 'Em', display: 'Em / iii' }, { value: 'F',  display: 'F / IV' }, { value: 'G',  display: 'G / V' }, { value: 'Am', display: 'Am / vi' }, { value: 'Bdim', display: 'Bdim / vii°' }, { value: 'D', display: 'D / V/V' }, { value: 'E', display: 'E / V/vi' }, { value: 'Bb', display: 'Bb / IV/IV' }],
   'Db': [ { value: 'Db', display: 'Db / I' }, { value: 'Ebm',display: 'Ebm / ii' }, { value: 'Fm', display: 'Fm / iii' }, { value: 'Gb', display: 'Gb / IV' }, { value: 'Ab', display: 'Ab / V' }, { value: 'Bbm', display: 'Bbm / vi' }, { value: 'Cdim', display: 'Cdim / vii°' }, { value: 'Eb', display: 'Eb / V/V' }, { value: 'F', display: 'F / V/vi' }, { value: 'Cb', display: 'Cb / IV/IV' }],
   'D': [ { value: 'D',  display: 'D / I' }, { value: 'Em', display: 'Em / ii' }, { value: 'F#m',display: 'F#m / iii' }, { value: 'G',  display: 'G / IV' }, { value: 'A',  display: 'A / V' }, { value: 'Bm', display: 'Bm / vi' }, { value: 'C#dim', display: 'C#dim / vii°' }, { value: 'E', display: 'E / V/V' }, { value: 'F#', display: 'F# / V/vi' }, { value: 'C', display: 'C / IV/IV' }],
@@ -33,13 +33,22 @@ export const keyChordMap = {
   'B': [ { value: 'B',  display: 'B / I' }, { value: 'C#m',display: 'C#m / ii' }, { value: 'D#m',display: 'D#m / iii' }, { value: 'E',  display: 'E / IV' }, { value: 'F#', display: 'F# / V' }, { value: 'G#m', display: 'G#m / vi' }, { value: 'A#dim', display: 'A#dim / vii°' }, { value: 'C#', display: 'C# / V/V' }, { value: 'D#', display: 'D# / V/vi' }, { value: 'A', display: 'A / IV/IV' }]
 };
 
+// --- Structure for all scale maps ---
+export const scaleChordMaps = {
+  'Major': majorKeyChordMap,
+  'Natural Minor': { // Placeholder for now
+    'C': [], 'Db': [], 'D': [], 'Eb': [], 'E': [], 'F': [], 'Gb': [], 'G': [], 'Ab': [], 'A': [], 'Bb': [], 'B': []
+  } 
+};
+
+
 // --- Create a master list of all unique chords ---
-export const allChords = [...new Set(Object.values(keyChordMap).flat().map(c => c.value))].sort();
+export const allChords = [...new Set(Object.values(majorKeyChordMap).flat().map(c => c.value))].sort();
 export const allChordOptions = allChords.map(chordValue => {
     // Find the best display name (e.g., from the key of C if possible)
     let displayName = chordValue;
-    for (const key in keyChordMap) {
-        const found = keyChordMap[key].find(c => c.value === chordValue);
+    for (const key in majorKeyChordMap) {
+        const found = majorKeyChordMap[key].find(c => c.value === chordValue);
         if (found) {
             displayName = found.display;
             break; 
