@@ -2,12 +2,21 @@
 export const waveforms = ['sine', 'triangle', 'square', 'saw', 'voice'];
 
 // --- Key and Scale Data ---
-const majorKeys = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
-const naturalMinorKeys = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B'];
+export const displayKeys = ['C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B'];
 
-export const scaleKeyMaps = {
-  'Major': majorKeys,
-  'Natural Minor': naturalMinorKeys
+export const keyMap = {
+    'C': { 'Major': 'C', 'Natural Minor': 'C' },
+    'C#/Db': { 'Major': 'Db', 'Natural Minor': 'C#' },
+    'D': { 'Major': 'D', 'Natural Minor': 'D' },
+    'D#/Eb': { 'Major': 'Eb', 'Natural Minor': 'Eb' },
+    'E': { 'Major': 'E', 'Natural Minor': 'E' },
+    'F': { 'Major': 'F', 'Natural Minor': 'F' },
+    'F#/Gb': { 'Major': 'Gb', 'Natural Minor': 'F#' },
+    'G': { 'Major': 'G', 'Natural Minor': 'G' },
+    'G#/Ab': { 'Major': 'Ab', 'Natural Minor': 'G#' },
+    'A': { 'Major': 'A', 'Natural Minor': 'A' },
+    'A#/Bb': { 'Major': 'Bb', 'Natural Minor': 'Bb' },
+    'B': { 'Major': 'B', 'Natural Minor': 'B' }
 };
 
 // --- Time Signature Variables ---
