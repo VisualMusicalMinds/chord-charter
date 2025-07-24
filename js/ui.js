@@ -7,11 +7,11 @@ export function updateWaveformDisplay() {
 }
 
 export function updateKeyDisplay() {
-  document.getElementById("current-key-name").textContent = appState.currentMusicalKey;
+  document.getElementById("current-key-name").textContent = appState.currentDisplayKey;
 }
 
 export function updateChordDropdowns() {
-    const currentKey = appState.currentMusicalKey;
+    const currentKey = appState.musicalKey;
     const currentScale = appState.currentScale;
     
     const keyChords = scaleChordMaps[currentScale]?.[currentKey] || [];
