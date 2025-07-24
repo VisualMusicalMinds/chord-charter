@@ -278,6 +278,8 @@ function startMainAnimation() {
   appState.rhythmStep = 0;
   appState.currentLinkedProgressionIndex = 0;
 
+  updateLinkedProgressionSequence(); // Update sequence once at the start
+
   if (appState.linkedProgressionSequence.length > 0) {
       const firstLinkedProg = appState.linkedProgressionSequence[0];
       if (appState.currentToggle !== firstLinkedProg) {
@@ -317,7 +319,12 @@ function playEighthNoteStep() {
     let isLinkedMode = appState.linkedProgressionSequence.length > 0;
 
     if (isLinkedMode) {
+        // Ensure the index is valid for the current sequence
+        if (appState.currentLinkedProgressionIndex >= appState.linkedProgressionSequence.length) {
+            appState.currentLinkedProgressionIndex = 0;
+        }
         playingProgLetter = appState.linkedProgressionSequence[appState.currentLinkedProgressionIndex];
+
         if (appState.currentToggle !== playingProgLetter) {
             appState.currentToggle = playingProgLetter;
             document.querySelectorAll('.abcd-toggle-btn').forEach(btn => btn.classList.remove('abcd-active'));
@@ -625,25 +632,30 @@ function handleKeyDial(direction) {
 function toggleLinkState(progLetter) {
   appState.progressionLinkStates[progLetter] = !appState.progressionLinkStates[progLetter];
   updateLinkVisuals(progLetter);
-  updateLinkedProgressionSequence();
-
-  if (appState.isPlaying) {
-      appState.slotHighlightStep = 0;
-      appState.rhythmStep = 0;
-      appState.currentLinkedProgressionIndex = 0; 
-      stopMainAnimation(); 
-      startMainAnimation();
-  }
+  updateLinkedProgressionSequence(); // Update the sequence, but don't restart playback.
 }
 
 function updateLinkedProgressionSequence() {
+  const currentProg = appState.isPlaying ? appState.linkedProgressionSequence[appState.currentLinkedProgressionIndex] : null;
+
   appState.linkedProgressionSequence = [];
   ['A', 'B', 'C', 'D'].forEach(progLetter => {
     if (appState.progressionLinkStates[progLetter]) {
       appState.linkedProgressionSequence.push(progLetter);
     }
   });
-  appState.currentLinkedProgressionIndex = 0; 
+
+  if (appState.isPlaying && currentProg) {
+    const newIndex = appState.linkedProgressionSequence.indexOf(currentProg);
+    if (newIndex !== -1) {
+      appState.currentLinkedProgressionIndex = newIndex;
+    } else {
+      // Current prog was unlinked, so we reset to 0 but it will be handled gracefully in playEighthNoteStep
+      appState.currentLinkedProgressionIndex = 0;
+    }
+  } else {
+     appState.currentLinkedProgressionIndex = 0;
+  }
 }
 
 function loadSong(songId) {
