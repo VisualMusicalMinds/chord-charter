@@ -43,6 +43,7 @@ export const scaleChordMaps = {
 
 
 // --- Create a master list of all unique chords ---
+// FIX: This was pointing to the old keyChordMap which no longer exists. Point it to majorKeyChordMap.
 export const allChords = [...new Set(Object.values(majorKeyChordMap).flat().map(c => c.value))].sort();
 export const allChordOptions = allChords.map(chordValue => {
     // Find the best display name (e.g., from the key of C if possible)
