@@ -16,10 +16,6 @@ import {
 
 let audioContext;
 let masterGain;
-let brushGain;
-let bassDrumGain;
-let brushBuffer;
-let bassDrumBuffer;
 
 export async function ensureAudio() {
   if (!audioContext) {
@@ -29,16 +25,6 @@ export async function ensureAudio() {
       masterGain.gain.value = 0.5;
       masterGain.connect(audioContext.destination);
 
-      brushGain = audioContext.createGain();
-      brushGain.gain.value = 0.3;
-      brushGain.connect(masterGain);
-
-      bassDrumGain = audioContext.createGain();
-      bassDrumGain.gain.value = 0.8;
-      bassDrumGain.connect(masterGain);
-      
-      await loadSounds();
-
     } catch (e) {
       console.error("AudioContext could not be created:", e);
     }
@@ -46,33 +32,6 @@ export async function ensureAudio() {
   if (audioContext.state === 'suspended') {
     await audioContext.resume();
   }
-}
-
-async function loadSounds() {
-    try {
-        const brushResponse = await fetch('assets/sounds/brush.mp3');
-        const brushArrayBuffer = await brushResponse.arrayBuffer();
-        brushBuffer = await audioContext.decodeAudioData(brushArrayBuffer);
-    } catch (e) {
-        console.error("Error loading brush sound:", e);
-    }
-
-    try {
-        const bassDrumResponse = await fetch('assets/sounds/bass-drum.mp3');
-        const bassDrumArrayBuffer = await bassDrumResponse.arrayBuffer();
-        bassDrumBuffer = await audioContext.decodeAudioData(bassDrumArrayBuffer);
-    } catch (e) {
-        console.error("Error loading bass drum sound:", e);
-    }
-}
-
-
-function playSound(buffer, gainNode, time) {
-    if (!audioContext || !buffer) return;
-    const source = audioContext.createBufferSource();
-    source.buffer = buffer;
-    source.connect(gainNode);
-    source.start(time);
 }
 
 function createOscillator(freq, type, time, soundProfile) {
@@ -133,24 +92,45 @@ export function playTriangleNotes(notes) {
     }
   });
 }
-    
-export function playBrush() {
-  ensureAudio();
-  const brushCheckbox = document.getElementById('brushToggle');
-  if (brushCheckbox && !brushCheckbox.checked) {
-    return; 
-  }
-  if (brushBuffer) {
-    playSound(brushBuffer, brushGain, audioContext.currentTime);
-  }
+
+export async function playBrush() {
+  if (!document.getElementById('brushToggle')?.checked) return;
+  await ensureAudio();
+  if (!audioContext) return;
+  const duration = 0.09, bufferSize = audioContext.sampleRate * duration, buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+  const noise = audioContext.createBufferSource();
+  noise.buffer = buffer;
+  const filter = audioContext.createBiquadFilter();
+  filter.type = "bandpass";
+  filter.frequency.value = 2000;
+  filter.Q.value = 1.8;
+  const gainNode = audioContext.createGain();
+  gainNode.gain.value = 0.5;
+  gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+  noise.connect(filter).connect(gainNode).connect(masterGain);
+  noise.start();
+  noise.stop(audioContext.currentTime + duration);
 }
-    
-export function playBassDrum() {
-  ensureAudio();
-  if (bassDrumBuffer) {
-    playSound(bassDrumBuffer, bassDrumGain, audioContext.currentTime);
-  }
+
+export async function playBassDrum(customDuration) {
+  await ensureAudio();
+  if (!audioContext) return;
+  const duration = customDuration || 0.19;
+  const osc = audioContext.createOscillator();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(140, audioContext.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(42, audioContext.currentTime + duration * 0.85);
+  const gainNode = audioContext.createGain();
+  gainNode.gain.setValueAtTime(1, audioContext.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+  osc.connect(gainNode).connect(masterGain);
+  osc.start();
+  osc.stop(audioContext.currentTime + duration);
 }
+
 
 const A4 = 440;
 const notesMap = { 'C': -9, 'C#': -8, 'Db': -8, 'D': -7, 'D#': -6, 'Eb': -6, 'E': -5, 'F': -4, 'F#': -3, 'Gb': -3, 'G': -2, 'G#': -1, 'Ab': -1, 'A': 0, 'A#': 1, 'Bb': 1, 'B': 2, 'B#': 3, 'E#': -4, 'Fb': -5 };
