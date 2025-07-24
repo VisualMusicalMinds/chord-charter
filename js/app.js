@@ -639,18 +639,25 @@ function loadSong(songId) {
       targetData.p.splice(0, 4, ...(songProgDetails.chords || ["", "", "", ""]));
       targetData.r.splice(0, targetData.r.length, ...(songProgDetails.rhythm || Array(8).fill(false)));
       
-      // Load split chord data
       targetData.splitVal.splice(0, 4, ...(songProgDetails.splitVal || ["", "", "", ""]));
       targetData.splitActive.splice(0, 4, ...(songProgDetails.splitActive || [false, false, false, false]));
 
       for (let i = 0; i < 4; i++) { 
-        const modifiers = songProgDetails.modifiers[i] || {};
+        const modifiers = songProgDetails.modifiers ? songProgDetails.modifiers[i] || {} : {};
         targetData.s7[i] = modifiers.seventh || false;
         targetData.s2[i] = modifiers.second || false;
         targetData.s4[i] = modifiers.fourth || false;
         targetData.sus[i] = modifiers.sus || false;
         targetData.maj7[i] = modifiers.majSeventh || false;
         targetData.m[i] = modifiers.quality || 'none';
+        
+        const splitModifiers = songProgDetails.splitModifiers ? songProgDetails.splitModifiers[i] || {} : {};
+        targetData.splitS7[i] = splitModifiers.seventh || false;
+        targetData.splitS2[i] = splitModifiers.second || false;
+        targetData.splitS4[i] = splitModifiers.fourth || false;
+        targetData.splitSus[i] = splitModifiers.sus || false;
+        targetData.splitMaj7[i] = splitModifiers.majSeventh || false;
+        targetData.splitM[i] = splitModifiers.quality || 'none';
       }
     }
   });
