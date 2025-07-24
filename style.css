@@ -1171,4 +1171,21 @@ input[type="number"].bpm-input { width: 50px; font-size: 1em; padding: 4px 0; he
   flex-shrink: 1;
   flex-grow: 1;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+.scale-selector-container {
+    width: 100%;
+    padding: 0 5px;
+    box-sizing: border-box;
+}
+.scale-select {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    font-size: calc(var(--box-size) * 0.14);
+    text-align: center;
+    cursor: pointer;
+}
 [...]
