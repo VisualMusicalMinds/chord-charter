@@ -55,7 +55,15 @@ function initializeKeyDial() {
 function initializeScaleSelector() {
     const scaleSelect = document.getElementById('scale-select');
     
-    // Correctly populate the dropdown first
+    // Add the disabled "Scale" option first
+    const placeholderOption = document.createElement('option');
+    placeholderOption.value = "Major"; // Default to Major
+    placeholderOption.textContent = "Scale";
+    placeholderOption.disabled = true;
+    placeholderOption.selected = true;
+    scaleSelect.appendChild(placeholderOption);
+
+    // Populate the dropdown with other scales
     appState.availableScales.forEach(scaleName => {
         const option = document.createElement('option');
         option.value = scaleName;
@@ -63,16 +71,18 @@ function initializeScaleSelector() {
         scaleSelect.appendChild(option);
     });
 
-    // Now, set the dropdown's value from the state
-    scaleSelect.value = appState.currentScale;
+    // Set the dropdown's value from the state if not the placeholder
+    if (appState.currentScale !== 'Major' || !placeholderOption.selected) {
+        scaleSelect.value = appState.currentScale;
+        placeholderOption.selected = false;
+        placeholderOption.disabled = false;
+    }
 
-    // Finally, add the event listener
+    // Add the event listener
     scaleSelect.addEventListener('change', (e) => {
-        // If the placeholder is selected, default to Major
-        appState.currentScale = e.target.value === "Major" && scaleSelect.selectedIndex === 0 ? 'Major' : e.target.value;
-        if (scaleSelect.options[0].disabled) {
-           scaleSelect.options[0].disabled = false;
-           scaleSelect.remove(0); // Remove the placeholder "Scale"
+        appState.currentScale = e.target.value;
+        if (placeholderOption.disabled) {
+           placeholderOption.disabled = false;
         }
         updateChordDropdowns();
         loadProgression(appState.currentToggle);
