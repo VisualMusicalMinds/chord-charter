@@ -1,4 +1,4 @@
-import { songs, timeSignatureNumerators, musicalKeys, keyChordMap, waveforms } from './config.js';
+import { songs, timeSignatureNumerators, musicalKeys, scaleChordMaps, waveforms } from './config.js';
 import { appState, getProgressionData, saveCurrentProgression } from './state.js';
 import { ensureAudio, playTriangleNotes, playBrush, playBassDrum, getNotesToPlayForChord } from './audio.js';
 import { 
@@ -15,6 +15,7 @@ function main() {
   console.log("DOM fully loaded. Setting up event listeners.");
   
   initializeKeyDial();
+  initializeScaleSelector();
   initializeWaveformDial();
   initializeABCDToggles();
   initializeSlotBoxes();
@@ -49,6 +50,23 @@ function initializeKeyDial() {
         keyRightBtn.addEventListener("keydown", (e) => { if (e.key===" "||e.key==="Enter"||e.key==="ArrowRight") { e.preventDefault(); handleKeyDial(1); }});
     }
     updateKeyDisplay();
+}
+
+function initializeScaleSelector() {
+    const scaleSelect = document.getElementById('scale-select');
+    appState.availableScales.forEach(scaleName => {
+        const option = document.createElement('option');
+        option.value = scaleName;
+        option.textContent = scaleName;
+        scaleSelect.appendChild(option);
+    });
+    scaleSelect.addEventListener('change', (e) => {
+        appState.currentScale = e.target.value;
+        // When scale changes, we need to update chord options
+        updateChordDropdowns();
+        // Reload progression to reflect potential chord changes if they become invalid in the new scale
+        loadProgression(appState.currentToggle);
+    });
 }
 
 function initializeWaveformDial() {
@@ -548,12 +566,14 @@ function transposeChord(chord, oldKey, newKey) {
     if (!chord || chord === "" || chord === "empty") {
         return chord;
     }
-    const oldKeyChords = keyChordMap[oldKey];
-    const newKeyChords = keyChordMap[newKey];
-    if (!oldKeyChords || !newKeyChords) {
+    const currentKeyChords = scaleChordMaps[appState.currentScale]?.[oldKey] || [];
+    const newKeyChords = scaleChordMaps[appState.currentScale]?.[newKey] || [];
+
+    if (currentKeyChords.length === 0 || newKeyChords.length === 0) {
         return chord;
     }
-    const chordIndex = oldKeyChords.findIndex(c => c.value === chord);
+
+    const chordIndex = currentKeyChords.findIndex(c => c.value === chord);
     if (chordIndex === -1) {
         return chord;
     }
@@ -639,6 +659,7 @@ function loadSong(songId) {
       targetData.p.splice(0, 4, ...(songProgDetails.chords || ["", "", "", ""]));
       targetData.r.splice(0, targetData.r.length, ...(songProgDetails.rhythm || Array(8).fill(false)));
       
+      // Load split chord data
       targetData.splitVal.splice(0, 4, ...(songProgDetails.splitVal || ["", "", "", ""]));
       targetData.splitActive.splice(0, 4, ...(songProgDetails.splitActive || [false, false, false, false]));
 
