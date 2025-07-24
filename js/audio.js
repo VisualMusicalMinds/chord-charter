@@ -18,8 +18,8 @@ let audioContext;
 let masterGain;
 let brushGain;
 let bassDrumGain;
-let brushBuffer; // Moved brushBuffer to be initialized with other audio vars.
-let bassDrumBuffer; // Moved bassDrumBuffer to be initialized with other audio vars.
+let brushBuffer;
+let bassDrumBuffer;
 
 export async function ensureAudio() {
   if (!audioContext) {
@@ -36,8 +36,7 @@ export async function ensureAudio() {
       bassDrumGain = audioContext.createGain();
       bassDrumGain.gain.value = 0.8;
       bassDrumGain.connect(masterGain);
-
-      // Load sounds after context is created.
+      
       await loadSounds();
 
     } catch (e) {
@@ -51,7 +50,7 @@ export async function ensureAudio() {
 
 async function loadSounds() {
     try {
-        const brushResponse = await fetch('https://freesound.org/data/previews/36/36889_219354-lq.mp3');
+        const brushResponse = await fetch('assets/sounds/brush.mp3');
         const brushArrayBuffer = await brushResponse.arrayBuffer();
         brushBuffer = await audioContext.decodeAudioData(brushArrayBuffer);
     } catch (e) {
@@ -59,13 +58,14 @@ async function loadSounds() {
     }
 
     try {
-        const bassDrumResponse = await fetch('https://freesound.org/data/previews/51/51241_46190-lq.mp3');
+        const bassDrumResponse = await fetch('assets/sounds/bass-drum.mp3');
         const bassDrumArrayBuffer = await bassDrumResponse.arrayBuffer();
         bassDrumBuffer = await audioContext.decodeAudioData(bassDrumArrayBuffer);
     } catch (e) {
         console.error("Error loading bass drum sound:", e);
     }
 }
+
 
 function playSound(buffer, gainNode, time) {
     if (!audioContext || !buffer) return;
