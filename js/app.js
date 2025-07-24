@@ -188,6 +188,13 @@ function initializePlaybackControls() {
             restartAnimationWithBpm();
         });
     }
+    // Eagerly initialize audio context on first user interaction with playback controls.
+    const playbackContainer = document.querySelector('.play-controls-container');
+    if (playbackContainer) {
+        playbackContainer.addEventListener('mousedown', ensureAudio, { once: true });
+        playbackContainer.addEventListener('touchstart', ensureAudio, { once: true });
+        playbackContainer.addEventListener('keydown', ensureAudio, { once: true });
+    }
 }
 
 function initializeClearButton() {
