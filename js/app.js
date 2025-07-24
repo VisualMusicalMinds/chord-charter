@@ -1,4 +1,4 @@
-import { songs, timeSignatureNumerators, scaleChordMaps, waveforms, displayKeys } from './config.js';
+import { songs, timeSignatureNumerators, scaleChordMaps, waveforms, displayKeys, keyMap } from './config.js';
 import { appState, getProgressionData } from './state.js';
 import { ensureAudio, playTriangleNotes, playBrush, playBassDrum, getNotesToPlayForChord } from './audio.js';
 import { 
@@ -883,7 +883,7 @@ function parseAndLoadSongSummary(summaryText) {
         clearAll();
         const lines = summaryText.split('\n').filter(line => line.trim() !== '');
 
-        // Parse Header
+        // Parse Header first to set the key
         const headerLine = lines.find(line => line.includes('BPM:'));
         if (headerLine) {
             const headerContent = headerLine.slice(1, -1);
@@ -899,18 +899,24 @@ function parseAndLoadSongSummary(summaryText) {
                 const timeSigIndex = timeSignatureNumerators.indexOf(timeSigNum);
                 if (timeSigIndex !== -1) {
                     appState.currentTimeSignatureIndex = timeSigIndex;
-                    document.getElementById('time-sig-top').textContent = timeSigNum;
-                    updateGridForTimeSignature(timeSigNum);
                 }
             }
             if (parts['Key']) {
-                const displayKey = Object.keys(keyMap).find(key => keyMap[key].Major === parts['Key'] || keyMap[key]['Natural Minor'] === parts['Key']);
+                const musicalKey = parts['Key'];
+                // Find the corresponding displayKey from the keyMap
+                const displayKey = Object.keys(keyMap).find(dKey => 
+                    keyMap[dKey].Major === musicalKey || keyMap[dKey]['Natural Minor'] === musicalKey
+                );
                 if (displayKey) {
                     appState.currentDisplayKey = displayKey;
-                    updateKeyDisplay();
                 }
             }
         }
+
+        // Update UI related to key and time signature before parsing sections
+        updateKeyDisplay();
+        updateGridForTimeSignature(timeSignatureNumerators[appState.currentTimeSignatureIndex]);
+        document.getElementById('time-sig-top').textContent = timeSignatureNumerators[appState.currentTimeSignatureIndex];
 
         // Parse Sections
         const sectionLines = lines.filter(line => line.includes('Section'));
@@ -925,7 +931,10 @@ function parseAndLoadSongSummary(summaryText) {
                 const rhythmMap = {'1':0, '2':1, '3':2, '4':3, '5':4, '6':5, '7':6, '8':7, '9':8, '0':9};
                 progData.r.fill(false);
                 for (const char of rhythmStr) {
-                    if (rhythmMap[char] !== undefined) progData.r[rhythmMap[char]] = true;
+                    const index = parseInt(char, 10);
+                    if (!isNaN(index) && index >= 0 && index < progData.r.length) {
+                         progData.r[index] = true;
+                    }
                 }
 
                 const chordTokens = chordsStr.split(',').map(s => s.trim());
@@ -940,7 +949,7 @@ function parseAndLoadSongSummary(summaryText) {
             }
         });
 
-        // Update UI
+        // Final UI update
         updateChordDropdowns();
         ['A', 'B', 'C', 'D'].forEach(updateLinkVisuals);
         updateLinkedProgressionSequence();
