@@ -217,7 +217,8 @@ export function updateSlotHighlights() {
     appState.slotIds.forEach((id, index) => {
         const slot = document.getElementById(id);
         if (slot) {
-            slot.parentElement.classList.toggle('enlarged', appState.isPlaying && index === (appState.slotHighlightStep % 4));
+            // Apply the 'enlarged' class directly to the slot, not its parent.
+            slot.classList.toggle('enlarged', appState.isPlaying && index === (appState.slotHighlightStep % 4));
         }
     });
 }
