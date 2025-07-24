@@ -254,6 +254,19 @@ export function _updateQualityButtonVisualForSlot(idx, quality) {
   btn.textContent = text;
 }
 
+export function setPrimarySlotColorAndStyle(idx, primarySelect, primaryVal) {
+    const rootNote = primaryVal ? primaryVal.match(/^[A-G][b#]?/)?.[0] : null;
+    const colorInfo = rootNote ? optionColors[rootNote.charAt(0)] : null;
+    
+    if (colorInfo) {
+        primarySelect.style.backgroundColor = colorInfo.background;
+        primarySelect.style.color = colorInfo.text;
+    } else {
+        primarySelect.style.backgroundColor = '';
+        primarySelect.style.color = '';
+    }
+}
+
 export function setSplitSlotColorAndStyle(idx, splitSelect, splitVal) {
     const rootNote = splitVal ? splitVal.match(/^[A-G][b#]?/)?.[0] : null;
     const colorInfo = rootNote ? optionColors[rootNote.charAt(0)] : null;
