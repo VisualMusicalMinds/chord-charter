@@ -54,20 +54,27 @@ function initializeKeyDial() {
 
 function initializeScaleSelector() {
     const scaleSelect = document.getElementById('scale-select');
+    // Clear existing options except the disabled one
+    while (scaleSelect.options.length > 1) {
+        scaleSelect.remove(1);
+    }
+    
     appState.availableScales.forEach(scaleName => {
         const option = document.createElement('option');
         option.value = scaleName;
         option.textContent = scaleName;
         scaleSelect.appendChild(option);
     });
+
+    // Set the value from state and add the event listener
+    scaleSelect.value = appState.currentScale;
     scaleSelect.addEventListener('change', (e) => {
         appState.currentScale = e.target.value;
-        // When scale changes, we need to update chord options
         updateChordDropdowns();
-        // Reload progression to reflect potential chord changes if they become invalid in the new scale
         loadProgression(appState.currentToggle);
     });
 }
+
 
 function initializeWaveformDial() {
     document.getElementById("wave-left").onclick = () => handleWaveformDial(-1);
@@ -566,6 +573,7 @@ function transposeChord(chord, oldKey, newKey) {
     if (!chord || chord === "" || chord === "empty") {
         return chord;
     }
+    // FIX: This was pointing to the old keyChordMap. Point it to the new scaleChordMaps structure.
     const currentKeyChords = scaleChordMaps[appState.currentScale]?.[oldKey] || [];
     const newKeyChords = scaleChordMaps[appState.currentScale]?.[newKey] || [];
 
