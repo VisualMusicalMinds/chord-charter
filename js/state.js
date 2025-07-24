@@ -15,7 +15,11 @@ export const appState = {
   currentKey: 'C',
   currentScale: 'Major',
   get availableKeys() { return scaleKeyMaps[this.currentScale] || scaleKeyMaps['Major']; },
-  get currentKeyIndex() { return this.availableKeys.indexOf(this.currentKey); },
+  get currentKeyIndex() { 
+    const index = this.availableKeys.indexOf(this.currentKey);
+    // Safeguard: If the key is not found, default to the first key of the scale.
+    return index === -1 ? 0 : index;
+  },
 
   availableScales: ['Major', 'Natural Minor'], // Expandable list of scales
 
