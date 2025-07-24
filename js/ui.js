@@ -1,5 +1,6 @@
 import { appState, getProgressionData } from './state.js';
-import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass } from './config.js';
+import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass, chordTones, chordSevenths, chordMajorSevenths, chordSeconds, chordFourths } from './config.js';
+import { getNotesToPlayForChord } from './audio.js';
 
 export function updateWaveformDisplay() {
   document.getElementById("waveform-name").textContent = appState.currentWaveform;
@@ -59,9 +60,8 @@ export function setSlotContent(slotIndex) {
   const slot = document.getElementById(`slot${slotIndex}`);
   if (!slot) return;
 
-  // FIX: getProgressionData is a standalone function, not a method of appState.
   const currentData = getProgressionData(appState.currentToggle);
-  if (!currentData) return; // Add a guard clause
+  if (!currentData) return;
 
   const primaryChordName = currentData.p[slotIndex];
   const isSplitActive = currentData.splitActive[slotIndex];
@@ -78,11 +78,11 @@ export function setSlotContent(slotIndex) {
   let hasContent = false;
 
   if (primaryChordName) {
-    _createNoteRects(primaryChordName, primaryRects);
+    _createNoteRects(primaryChordName, false, slotIndex, primaryRects);
     hasContent = true;
   }
   if (isSplitActive && splitChordName) {
-    _createNoteRects(splitChordName, splitRects);
+    _createNoteRects(splitChordName, true, slotIndex, splitRects);
     hasContent = true;
   }
 
@@ -95,23 +95,29 @@ export function setSlotContent(slotIndex) {
   }
 }
 
-function _createNoteRects(chordName, container) {
-  if (!chordName) return;
-  const rootNote = chordName.match(/^[A-G][b#]?/)?.[0];
-  if (!rootNote) return;
+function _createNoteRects(chordName, isSplit, slotIndex, container) {
+    if (!chordName) return;
+    const progData = getProgressionData(appState.currentToggle);
+    // We use a simplified version of getNotesToPlayForChord, just to get the note names
+    const notes = getNotesToPlayForChord(chordName, isSplit, slotIndex, progData).map(n => n.slice(0, -1)); // Remove octave number
 
-  const colorClass = noteColorClass[rootNote] || '';
-  const rect = document.createElement('div');
-  rect.className = `note-rect ${colorClass}`;
-  
-  let textContent = rootNote.charAt(0);
-  let accidental = '';
-  if (rootNote.length > 1) {
-    accidental = `<span class="accidental">${rootNote.charAt(1)}</span>`;
-  }
-  rect.innerHTML = `${textContent}${accidental}`;
-  
-  container.appendChild(rect);
+    notes.forEach(noteName => {
+        const rootNote = noteName.match(/^[A-G][b#]?/)?.[0];
+        if (!rootNote) return;
+
+        const colorClass = noteColorClass[rootNote] || `note-${rootNote.charAt(0)}`;
+        const rect = document.createElement('div');
+        rect.className = `note-rect ${colorClass}`;
+        
+        let textContent = rootNote.charAt(0);
+        let accidental = '';
+        if (rootNote.length > 1) {
+            accidental = `<span class="accidental">${rootNote.charAt(1)}</span>`;
+        }
+        rect.innerHTML = `${textContent}${accidental}`;
+        
+        container.appendChild(rect);
+    });
 }
 
 
@@ -123,14 +129,15 @@ export function updateRhythmPictures() {
     const firstOfPair = states[i * 2];
     const secondOfPair = states[i * 2 + 1];
 
+    // FIX: The conditions for rhythmBox3 and rhythmBox4 were swapped.
     if (firstOfPair && secondOfPair) {
-      pictureImgs[i].src = rhythmBox4;
+      pictureImgs[i].src = rhythmBox4; // two eighths
     } else if (firstOfPair && !secondOfPair) {
-      pictureImgs[i].src = rhythmBox2;
+      pictureImgs[i].src = rhythmBox2; // first eighth
     } else if (!firstOfPair && secondOfPair) {
-      pictureImgs[i].src = rhythmBox3;
+      pictureImgs[i].src = rhythmBox3; // second eighth (syncopated)
     } else {
-      pictureImgs[i].src = dashImgUrl;
+      pictureImgs[i].src = dashImgUrl; // rest
     }
   }
 }
