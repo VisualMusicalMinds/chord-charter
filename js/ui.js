@@ -1,4 +1,4 @@
-import { appState } from './state.js';
+import { appState, getProgressionData } from './state.js';
 import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass } from './config.js';
 
 export function updateWaveformDisplay() {
@@ -13,8 +13,6 @@ export function updateChordDropdowns() {
     const currentKey = appState.currentMusicalKey;
     const currentScale = appState.currentScale;
     
-    // FIX: This was using the old 'keyChordMap'. It's now correctly using the new 'scaleChordMaps'
-    // to get the chord list based on the selected scale and key.
     const keyChords = scaleChordMaps[currentScale]?.[currentKey] || [];
 
     const allSelects = document.querySelectorAll('.chord-select');
@@ -61,7 +59,10 @@ export function setSlotContent(slotIndex) {
   const slot = document.getElementById(`slot${slotIndex}`);
   if (!slot) return;
 
-  const currentData = appState.getProgressionData(appState.currentToggle);
+  // FIX: getProgressionData is a standalone function, not a method of appState.
+  const currentData = getProgressionData(appState.currentToggle);
+  if (!currentData) return; // Add a guard clause
+
   const primaryChordName = currentData.p[slotIndex];
   const isSplitActive = currentData.splitActive[slotIndex];
   const splitChordName = currentData.splitVal[slotIndex];
