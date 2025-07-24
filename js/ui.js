@@ -1,217 +1,195 @@
+import { appState } from './state.js';
+import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass } from './config.js';
 
-import { restDashImgUrl, noteColorClass, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, timeSignatureNumerators, optionColors, allChordOptions, keyChordMap } from './config.js';
-import { getProgressionData, appState } from './state.js';
-import { buildNotesForDisplay } from './utils.js';
-
-export function updateWaveformDisplay() { 
-    document.getElementById("waveform-name").textContent = appState.currentWaveform; 
+export function updateWaveformDisplay() {
+  document.getElementById("waveform-name").textContent = appState.currentWaveform;
 }
 
 export function updateKeyDisplay() {
-  const keyNameDisplay = document.getElementById("current-key-name");
-  if (keyNameDisplay) { keyNameDisplay.textContent = appState.currentMusicalKey; }
+  document.getElementById("current-key-name").textContent = appState.currentMusicalKey;
 }
+
+export function updateChordDropdowns() {
+    const currentKey = appState.currentMusicalKey;
+    const currentScale = appState.currentScale;
+    
+    // FIX: This was using the old 'keyChordMap'. It's now correctly using the new 'scaleChordMaps'
+    // to get the chord list based on the selected scale and key.
+    const keyChords = scaleChordMaps[currentScale]?.[currentKey] || [];
+
+    const allSelects = document.querySelectorAll('.chord-select');
+    
+    allSelects.forEach(select => {
+        const currentVal = select.value;
+        select.innerHTML = ''; 
+
+        const emptyOption = document.createElement('option');
+        emptyOption.value = "";
+        emptyOption.textContent = "----";
+        select.appendChild(emptyOption);
+
+        if (keyChords.length > 0) {
+            const groupInKey = document.createElement('optgroup');
+            groupInKey.label = `Chords in ${currentKey} ${currentScale}`;
+            keyChords.forEach(chord => {
+                const option = document.createElement('option');
+                option.value = chord.value;
+                option.textContent = chord.display;
+                groupInKey.appendChild(option);
+            });
+            select.appendChild(groupInKey);
+        }
+
+        const groupOutOfKey = document.createElement('optgroup');
+        groupOutOfKey.label = "Other Chords";
+        allChordOptions.forEach(chord => {
+            if (!keyChords.find(kc => kc.value === chord.value)) {
+                const option = document.createElement('option');
+                option.value = chord.value;
+                option.textContent = chord.display;
+                groupOutOfKey.appendChild(option);
+            }
+        });
+        select.appendChild(groupOutOfKey);
+        
+        select.value = currentVal;
+    });
+}
+
 
 export function setSlotContent(slotIndex) {
-    const slot = document.getElementById('slot' + slotIndex);
-    const primarySelect = slot.querySelector('.primary-chord-select');
-    const primaryNoteRects = slot.querySelector('.primary-note-rects');
-    const splitNoteRects = slot.querySelector('.split-note-rects');
-    const noteRectsContainer = slot.querySelector('.note-rects-container');
-    let img = slot.querySelector('.dash-img-slot');
-    
-    primaryNoteRects.innerHTML = '';
-    splitNoteRects.innerHTML = '';
+  const slot = document.getElementById(`slot${slotIndex}`);
+  if (!slot) return;
 
-    const progData = getProgressionData(appState.currentToggle);
-    const primaryChord = progData.p[slotIndex];
+  const currentData = appState.getProgressionData(appState.currentToggle);
+  const primaryChordName = currentData.p[slotIndex];
+  const isSplitActive = currentData.splitActive[slotIndex];
+  const splitChordName = currentData.splitVal[slotIndex];
 
-    // Set primary chord dropdown color
-    primarySelect.className = 'chord-select primary-chord-select'; 
-    if (primaryChord && primaryChord !== "empty") {
-        let chordClass = `c-selected-${primaryChord.toLowerCase()}`;
-        chordClass = chordClass.replace('♭', 'flat').replace('♯', 'sharp').replace('#', 'sharp'); 
-        primarySelect.classList.add(chordClass);
-    }
+  const dashImg = slot.querySelector('.dash-img-slot');
+  const noteRectsContainer = slot.querySelector('.note-rects-container');
+  const primaryRects = slot.querySelector('.primary-note-rects');
+  const splitRects = slot.querySelector('.split-note-rects');
 
-    if (!primaryChord || primaryChord === "empty") {
-        if (!img) {
-            img = document.createElement('img');
-            img.className = 'dash-img-slot';
-            slot.insertBefore(img, noteRectsContainer);
-        }
-        img.src = restDashImgUrl;
-        img.alt = "Rhythm Box Rest";
-        img.style.display = "block";
-        noteRectsContainer.style.display = "none";
-        return;
-    } else {
-        if (img) img.style.display = "none";
-        noteRectsContainer.style.display = "flex";
-    }
+  primaryRects.innerHTML = '';
+  splitRects.innerHTML = '';
 
-    const primaryNotes = buildNotesForDisplay(
-        primaryChord, progData.s7[slotIndex], progData.s2[slotIndex], progData.s4[slotIndex], 
-        progData.sus[slotIndex], progData.maj7[slotIndex], progData.m[slotIndex]
-    );
-    primaryNoteRects.innerHTML = generateNoteRectsHTML(primaryNotes);
+  let hasContent = false;
 
-    if (progData.splitActive[slotIndex] && progData.splitVal[slotIndex]) {
-        const splitNotes = buildNotesForDisplay(
-            progData.splitVal[slotIndex], progData.splitS7[slotIndex], progData.splitS2[slotIndex], progData.splitS4[slotIndex], 
-            progData.splitSus[slotIndex], progData.splitMaj7[slotIndex], progData.splitM[slotIndex]
-        );
-        splitNoteRects.innerHTML = generateNoteRectsHTML(splitNotes);
-    }
+  if (primaryChordName) {
+    _createNoteRects(primaryChordName, primaryRects);
+    hasContent = true;
+  }
+  if (isSplitActive && splitChordName) {
+    _createNoteRects(splitChordName, splitRects);
+    hasContent = true;
+  }
+
+  if (hasContent) {
+    dashImg.style.display = 'none';
+    noteRectsContainer.style.display = 'flex';
+  } else {
+    dashImg.style.display = 'block';
+    noteRectsContainer.style.display = 'none';
+  }
 }
 
-function generateNoteRectsHTML(notes) {
-    return notes.map(item => {
-        const note = item.note;
-        if (!note) return '';
-        const typeClass = item.type ? `note-${item.type}` : 'note-default';
-        const baseLetter = note.charAt(0);
-        let colorClassKey = note.replace('♭', 'flat').replace('♯', 'sharp').replace('#', 'sharp');
-        const colorClass = noteColorClass[colorClassKey] || noteColorClass[baseLetter] || 'note-default';
-        let accidentalHtml = '';
-        if (note.includes('♯') || note.includes('#')) accidentalHtml = `<span class="accidental sharp">♯</span>`;
-        else if (note.includes('♭') || note.includes('b')) accidentalHtml = `<span class="accidental flat">♭</span>`;
-        return `<div class="note-rect ${typeClass} ${colorClass}">${baseLetter}${accidentalHtml}</div>`;
-    }).filter(html => html !== '').join('');
+function _createNoteRects(chordName, container) {
+  if (!chordName) return;
+  const rootNote = chordName.match(/^[A-G][b#]?/)?.[0];
+  if (!rootNote) return;
+
+  const colorClass = noteColorClass[rootNote] || '';
+  const rect = document.createElement('div');
+  rect.className = `note-rect ${colorClass}`;
+  
+  let textContent = rootNote.charAt(0);
+  let accidental = '';
+  if (rootNote.length > 1) {
+    accidental = `<span class="accidental">${rootNote.charAt(1)}</span>`;
+  }
+  rect.innerHTML = `${textContent}${accidental}`;
+  
+  container.appendChild(rect);
 }
 
 
 export function updateRhythmPictures() {
-    const numerator = timeSignatureNumerators[appState.currentTimeSignatureIndex];
-    for (let pair = 0; pair < 5; ++pair) { // Iterate up to 5
-        const box1 = document.querySelector(`.bottom-rhythm-box[data-pair="${pair}"][data-which="0"]`);
-        const box2 = document.querySelector(`.bottom-rhythm-box[data-pair="${pair}"][data-which="1"]`);
-        const imgElement = document.getElementById('bottomPic' + pair);
-        if (imgElement) {
-            const img = imgElement.querySelector('.bottom-picture-img');
-            if (box1 && box2 && img) {
-                let url = dashImgUrl;
-                if (box1.classList.contains('active') && !box2.classList.contains('active')) url = rhythmBox2;
-                else if (box1.classList.contains('active') && box2.classList.contains('active')) url = rhythmBox3;
-                else if (!box1.classList.contains('active') && box2.classList.contains('active')) url = rhythmBox4;
-                img.src = url;
-            }
-        }
+  const states = Array.from(document.querySelectorAll('.bottom-rhythm-box')).map(box => box.classList.contains('active'));
+  const pictureImgs = document.querySelectorAll('.bottom-picture-img');
+  
+  for (let i = 0; i < pictureImgs.length; i++) {
+    const firstOfPair = states[i * 2];
+    const secondOfPair = states[i * 2 + 1];
+
+    if (firstOfPair && secondOfPair) {
+      pictureImgs[i].src = rhythmBox4;
+    } else if (firstOfPair && !secondOfPair) {
+      pictureImgs[i].src = rhythmBox2;
+    } else if (!firstOfPair && secondOfPair) {
+      pictureImgs[i].src = rhythmBox3;
+    } else {
+      pictureImgs[i].src = dashImgUrl;
     }
-}
-
-export function setPlayingUI(playing) {
-  const playIcon = document.getElementById('playIcon'), pauseIcon = document.getElementById('pauseIcon'), playPauseBtn = document.getElementById('playPauseBtn');
-  if(playIcon) playIcon.style.display = playing ? "none" : "block"; 
-  if(pauseIcon) pauseIcon.style.display = playing ? "block" : "none";
-  if(playPauseBtn) { playPauseBtn.title = playing ? "Pause" : "Play"; playPauseBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play'); }
-}
-
-export function updateSlotHighlights() { 
-    for (let i = 0; i < 4; i++) unhighlightSlot(i); 
-    if (appState.isPlaying) highlightSlot(appState.slotHighlightStep % 4); 
-}
-function highlightSlot(idx) { document.getElementById(appState.slotIds[idx])?.classList.add('enlarged'); }
-function unhighlightSlot(idx) { document.getElementById(appState.slotIds[idx])?.classList.remove('enlarged'); }
-
-export function updatePictureHighlights() { 
-    const numerator = timeSignatureNumerators[appState.currentTimeSignatureIndex];
-    for (let i = 0; i < 5; i++) unhighlightPicture(i); 
-    if (appState.isPlaying) highlightPicture(appState.pictureHighlightStep % numerator); 
-}
-function highlightPicture(idx) { document.getElementById('bottomPic'+idx)?.classList.add('picture-highlighted'); }
-function unhighlightPicture(idx) { document.getElementById('bottomPic'+idx)?.classList.remove('picture-highlighted'); }
-
-export function updateModifierButtonVisuals(modifierKey, buttonClassName, progressionModifierArray) {
-  const currentData = getProgressionData(appState.currentToggle);
-  const statesArray = progressionModifierArray || currentData[modifierKey]; 
-  if (statesArray) {
-    document.querySelectorAll(`.${buttonClassName}`).forEach((btn, idx) => btn.classList.toggle('active', statesArray[idx]));
   }
 }
 
-export function _updateQualityButtonVisualForSlot(idx, state) {
-    const slot = document.getElementById('slot' + idx);
-    if (!slot) return;
-    const qualityBtn = slot.querySelector('.quality-toggle-btn');
-    if (qualityBtn) {
-        if (state === 'minor') qualityBtn.textContent = 'm';
-        else qualityBtn.textContent = 'M'; 
-        qualityBtn.classList.toggle('quality-active', state === 'major' || state === 'minor');
-    }
+export function setPlayingUI(playing) {
+  document.getElementById('playIcon').style.display = playing ? 'none' : 'block';
+  document.getElementById('pauseIcon').style.display = playing ? 'block' : 'none';
 }
 
-export function setSplitSlotColorAndStyle(slotIndex, selectElement, chordToDisplay) {
-    selectElement.className = 'chord-select split-chord-select visible'; // ensure base classes are there
-    if (chordToDisplay && chordToDisplay !== "empty" && chordToDisplay !== "") {
-        let chordClass = `c-selected-${chordToDisplay.toLowerCase()}`;
-        chordClass = chordClass.replace('♭', 'flat').replace('♯', 'sharp').replace('#', 'sharp');
-        selectElement.classList.add(chordClass);
-    }
-}
-
-export function updateChordDropdowns() {
-    const chordsForCurrentKey = keyChordMap[appState.currentMusicalKey] || [];
-    const diatonicChordValues = new Set(chordsForCurrentKey.map(c => c.value));
-
-    document.querySelectorAll('.chord-select').forEach(selectElement => {
-        const currentVal = selectElement.value;
-        const hasCurrentVal = allChordOptions.some(opt => opt.value === currentVal);
-        
-        selectElement.innerHTML = ''; 
-
-        // Add default and empty options
-        const defaultOption = document.createElement('option');
-        defaultOption.value = "";
-        defaultOption.textContent = "-";
-        selectElement.appendChild(defaultOption);
-        const emptyOption = document.createElement('option');
-        emptyOption.value = "empty";
-        emptyOption.textContent = "";
-        selectElement.appendChild(emptyOption);
-
-        // Add an optgroup for diatonic chords
-        const diatonicGroup = document.createElement('optgroup');
-        diatonicGroup.label = `${appState.currentMusicalKey} Major Scale Chords`;
-        chordsForCurrentKey.forEach(chordData => {
-            const option = createChordOption(chordData);
-            diatonicGroup.appendChild(option);
-        });
-        selectElement.appendChild(diatonicGroup);
-        
-        // Add an optgroup for other chords if necessary
-        const otherChords = allChordOptions.filter(c => !diatonicChordValues.has(c.value));
-        if (otherChords.length > 0) {
-            const nonDiatonicGroup = document.createElement('optgroup');
-            nonDiatonicGroup.label = "Other Chords";
-            otherChords.forEach(chordData => {
-                const option = createChordOption(chordData);
-                nonDiatonicGroup.appendChild(option);
-            });
-            selectElement.appendChild(nonDiatonicGroup);
-        }
-        
-        // Restore the selected value
-        if (hasCurrentVal) {
-            selectElement.value = currentVal;
-        } else {
-            selectElement.value = "";
+export function updateSlotHighlights() {
+    appState.slotIds.forEach((id, index) => {
+        const slot = document.getElementById(id);
+        if (slot) {
+            slot.parentElement.classList.toggle('enlarged', appState.isPlaying && index === (appState.slotHighlightStep % 4));
         }
     });
 }
 
-function createChordOption(chordData) {
-    const option = document.createElement('option');
-    option.value = chordData.value;
-    option.textContent = chordData.display;
+export function updatePictureHighlights() {
+    const pictures = document.querySelectorAll('.bottom-picture');
+    pictures.forEach((pic, index) => {
+        pic.classList.toggle('picture-highlighted', appState.isPlaying && index === appState.pictureHighlightStep);
+    });
+}
 
-    const rootNote = chordData.value.replace(/m|dim|sus|maj7/g, '').replace(/#|♯/g, 'sharp').replace(/b|♭/g, 'flat').charAt(0);
-    const colorInfo = optionColors[rootNote.toUpperCase()];
-     if (colorInfo) {
-        option.style.backgroundColor = colorInfo.background;
-        option.style.color = colorInfo.text;
+export function updateModifierButtonVisuals(modifierKey, className, states) {
+  document.querySelectorAll(`.${className}`).forEach((btn, idx) => {
+    btn.classList.toggle('active', states[idx]);
+  });
+}
+
+export function _updateQualityButtonVisualForSlot(idx, quality) {
+  const btn = document.querySelectorAll('.quality-toggle-btn')[idx];
+  if (!btn) return;
+
+  btn.classList.remove('quality-active');
+  let text = 'M';
+
+  if (quality === 'major') {
+    text = 'M';
+    btn.classList.add('quality-active');
+  } else if (quality === 'minor') {
+    text = 'm';
+    btn.classList.add('quality-active');
+  }
+
+  btn.textContent = text;
+}
+
+export function setSplitSlotColorAndStyle(idx, splitSelect, splitVal) {
+    const rootNote = splitVal ? splitVal.match(/^[A-G][b#]?/)?.[0] : null;
+    const colorInfo = rootNote ? optionColors[rootNote.charAt(0)] : null;
+    
+    if (colorInfo) {
+        splitSelect.style.backgroundColor = colorInfo.background;
+        splitSelect.style.color = colorInfo.text;
+    } else {
+        splitSelect.style.backgroundColor = '';
+        splitSelect.style.color = '';
     }
-    return option;
 }
 
 export function updateLinkVisuals(progLetter) {
@@ -222,16 +200,17 @@ export function updateLinkVisuals(progLetter) {
 }
 
 export function updateGridForTimeSignature(numerator) {
-    document.documentElement.style.setProperty('--time-sig-beats', numerator);
+  const bottomGrid = document.getElementById('bottom-grid');
+  const gridContainer = document.getElementById('bottom-grid-container');
 
-    for (let i = 0; i < 5; i++) {
-        const pic = document.getElementById(`bottomPic${i}`);
-        const pair = document.getElementById(`rhythm-box-pair-${i}`);
-        if (pic) {
-            pic.style.display = i < numerator ? 'flex' : 'none';
-        }
-        if (pair) {
-            pair.style.display = i < numerator ? 'flex' : 'none';
-        }
-    }
+  document.documentElement.style.setProperty('--time-sig-beats', numerator);
+
+  // Show/hide picture and rhythm boxes based on numerator
+  for (let i = 0; i < 5; i++) { // Assuming max 5 beats for now
+    const pic = document.getElementById(`bottomPic${i}`);
+    const pair = document.getElementById(`rhythm-box-pair-${i}`);
+    const shouldShow = i < numerator;
+    if (pic) pic.style.display = shouldShow ? 'flex' : 'none';
+    if (pair) pair.style.display = shouldShow ? 'flex' : 'none';
+  }
 }
