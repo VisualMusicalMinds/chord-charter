@@ -639,6 +639,10 @@ function loadSong(songId) {
       targetData.p.splice(0, 4, ...(songProgDetails.chords || ["", "", "", ""]));
       targetData.r.splice(0, targetData.r.length, ...(songProgDetails.rhythm || Array(8).fill(false)));
       
+      // Load split chord data
+      targetData.splitVal.splice(0, 4, ...(songProgDetails.splitVal || ["", "", "", ""]));
+      targetData.splitActive.splice(0, 4, ...(songProgDetails.splitActive || [false, false, false, false]));
+
       for (let i = 0; i < 4; i++) { 
         const modifiers = songProgDetails.modifiers[i] || {};
         targetData.s7[i] = modifiers.seventh || false;
