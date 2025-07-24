@@ -18,6 +18,8 @@ let audioContext;
 let masterGain;
 let brushGain;
 let bassDrumGain;
+let brushBuffer; // Moved brushBuffer to be initialized with other audio vars.
+let bassDrumBuffer; // Moved bassDrumBuffer to be initialized with other audio vars.
 
 export async function ensureAudio() {
   if (!audioContext) {
@@ -35,6 +37,9 @@ export async function ensureAudio() {
       bassDrumGain.gain.value = 0.8;
       bassDrumGain.connect(masterGain);
 
+      // Load sounds after context is created.
+      await loadSounds();
+
     } catch (e) {
       console.error("AudioContext could not be created:", e);
     }
@@ -42,6 +47,24 @@ export async function ensureAudio() {
   if (audioContext.state === 'suspended') {
     await audioContext.resume();
   }
+}
+
+async function loadSounds() {
+    try {
+        const brushResponse = await fetch('https://freesound.org/data/previews/36/36889_219354-lq.mp3');
+        const brushArrayBuffer = await brushResponse.arrayBuffer();
+        brushBuffer = await audioContext.decodeAudioData(brushArrayBuffer);
+    } catch (e) {
+        console.error("Error loading brush sound:", e);
+    }
+
+    try {
+        const bassDrumResponse = await fetch('https://freesound.org/data/previews/51/51241_46190-lq.mp3');
+        const bassDrumArrayBuffer = await bassDrumResponse.arrayBuffer();
+        bassDrumBuffer = await audioContext.decodeAudioData(bassDrumArrayBuffer);
+    } catch (e) {
+        console.error("Error loading bass drum sound:", e);
+    }
 }
 
 function playSound(buffer, gainNode, time) {
@@ -110,13 +133,6 @@ export function playTriangleNotes(notes) {
     }
   });
 }
-
-let brushBuffer;
-fetch('https://freesound.org/data/previews/36/36889_219354-lq.mp3')
-    .then(response => response.arrayBuffer())
-    .then(data => audioContext.decodeAudioData(data))
-    .then(buffer => { brushBuffer = buffer; })
-    .catch(e => console.error("Error loading brush sound:", e));
     
 export function playBrush() {
   ensureAudio();
@@ -128,13 +144,6 @@ export function playBrush() {
     playSound(brushBuffer, brushGain, audioContext.currentTime);
   }
 }
-
-let bassDrumBuffer;
-fetch('https://freesound.org/data/previews/51/51241_46190-lq.mp3') 
-    .then(response => response.arrayBuffer())
-    .then(data => audioContext.decodeAudioData(data))
-    .then(buffer => { bassDrumBuffer = buffer; })
-    .catch(e => console.error("Error loading bass drum sound:", e));
     
 export function playBassDrum() {
   ensureAudio();
@@ -144,7 +153,7 @@ export function playBassDrum() {
 }
 
 const A4 = 440;
-const notesMap = { 'C': -9, 'C#': -8, 'Db': -8, 'D': -7, 'D#': -6, 'Eb': -6, 'E': -5, 'F': -4, 'F#': -3, 'Gb': -3, 'G': -2, 'G#': -1, 'Ab': -1, 'A': 0, 'A#': 1, 'Bb': 1, 'B': 2, 'B#': 3, 'E#': -4, 'Fb':-5, 'Cb':-10 };
+const notesMap = { 'C': -9, 'C#': -8, 'Db': -8, 'D': -7, 'D#': -6, 'Eb': -6, 'E': -5, 'F': -4, 'F#': -3, 'Gb': -3, 'G': -2, 'G#': -1, 'Ab': -1, 'A': 0, 'A#': 1, 'Bb': 1, 'B': 2, 'B#': 3, 'E#': -4, 'Fb': -5 };
 
 function noteToFreq(note) {
   const match = note.match(/([A-G][b#]?)(-?\d+)/);
