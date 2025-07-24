@@ -1,5 +1,5 @@
 import { songs, timeSignatureNumerators, scaleChordMaps, waveforms } from './config.js';
-import { appState, getProgressionData, saveCurrentProgression } from './state.js';
+import { appState, getProgressionData } from './state.js';
 import { ensureAudio, playTriangleNotes, playBrush, playBassDrum, getNotesToPlayForChord } from './audio.js';
 import { 
     updateWaveformDisplay, updateKeyDisplay, setSlotContent, updateRhythmPictures, 
@@ -184,6 +184,7 @@ function initializePlaybackControls() {
         function togglePlay(e) { 
             e.preventDefault(); 
             ensureAudio();
+            saveCurrentProgression(); // Save before playing
             setPlaying(!appState.isPlaying); 
         }
         playPauseBtn.addEventListener('click', togglePlay);
@@ -246,6 +247,7 @@ function initializeSaveModal() {
     const copySummaryBtn = document.getElementById('copy-summary-btn');
     
     function openModal() {
+        saveCurrentProgression(); // Ensure state is saved before generating summary
         summaryTextarea.value = generateSongSummary();
         saveModalOverlay.classList.remove('modal-hidden');
     }
@@ -283,6 +285,16 @@ function initializeSaveModal() {
 }
 
 // --- CORE LOGIC ---
+
+function saveCurrentProgression() {
+  const currentData = getProgressionData(appState.currentToggle);
+  if (!currentData) return;
+
+  const rhythmBoxes = document.querySelectorAll('.bottom-rhythm-box');
+  rhythmBoxes.forEach((box, index) => {
+    currentData.r[index] = box.classList.contains('active');
+  });
+}
 
 function setPlaying(playing) {
   appState.isPlaying = playing;
@@ -378,9 +390,10 @@ function playEighthNoteStep() {
 
     const currentPair = Math.floor((appState.rhythmStep % totalEighthNotes) / 2);
     const currentWhich = (appState.rhythmStep % totalEighthNotes) % 2;
-    const box = document.querySelector(`.bottom-rhythm-box[data-pair="${currentPair}"][data-which="${currentWhich}"]`);
-
-    if (box && box.classList.contains('active')) {
+    
+    // Read rhythm from state, not from the DOM directly
+    const rhythmIndex = currentPair * 2 + currentWhich;
+    if (progData.r[rhythmIndex]) {
         if (!chordNameToPlay || chordNameToPlay === "empty") {
             playBassDrum();
         } else {
@@ -526,10 +539,7 @@ function switchToggle(toggle) {
   loadProgression(toggle);
 
   if (appState.isPlaying) { 
-    appState.slotHighlightStep = 0;
-    appState.rhythmStep = 0;
-    appState.pictureHighlightStep = 0;
-    appState.currentLinkedProgressionIndex = 0;
+    saveCurrentProgression();
     startMainAnimation();
   }
 }
