@@ -771,7 +771,7 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
     const parenMods = parenMatch ? parenMatch[1] : '';
     if (parenMatch) remainingToken = remainingToken.replace(parenMatch[0], '');
 
-    const mainPartMatch = remainingToken.match(/([A-G][b#]?[a-z]*)(.*)/);
+    const mainPartMatch = remainingToken.match(/([A-G][b#]?(?:m|dim)?)(.*)/);
     if (!mainPartMatch) return;
 
     const baseChord = mainPartMatch[1];
