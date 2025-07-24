@@ -4,8 +4,8 @@ import { ensureAudio, playTriangleNotes, playBrush, playBassDrum, getNotesToPlay
 import { 
     updateWaveformDisplay, updateKeyDisplay, setSlotContent, updateRhythmPictures, 
     setPlayingUI, updateSlotHighlights, updatePictureHighlights, updateModifierButtonVisuals, 
-    _updateQualityButtonVisualForSlot, setSplitSlotColorAndStyle, updateChordDropdowns, 
-    updateLinkVisuals, updateGridForTimeSignature 
+    _updateQualityButtonVisualForSlot, setPrimarySlotColorAndStyle, setSplitSlotColorAndStyle, 
+    updateChordDropdowns, updateLinkVisuals, updateGridForTimeSignature 
 } from './ui.js';
 import { clampBpm } from './utils.js';
 
@@ -118,6 +118,7 @@ function initializeSlotBoxes() {
         primarySelect.addEventListener('change', function() { 
             const currentData = getProgressionData(appState.currentToggle); 
             currentData.p[idx] = this.value; 
+            setPrimarySlotColorAndStyle(idx, primarySelect, this.value);
             setSlotContent(idx);
             playChordPreview(idx); 
             saveCurrentProgression(); 
@@ -127,6 +128,7 @@ function initializeSlotBoxes() {
         splitSelect.addEventListener('change', function() {
             const currentData = getProgressionData(appState.currentToggle);
             currentData.splitVal[idx] = this.value;
+            setSplitSlotColorAndStyle(idx, splitSelect, this.value);
             setSlotContent(idx);
             playSimpleChordPreview(this.value);
             saveCurrentProgression();
@@ -406,6 +408,7 @@ function loadProgression(progLetter) {
     const splitBtn = slot.querySelector('.add-split-chord-btn');
 
     primarySelect.value = p[idx] || ""; 
+    setPrimarySlotColorAndStyle(idx, primarySelect, p[idx]);
     splitSelect.value = splitVal[idx] || "";
     setSplitSlotColorAndStyle(idx, splitSelect, splitVal[idx]);
 
