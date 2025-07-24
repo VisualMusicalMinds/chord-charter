@@ -1,5 +1,5 @@
 import { appState, getProgressionData } from './state.js';
-import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass, chordTones, chordSevenths, chordMajorSevenths, chordSeconds, chordFourths } from './config.js';
+import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass, chordTones, chordAlternateThirds, chordSevenths, chordMajorSevenths, chordSeconds, chordFourths } from './config.js';
 import { getNotesToPlayForChord } from './audio.js';
 
 export function updateWaveformDisplay() {
@@ -78,10 +78,12 @@ export function setSlotContent(slotIndex) {
   let hasContent = false;
 
   if (primaryChordName) {
+    // Use the new logic for displaying notes
     _createNoteRects(primaryChordName, false, slotIndex, primaryRects);
     hasContent = true;
   }
   if (isSplitActive && splitChordName) {
+    // Use the new logic for displaying notes
     _createNoteRects(splitChordName, true, slotIndex, splitRects);
     hasContent = true;
   }
@@ -95,23 +97,86 @@ export function setSlotContent(slotIndex) {
   }
 }
 
+// This is the new function that implements the display rules.
+function getNotesToDisplayForChord(chordName, isSplit, slotIndex) {
+    if (!chordName || chordName === "empty") return [];
+
+    const progData = getProgressionData(appState.currentToggle);
+    if (!progData) return [];
+
+    // Determine which set of modifiers to use
+    const s7 = isSplit ? progData.splitS7[slotIndex] : progData.s7[slotIndex];
+    const maj7 = isSplit ? progData.splitMaj7[slotIndex] : progData.maj7[slotIndex];
+    const s2 = isSplit ? progData.splitS2[slotIndex] : progData.s2[slotIndex];
+    const s4 = isSplit ? progData.splitS4[slotIndex] : progData.s4[slotIndex];
+    const m = isSplit ? progData.splitM[slotIndex] : progData.m[slotIndex];
+    const sus = isSplit ? progData.splitSus[slotIndex] : progData.sus[slotIndex];
+    
+    const baseTones = chordTones[chordName] || [];
+    let notes = new Map();
+
+    // Rule 1: Add Root
+    notes.set('root', baseTones[0]);
+
+    // Rule 4: Add Fifth (almost always present)
+    notes.set('fifth', baseTones[2]);
+
+    // Rule 2: The Third is Conditional
+    if (!sus) {
+        if (m === 'major' && chordAlternateThirds[chordName]) {
+            notes.set('third', chordAlternateThirds[chordName].major);
+        } else if (m === 'minor' && chordAlternateThirds[chordName]) {
+            notes.set('third', chordAlternateThirds[chordName].minor);
+        } else {
+            notes.set('third', baseTones[1]); // Default third
+        }
+    }
+
+    // Rule 3: Add other notes
+    if (s2 && chordSeconds[chordName]) {
+        notes.set('second', chordSeconds[chordName]);
+    }
+    if (s4 && chordFourths[chordName]) {
+        notes.set('fourth', chordFourths[chordName]);
+    }
+    if (maj7 && chordMajorSevenths[chordName]) {
+        notes.set('seventh', chordMajorSevenths[chordName]);
+    } else if (s7 && chordSevenths[chordName]) {
+        notes.set('seventh', chordSevenths[chordName]);
+    }
+    
+    // Rule 5: Final Sorting
+    const sortOrder = ['root', 'second', 'third', 'fourth', 'fifth', 'seventh'];
+    const sortedNotes = Array.from(notes.entries())
+        .sort(([keyA], [keyB]) => sortOrder.indexOf(keyA) - sortOrder.indexOf(keyB))
+        .map(([, value]) => value);
+
+    return sortedNotes;
+}
+
+
 function _createNoteRects(chordName, isSplit, slotIndex, container) {
     if (!chordName) return;
-    const progData = getProgressionData(appState.currentToggle);
-    const notes = getNotesToPlayForChord(chordName, isSplit, slotIndex, progData).map(n => n.slice(0, -1));
+    
+    // Call the new display-specific function
+    const notes = getNotesToDisplayForChord(chordName, isSplit, slotIndex);
 
     notes.forEach(noteName => {
-        const rootNote = noteName.match(/^[A-G][b#]?/)?.[0];
+        const rootNote = noteName.match(/^[A-G][b#♭♯]*/)?.[0];
         if (!rootNote) return;
 
-        const colorClass = noteColorClass[rootNote] || `note-${rootNote.charAt(0)}`;
+        // Normalize note for color class (e.g., 'C#' -> 'C', 'Db' -> 'D')
+        const colorRoot = rootNote.charAt(0);
+        const colorClass = noteColorClass[colorRoot] || `note-${colorRoot}`;
+        
         const rect = document.createElement('div');
         rect.className = `note-rect ${colorClass}`;
         
+        // Use the full note name for display
         let textContent = rootNote.charAt(0);
-        let accidental = '';
-        if (rootNote.length > 1) {
-            accidental = `<span class="accidental">${rootNote.charAt(1)}</span>`;
+        let accidental = rootNote.substring(1).replace('b', '♭').replace('#', '♯');
+        if (accidental) {
+            accidental = `<span class="accidental">${accidental}</span>`;
         }
         rect.innerHTML = `${textContent}${accidental}`;
         
@@ -128,26 +193,15 @@ export function updateRhythmPictures() {
     const firstOfPair = states[i * 2];
     const secondOfPair = states[i * 2 + 1];
 
-    // Combination 1: Only the first eighth note is active (1, -)
-    // Should display: Quarter Note picture
     if (firstOfPair && !secondOfPair) {
       pictureImgs[i].src = rhythmBox2;
     } 
-    
-    // Combination 2: Both eighth notes are active (1, 2)
-    // Should display: Two Eighth Notes picture
     else if (firstOfPair && secondOfPair) {
       pictureImgs[i].src = rhythmBox3;
     } 
-    
-    // Combination 3: Only the second eighth note is active (-, 2)
-    // Should display: Syncopated (rest, then eighth) picture
     else if (!firstOfPair && secondOfPair) {
       pictureImgs[i].src = rhythmBox4;
     } 
-    
-    // Combination 4: Neither eighth note is active (-, -)
-    // Should display: Rest picture
     else {
       pictureImgs[i].src = dashImgUrl;
     }
