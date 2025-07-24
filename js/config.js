@@ -249,7 +249,7 @@ export const songs = {
     progressions: {
       A: { 
         chords: ["F", "Em", "Dm", "Bb"],
-        splitVal: ["", "A7", "Dm7", "C7"],
+        splitVal: ["", "A", "Dm", "C"],
         splitActive: [false, true, true, true],
         rhythm: [true, false, false, true, true, false, true, false],
         modifiers: [ 
@@ -257,11 +257,17 @@ export const songs = {
           { seventh: true, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }, // Em7
           { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }, // Dm
           { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }  // Bb
+        ],
+        splitModifiers: [
+          {}, // F
+          { seventh: true }, // A7
+          { seventh: true }, // Dm7
+          { seventh: true }  // C7
         ]
       },
       B: { 
         chords: ["F", "Dm", "Bb", "Em"],
-        splitVal: ["", "G7", "F", "A7"],
+        splitVal: ["", "G", "F", "A"],
         splitActive: [false, true, true, true],
         rhythm: [true, false, false, true, true, false, true, false],
         modifiers: [ 
@@ -269,11 +275,17 @@ export const songs = {
           { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }, // Dm
           { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }, // Bb
           { seventh: true, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }  // Em7
+        ],
+        splitModifiers: [
+          {}, // F
+          { seventh: true }, // G7
+          {}, // F
+          { seventh: true }  // A7
         ]
       },
       C: { 
         chords: ["Dm", "Gm", "F", "Em"],
-        splitVal: ["Bb", "C", "", "A7"],
+        splitVal: ["Bb", "C", "", "A"],
         splitActive: [true, true, false, true],
         rhythm: [true, false, false, true, true, false, true, false],
         modifiers: [ 
@@ -281,6 +293,12 @@ export const songs = {
           { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }, // Gm
           { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }, // F
           { seventh: true, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }  // Em7
+        ],
+        splitModifiers: [
+          {}, // Bb
+          {}, // C
+          {}, // F
+          { seventh: true }  // A7
         ]
       },
       D: { 
@@ -293,6 +311,12 @@ export const songs = {
           { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }, // Gm
           { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }, // F
           { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }  // F
+        ],
+        splitModifiers: [
+          {}, // Bb
+          {}, // C
+          {}, // F
+          {}  // F
         ]
       }
     }
