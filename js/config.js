@@ -1,8 +1,14 @@
 // --- Sound Synthesis Variables ---
 export const waveforms = ['sine', 'triangle', 'square', 'saw', 'voice'];
 
-// --- Key Selection Variables ---
-export const musicalKeys = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+// --- Key and Scale Data ---
+const majorKeys = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+const naturalMinorKeys = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B'];
+
+export const scaleKeyMaps = {
+  'Major': majorKeys,
+  'Natural Minor': naturalMinorKeys
+};
 
 // --- Time Signature Variables ---
 export const timeSignatureNumerators = [4, 3, 2, 5];
