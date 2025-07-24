@@ -331,6 +331,13 @@ function playEighthNoteStep() {
     const progData = getProgressionData(playingProgLetter);
     if (!progData) return;
 
+    // Update highlights before playing sound
+    updateSlotHighlights();
+    
+    if (appState.rhythmStep % 2 === 0) {
+        updatePictureHighlights();
+    }
+
     const currentSlotIdx = appState.slotHighlightStep % 4;
     let chordNameToPlay = progData.p[currentSlotIdx];
     let isPlayingSplit = false;
@@ -360,14 +367,15 @@ function playEighthNoteStep() {
         }
     }
 
-    updateSlotHighlights();
     if (appState.rhythmStep % 2 === 0) {
         playBrush();
-        updatePictureHighlights();
-        appState.pictureHighlightStep = (appState.pictureHighlightStep + 1) % numerator;
     }
 
+    // Advance the steps
     appState.rhythmStep = (appState.rhythmStep + 1) % totalEighthNotes;
+    if (appState.rhythmStep % 2 === 0) {
+        appState.pictureHighlightStep = (appState.pictureHighlightStep + 1) % numerator;
+    }
 
     if (appState.rhythmStep === 0) {
         appState.slotHighlightStep = (appState.slotHighlightStep + 1) % 4;
