@@ -98,8 +98,7 @@ export function setSlotContent(slotIndex) {
 function _createNoteRects(chordName, isSplit, slotIndex, container) {
     if (!chordName) return;
     const progData = getProgressionData(appState.currentToggle);
-    // We use a simplified version of getNotesToPlayForChord, just to get the note names
-    const notes = getNotesToPlayForChord(chordName, isSplit, slotIndex, progData).map(n => n.slice(0, -1)); // Remove octave number
+    const notes = getNotesToPlayForChord(chordName, isSplit, slotIndex, progData).map(n => n.slice(0, -1));
 
     notes.forEach(noteName => {
         const rootNote = noteName.match(/^[A-G][b#]?/)?.[0];
@@ -129,15 +128,14 @@ export function updateRhythmPictures() {
     const firstOfPair = states[i * 2];
     const secondOfPair = states[i * 2 + 1];
 
-    // FIX: The conditions for rhythmBox3 and rhythmBox4 were swapped.
     if (firstOfPair && secondOfPair) {
-      pictureImgs[i].src = rhythmBox4; // two eighths
+      pictureImgs[i].src = rhythmBox4;
     } else if (firstOfPair && !secondOfPair) {
-      pictureImgs[i].src = rhythmBox2; // first eighth
+      pictureImgs[i].src = rhythmBox2;
     } else if (!firstOfPair && secondOfPair) {
-      pictureImgs[i].src = rhythmBox3; // second eighth (syncopated)
+      pictureImgs[i].src = rhythmBox3;
     } else {
-      pictureImgs[i].src = dashImgUrl; // rest
+      pictureImgs[i].src = restDashImgUrl; 
     }
   }
 }
@@ -213,8 +211,7 @@ export function updateGridForTimeSignature(numerator) {
 
   document.documentElement.style.setProperty('--time-sig-beats', numerator);
 
-  // Show/hide picture and rhythm boxes based on numerator
-  for (let i = 0; i < 5; i++) { // Assuming max 5 beats for now
+  for (let i = 0; i < 5; i++) { 
     const pic = document.getElementById(`bottomPic${i}`);
     const pair = document.getElementById(`rhythm-box-pair-${i}`);
     const shouldShow = i < numerator;
