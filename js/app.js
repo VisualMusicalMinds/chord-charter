@@ -164,6 +164,7 @@ function initializePlaybackControls() {
     if(playPauseBtn) {
         function togglePlay(e) { 
             e.preventDefault(); 
+            ensureAudio();
             setPlaying(!appState.isPlaying); 
         }
         playPauseBtn.addEventListener('click', togglePlay);
@@ -187,13 +188,6 @@ function initializePlaybackControls() {
             bpmInput.value = clampBpm(parseInt(bpmInput.value, 10) - 1);
             restartAnimationWithBpm();
         });
-    }
-    // Eagerly initialize audio context on first user interaction with playback controls.
-    const playbackContainer = document.querySelector('.play-controls-container');
-    if (playbackContainer) {
-        playbackContainer.addEventListener('mousedown', ensureAudio, { once: true });
-        playbackContainer.addEventListener('touchstart', ensureAudio, { once: true });
-        playbackContainer.addEventListener('keydown', ensureAudio, { once: true });
     }
 }
 
@@ -337,7 +331,7 @@ function playEighthNoteStep() {
     const progData = getProgressionData(playingProgLetter);
     if (!progData) return;
 
-    const currentSlotIdx = Math.floor(appState.slotHighlightStep / (numerator / 2));
+    const currentSlotIdx = appState.slotHighlightStep % 4;
     let chordNameToPlay = progData.p[currentSlotIdx];
     let isPlayingSplit = false;
 
@@ -372,11 +366,11 @@ function playEighthNoteStep() {
         updatePictureHighlights();
         appState.pictureHighlightStep = (appState.pictureHighlightStep + 1) % numerator;
     }
-    
+
     appState.rhythmStep = (appState.rhythmStep + 1) % totalEighthNotes;
-    
+
     if (appState.rhythmStep === 0) {
-        appState.slotHighlightStep = (appState.slotHighlightStep + 1) % (numerator * 2);
+        appState.slotHighlightStep = (appState.slotHighlightStep + 1) % 4;
         if (isLinkedMode && appState.slotHighlightStep === 0) {
             appState.currentLinkedProgressionIndex = (appState.currentLinkedProgressionIndex + 1) % appState.linkedProgressionSequence.length;
         }
