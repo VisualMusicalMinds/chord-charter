@@ -54,11 +54,8 @@ function initializeKeyDial() {
 
 function initializeScaleSelector() {
     const scaleSelect = document.getElementById('scale-select');
-    // Clear existing options except the disabled one
-    while (scaleSelect.options.length > 1) {
-        scaleSelect.remove(1);
-    }
     
+    // Correctly populate the dropdown first
     appState.availableScales.forEach(scaleName => {
         const option = document.createElement('option');
         option.value = scaleName;
@@ -66,10 +63,17 @@ function initializeScaleSelector() {
         scaleSelect.appendChild(option);
     });
 
-    // Set the value from state and add the event listener
+    // Now, set the dropdown's value from the state
     scaleSelect.value = appState.currentScale;
+
+    // Finally, add the event listener
     scaleSelect.addEventListener('change', (e) => {
-        appState.currentScale = e.target.value;
+        // If the placeholder is selected, default to Major
+        appState.currentScale = e.target.value === "Major" && scaleSelect.selectedIndex === 0 ? 'Major' : e.target.value;
+        if (scaleSelect.options[0].disabled) {
+           scaleSelect.options[0].disabled = false;
+           scaleSelect.remove(0); // Remove the placeholder "Scale"
+        }
         updateChordDropdowns();
         loadProgression(appState.currentToggle);
     });
@@ -573,7 +577,6 @@ function transposeChord(chord, oldKey, newKey) {
     if (!chord || chord === "" || chord === "empty") {
         return chord;
     }
-    // FIX: This was pointing to the old keyChordMap. Point it to the new scaleChordMaps structure.
     const currentKeyChords = scaleChordMaps[appState.currentScale]?.[oldKey] || [];
     const newKeyChords = scaleChordMaps[appState.currentScale]?.[newKey] || [];
 
