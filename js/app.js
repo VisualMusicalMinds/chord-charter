@@ -337,7 +337,7 @@ function playEighthNoteStep() {
     const progData = getProgressionData(playingProgLetter);
     if (!progData) return;
 
-    const currentSlotIdx = appState.slotHighlightStep % 4;
+    const currentSlotIdx = Math.floor(appState.slotHighlightStep / (numerator / 2));
     let chordNameToPlay = progData.p[currentSlotIdx];
     let isPlayingSplit = false;
 
@@ -372,11 +372,11 @@ function playEighthNoteStep() {
         updatePictureHighlights();
         appState.pictureHighlightStep = (appState.pictureHighlightStep + 1) % numerator;
     }
-
+    
     appState.rhythmStep = (appState.rhythmStep + 1) % totalEighthNotes;
-
+    
     if (appState.rhythmStep === 0) {
-        appState.slotHighlightStep = (appState.slotHighlightStep + 1) % 4;
+        appState.slotHighlightStep = (appState.slotHighlightStep + 1) % (numerator * 2);
         if (isLinkedMode && appState.slotHighlightStep === 0) {
             appState.currentLinkedProgressionIndex = (appState.currentLinkedProgressionIndex + 1) % appState.linkedProgressionSequence.length;
         }
