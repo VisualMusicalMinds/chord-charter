@@ -28,6 +28,7 @@ function main() {
   initializeSaveModal();
 
   // Initial UI setup
+  updateKeyDisplay();
   updateGridForTimeSignature(timeSignatureNumerators[appState.currentTimeSignatureIndex]);
   updateRhythmPictures();
   updateSlotHighlights(); // Clears initial highlights
@@ -55,13 +56,17 @@ function initializeKeyDial() {
 function initializeScaleSelector() {
     const scaleSelect = document.getElementById('scale-select');
     
+    // Clear existing options
+    scaleSelect.innerHTML = '';
+
+    // Add placeholder that is NOT selected by default
     const placeholderOption = document.createElement('option');
-    placeholderOption.value = "Major"; 
+    placeholderOption.value = ""; // Empty value
     placeholderOption.textContent = "Scale";
     placeholderOption.disabled = true;
-    placeholderOption.selected = true;
     scaleSelect.appendChild(placeholderOption);
 
+    // Populate with actual scales
     appState.availableScales.forEach(scaleName => {
         const option = document.createElement('option');
         option.value = scaleName;
@@ -69,10 +74,11 @@ function initializeScaleSelector() {
         scaleSelect.appendChild(option);
     });
 
-    if (appState.currentScale !== 'Major' || !placeholderOption.selected) {
+    // Set the select to the current state, or show placeholder if no scale is active
+    if (appState.currentScale) {
         scaleSelect.value = appState.currentScale;
-        placeholderOption.selected = false;
-        placeholderOption.disabled = false;
+    } else {
+        scaleSelect.selectedIndex = 0; // Show "Scale" placeholder
     }
 
     scaleSelect.addEventListener('change', (e) => {
@@ -82,10 +88,6 @@ function initializeScaleSelector() {
         // If the old key isn't in the new scale's key list, reset to the first key.
         if (!appState.availableKeys.includes(oldKey)) {
             appState.currentKey = appState.availableKeys[0];
-        }
-
-        if (placeholderOption.disabled) {
-           placeholderOption.disabled = false;
         }
         
         updateKeyDisplay();
