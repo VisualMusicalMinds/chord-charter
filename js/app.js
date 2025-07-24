@@ -1,4 +1,4 @@
-import { songs, timeSignatureNumerators, musicalKeys, scaleChordMaps, waveforms } from './config.js';
+import { songs, timeSignatureNumerators, scaleChordMaps, waveforms } from './config.js';
 import { appState, getProgressionData, saveCurrentProgression } from './state.js';
 import { ensureAudio, playTriangleNotes, playBrush, playBassDrum, getNotesToPlayForChord } from './audio.js';
 import { 
@@ -55,15 +55,13 @@ function initializeKeyDial() {
 function initializeScaleSelector() {
     const scaleSelect = document.getElementById('scale-select');
     
-    // Add the disabled "Scale" option first
     const placeholderOption = document.createElement('option');
-    placeholderOption.value = "Major"; // Default to Major
+    placeholderOption.value = "Major"; 
     placeholderOption.textContent = "Scale";
     placeholderOption.disabled = true;
     placeholderOption.selected = true;
     scaleSelect.appendChild(placeholderOption);
 
-    // Populate the dropdown with other scales
     appState.availableScales.forEach(scaleName => {
         const option = document.createElement('option');
         option.value = scaleName;
@@ -71,19 +69,26 @@ function initializeScaleSelector() {
         scaleSelect.appendChild(option);
     });
 
-    // Set the dropdown's value from the state if not the placeholder
     if (appState.currentScale !== 'Major' || !placeholderOption.selected) {
         scaleSelect.value = appState.currentScale;
         placeholderOption.selected = false;
         placeholderOption.disabled = false;
     }
 
-    // Add the event listener
     scaleSelect.addEventListener('change', (e) => {
+        const oldKey = appState.currentKey;
         appState.currentScale = e.target.value;
+
+        // If the old key isn't in the new scale's key list, reset to the first key.
+        if (!appState.availableKeys.includes(oldKey)) {
+            appState.currentKey = appState.availableKeys[0];
+        }
+
         if (placeholderOption.disabled) {
            placeholderOption.disabled = false;
         }
+        
+        updateKeyDisplay();
         updateChordDropdowns();
         loadProgression(appState.currentToggle);
     });
@@ -487,9 +492,27 @@ function clearAll() {
 
 // --- EVENT HANDLERS ---
 
-function handleWaveformDial(dir) {
-  appState.currentWaveformIndex = (appState.currentWaveformIndex + dir + waveforms.length) % waveforms.length;
-  updateWaveformDisplay();
+function handleKeyDial(direction) {
+  const transposeCheckbox = document.getElementById('transpose-checkbox');
+  const oldKey = appState.currentKey;
+  
+  const availableKeys = appState.availableKeys;
+  let newIndex = (appState.currentKeyIndex + direction + availableKeys.length) % availableKeys.length;
+  const newKey = availableKeys[newIndex];
+  appState.currentKey = newKey;
+
+  if (transposeCheckbox && transposeCheckbox.checked) {
+      saveCurrentProgression();
+      ['A', 'B', 'C', 'D'].forEach(progLetter => {
+          const progData = getProgressionData(progLetter);
+          progData.p = progData.p.map(chord => transposeChord(chord, oldKey, newKey));
+          progData.splitVal = progData.splitVal.map(chord => transposeChord(chord, oldKey, newKey));
+      });
+  }
+  
+  updateKeyDisplay();
+  updateChordDropdowns();
+  loadProgression(appState.currentToggle); 
 }
 
 function switchToggle(toggle) {
@@ -621,25 +644,9 @@ function transposeChord(chord, oldKey, newKey) {
     return newChordData ? newChordData.value : chord;
 }
 
-function handleKeyDial(direction) {
-  const transposeCheckbox = document.getElementById('transpose-checkbox'); // Assuming you add this checkbox
-  const oldKey = appState.currentMusicalKey;
-
-  appState.currentKeyIndex = (appState.currentKeyIndex + direction + musicalKeys.length) % musicalKeys.length;
-  const newKey = appState.currentMusicalKey;
-
-  if (transposeCheckbox && transposeCheckbox.checked) {
-      saveCurrentProgression();
-      ['A', 'B', 'C', 'D'].forEach(progLetter => {
-          const progData = getProgressionData(progLetter);
-          progData.p = progData.p.map(chord => transposeChord(chord, oldKey, newKey));
-          progData.splitVal = progData.splitVal.map(chord => transposeChord(chord, oldKey, newKey));
-      });
-  }
-  
-  updateKeyDisplay();
-  updateChordDropdowns();
-  loadProgression(appState.currentToggle); 
+function handleWaveformDial(dir) {
+  appState.currentWaveformIndex = (appState.currentWaveformIndex + dir + waveforms.length) % waveforms.length;
+  updateWaveformDisplay();
 }
 
 function toggleLinkState(progLetter) {
@@ -687,9 +694,9 @@ function loadSong(songId) {
 
   setBpmInputValue(songData.bpm);
 
-  const newKeyIndex = musicalKeys.indexOf(songData.key);
+  const newKeyIndex = appState.availableKeys.indexOf(songData.key);
   if (newKeyIndex !== -1) {
-    appState.currentKeyIndex = newKeyIndex;
+    appState.currentKey = songData.key;
     updateKeyDisplay();
     updateChordDropdowns(); 
   } else {
@@ -809,7 +816,7 @@ function generateSongSummary() {
 
     const bpm = getBpmInputValue();
     const timeSig = `${timeSignatureNumerators[appState.currentTimeSignatureIndex]}/4`;
-    const key = appState.currentMusicalKey;
+    const key = appState.currentKey;
 
     let summaryLines = [];
     summaryLines.push(`[BPM: ${bpm}; Time Signature: ${timeSig}; Key: ${key}]`);
@@ -903,9 +910,9 @@ function parseAndLoadSongSummary(summaryText) {
                 }
             }
             if (parts['Key']) {
-                const keyIndex = musicalKeys.indexOf(parts['Key']);
+                const keyIndex = appState.availableKeys.indexOf(parts['Key']);
                 if (keyIndex !== -1) {
-                    appState.currentKeyIndex = keyIndex;
+                    appState.currentKey = parts['Key'];
                     updateKeyDisplay();
                 }
             }
