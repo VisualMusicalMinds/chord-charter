@@ -1,5 +1,18 @@
 import { appState } from './state.js';
-import { soundProfiles, chordTones, chordSevenths, chordMajorSevenths, chordSeconds, chordFourths } from './config.js';
+import { 
+    soundProfiles, 
+    chordTones, 
+    chordAlternateThirds,
+    chordSevenths, 
+    chordMajorSevenths, 
+    chordSeconds, 
+    chordFourths,
+    rhythmChordNotes,
+    rhythmChordSeventhNotes,
+    rhythmChordMajorSeventhNotes,
+    rhythmChordSecondNotes,
+    rhythmChordFourthNotes
+} from './config.js';
 
 let audioContext;
 let masterGain;
@@ -131,7 +144,7 @@ export function playBassDrum() {
 }
 
 const A4 = 440;
-const notesMap = { 'C': -9, 'C#': -8, 'Db': -8, 'D': -7, 'D#': -6, 'Eb': -6, 'E': -5, 'F': -4, 'F#': -3, 'Gb': -3, 'G': -2, 'G#': -1, 'Ab': -1, 'A': 0, 'A#': 1, 'Bb': 1, 'B': 2 };
+const notesMap = { 'C': -9, 'C#': -8, 'Db': -8, 'D': -7, 'D#': -6, 'Eb': -6, 'E': -5, 'F': -4, 'F#': -3, 'Gb': -3, 'G': -2, 'G#': -1, 'Ab': -1, 'A': 0, 'A#': 1, 'Bb': 1, 'B': 2, 'B#': 3, 'E#': -4, 'Fb':-5, 'Cb':-10 };
 
 function noteToFreq(note) {
   const match = note.match(/([A-G][b#]?)(-?\d+)/);
@@ -146,12 +159,11 @@ function noteToFreq(note) {
 }
 
 export function getNotesToPlayForChord(chordName, isSplit, slotIndex, progData) {
-    if (!chordName || !progData) return [];
+    if (!chordName || chordName === "empty" || !progData) return [];
 
-    const baseNotes = (chordTones[chordName] || []).map(n => `${n}4`); 
-
-    let notes = [...baseNotes];
-
+    let notes = [...(rhythmChordNotes[chordName] || [])];
+    
+    // Determine which set of modifiers to use
     const s7 = isSplit ? progData.splitS7[slotIndex] : progData.s7[slotIndex];
     const maj7 = isSplit ? progData.splitMaj7[slotIndex] : progData.maj7[slotIndex];
     const s2 = isSplit ? progData.splitS2[slotIndex] : progData.s2[slotIndex];
@@ -159,23 +171,43 @@ export function getNotesToPlayForChord(chordName, isSplit, slotIndex, progData) 
     const m = isSplit ? progData.splitM[slotIndex] : progData.m[slotIndex];
     const sus = isSplit ? progData.splitSus[slotIndex] : progData.sus[slotIndex];
 
-    if (maj7) notes.push(`${chordMajorSevenths[chordName]}4`);
-    else if (s7) notes.push(`${chordSevenths[chordName]}4`);
-    if (s2) notes.push(`${chordSeconds[chordName]}4`);
-    if (s4) notes.push(`${chordFourths[chordName]}4`);
-    
-    // Handle major/minor quality and sus chords
-    if (m !== 'none' || sus) {
-        const thirdIndex = notes.findIndex(n => n.startsWith(baseNotes[1].slice(0, -1)));
+    // Handle Major/Minor quality toggle
+    if (m !== 'none' && chordAlternateThirds[chordName]) {
+        const thirdAlteration = chordAlternateThirds[chordName];
+        const originalThird = chordTones[chordName] ? `${chordTones[chordName][1]}4` : null; // Assumes octave 4 for comparison
+        
+        const thirdIndex = notes.findIndex(n => n.startsWith(originalThird.slice(0, -1)));
+
         if (thirdIndex !== -1) {
-            if (sus) {
-                notes.splice(thirdIndex, 1); // Remove third for sus
+            if (m === 'major') {
+                notes[thirdIndex] = thirdAlteration.majorNote;
             } else if (m === 'minor') {
-                // This part needs more robust logic for sharps/flats if base third is altered
-            } else if (m === 'major') {
-                // This part needs more robust logic for sharps/flats if base third is altered
+                notes[thirdIndex] = thirdAlteration.minorNote;
             }
         }
+    }
+
+    // Handle Sus chords
+    if (sus) {
+        // Remove the third from the chord
+        const third = chordTones[chordName] ? chordTones[chordName][1] : null;
+        if (third) {
+            notes = notes.filter(n => !n.startsWith(third));
+        }
+    }
+
+    // Add other modifications
+    if (maj7 && rhythmChordMajorSeventhNotes[chordName]) {
+        notes.push(rhythmChordMajorSeventhNotes[chordName]);
+    } else if (s7 && rhythmChordSeventhNotes[chordName]) {
+        notes.push(rhythmChordSeventhNotes[chordName]);
+    }
+
+    if (s2 && rhythmChordSecondNotes[chordName]) {
+        notes.push(rhythmChordSecondNotes[chordName]);
+    }
+    if (s4 && rhythmChordFourthNotes[chordName]) {
+        notes.push(rhythmChordFourthNotes[chordName]);
     }
 
     return notes;
