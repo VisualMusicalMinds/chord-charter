@@ -1,4 +1,4 @@
-import { waveforms, scaleKeyMaps } from './config.js';
+import { waveforms, displayKeys, keyMap } from './config.js';
 
 export const appState = {
   // Playback and timing
@@ -12,13 +12,21 @@ export const appState = {
   currentWaveformIndex: 1,
   get currentWaveform() { return waveforms[this.currentWaveformIndex]; },
   
-  currentKey: 'C',
+  // The key displayed in the UI (e.g., "C#/Db")
+  currentDisplayKey: 'C',
   currentScale: 'Major',
-  get availableKeys() { return scaleKeyMaps[this.currentScale] || scaleKeyMaps['Major']; },
+
+  // The actual musical key used for logic, derived from the display key and scale
+  get musicalKey() {
+    const mapping = keyMap[this.currentDisplayKey];
+    if (mapping) {
+      return mapping[this.currentScale] || mapping['Major']; // Default to Major if scale not in map
+    }
+    return this.currentDisplayKey; // Fallback for non-enharmonic keys
+  },
+
   get currentKeyIndex() { 
-    const index = this.availableKeys.indexOf(this.currentKey);
-    // Safeguard: If the key is not found, default to the first key of the scale.
-    return index === -1 ? 0 : index;
+    return displayKeys.indexOf(this.currentDisplayKey);
   },
 
   availableScales: ['Major', 'Natural Minor'], // Expandable list of scales
@@ -114,11 +122,4 @@ export function getProgressionData(progLetter) {
     case 'D': return { p: appState.progressionD, r: appState.rhythmBoxesD, s7: appState.seventhD, s2: appState.secondD, s4: appState.fourthD, sus: appState.susD, maj7: appState.majSeventhD, m: appState.majorD, splitActive: appState.splitChordActiveD, splitVal: appState.splitChordValueD, splitS7: appState.splitSeventhD, splitS2: appState.splitSecondD, splitS4: appState.splitFourthD, splitSus: appState.splitSusD, splitMaj7: appState.splitMajSeventhD, splitM: appState.splitMajorD };
     default: return null;
   }
-}
-
-export function saveCurrentProgression() {
-  const currentData = getProgressionData(appState.currentToggle);
-  if (!currentData) return;
-  // This function might seem redundant now, but it's a good pattern
-  // in case saving becomes more complex (e.g., localStorage)
 }
