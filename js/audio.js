@@ -37,7 +37,7 @@ function noteToFrequency(note) {
     };
 
     // Normalize the note name to handle all accidental symbols
-    const normalizedNote = note.replace('♯', '#').replace('♭', 'b').replace('𝄪', '##');
+    const normalizedNote = note.replace('♯', '#').replace('♭', 'b').replace('𝄪', '##').replace('𝄫', 'bb');
     const octave = parseInt(normalizedNote.slice(-1), 10);
     const noteName = normalizedNote.slice(0, -1);
     
