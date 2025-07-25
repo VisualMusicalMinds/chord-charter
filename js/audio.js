@@ -6,7 +6,8 @@ import {
     rhythmChordMajorSeventhNotes, 
     rhythmChordSecondNotes, 
     rhythmChordFourthNotes,
-    chordAlternateThirds
+    chordAlternateThirds,
+    chordAugmentedFifths
 } from './config.js';
 
 let audioContext;
@@ -94,6 +95,7 @@ export function getNotesToPlayForChord(chordName, isSplit, slotIndex, progData) 
     const s4 = isSplit ? progData.splitS4[slotIndex] : progData.s4[slotIndex];
     const m = isSplit ? progData.splitM[slotIndex] : progData.m[slotIndex];
     const sus = isSplit ? progData.splitSus[slotIndex] : progData.sus[slotIndex];
+    const aug = isSplit ? progData.splitAug[slotIndex] : progData.aug[slotIndex];
 
     const baseNotes = rhythmChordNotes[chordName] || [];
     let notesToPlay = [baseNotes[0], baseNotes[1]]; // Root and octave root are always played
@@ -109,8 +111,19 @@ export function getNotesToPlayForChord(chordName, isSplit, slotIndex, progData) 
         }
     }
 
-    // Add the fifth
-    notesToPlay.push(baseNotes[3]);
+    // Add the fifth - check for augmentation
+    if (aug && chordAugmentedFifths[chordName]) {
+        const augFifthNoteName = chordAugmentedFifths[chordName];
+        // Find the octave from the original 5th to apply to the augmented 5th
+        const originalFifth = baseNotes[3];
+        if (originalFifth) {
+            const octave = originalFifth.slice(-1);
+            notesToPlay.push(augFifthNoteName + octave);
+        }
+    } else {
+        notesToPlay.push(baseNotes[3]); // Default fifth
+    }
+
 
     // Add other modifiers
     if (maj7 && rhythmChordMajorSeventhNotes[chordName]) {
