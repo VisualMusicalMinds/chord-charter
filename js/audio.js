@@ -6,6 +6,7 @@ import {
     rhythmChordMajorSeventhNotes, 
     rhythmChordSecondNotes, 
     rhythmChordFourthNotes,
+    rhythmChordSixthNotes,
     chordAlternateThirds,
     chordAugmentedFifths,
     chordDiminishedFifths
@@ -101,6 +102,7 @@ export function getNotesToPlayForChord(chordName, isSplit, slotIndex, progData) 
     const aug = isSplit ? progData.splitAug[slotIndex] : progData.aug[slotIndex];
     const s7 = isSplit ? progData.splitS7[slotIndex] : progData.s7[slotIndex];
     const maj7 = isSplit ? progData.splitMaj7[slotIndex] : progData.maj7[slotIndex];
+    const s6 = isSplit ? progData.splitS6[slotIndex] : progData.s6[slotIndex];
     const s2 = isSplit ? progData.splitS2[slotIndex] : progData.s2[slotIndex];
     const s4 = isSplit ? progData.splitS4[slotIndex] : progData.s4[slotIndex];
     const m = isSplit ? progData.splitM[slotIndex] : progData.m[slotIndex];
@@ -137,6 +139,10 @@ export function getNotesToPlayForChord(chordName, isSplit, slotIndex, progData) 
         notesToPlay.push(baseNotes[3]);
     }
 
+    if (s6 && rhythmChordSixthNotes[chordName]) {
+        notesToPlay.push(rhythmChordSixthNotes[chordName]);
+    }
+    
     if (maj7 && rhythmChordMajorSeventhNotes[chordName]) {
         notesToPlay.push(rhythmChordMajorSeventhNotes[chordName]);
     } else if (s7 && rhythmChordSeventhNotes[chordName]) {
