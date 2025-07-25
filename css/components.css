@@ -172,6 +172,83 @@
   cursor: pointer;
 }
 
+/* --- Component: ABCD Toggles --- */
+.abcd-toggle-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  padding: 0 5px;
+  box-sizing: border-box;
+}
+
+.abcd-toggle-row {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.abcd-toggle-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
+  font-family: 'EB Garamond', Garamond, 'Times New Roman', Times, serif;
+}
+
+.abcd-letter {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #aaa; /* Inactive color */
+  transition: color 0.2s ease;
+}
+
+.abcd-link-icon {
+  font-size: 0.8em;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+/* --- State: Active (Not Linked) --- */
+.abcd-toggle-btn.abcd-active {
+  background-color: #f0f0f0; /* Light grey */
+  border-color: #bbb;
+  transform: scale(1.05);
+}
+
+.abcd-toggle-btn.abcd-active .abcd-letter {
+  color: #000; /* Black */
+}
+
+/* --- State: Linked --- */
+.abcd-toggle-btn.progression-linked {
+  background-color: #e8f5e9; /* Light green */
+  border-color: #a5d6a7;
+}
+
+.abcd-toggle-btn.progression-linked .abcd-link-icon {
+  opacity: 1;
+  color: #2e7d32; /* Darker green for link symbol */
+}
+
+/* --- State: Linked AND Active --- */
+.abcd-toggle-btn.progression-linked.abcd-active {
+  background-color: #c8e6c9; /* Darker light green */
+  border-color: #81c784;
+  transform: scale(1.05);
+}
+
+.abcd-toggle-btn.progression-linked.abcd-active .abcd-letter {
+  color: #000;
+}
+
 /* --- Component: Playback Controls --- */
 .play-controls-container {
   display: flex;
