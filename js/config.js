@@ -79,6 +79,7 @@ const harmonicMinorKeyChordMap = {
 export const scaleChordMaps = {
   'Major': majorKeyChordMap,
   'Natural Minor': naturalMinorKeyChordMap,
+  'Harmonic Minor': harmonicMinorKeyChordMap,
 };
 
 
