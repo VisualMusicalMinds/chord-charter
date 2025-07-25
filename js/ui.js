@@ -1,5 +1,5 @@
 import { appState, getProgressionData } from './state.js';
-import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass, chordTones, chordAlternateThirds, chordSevenths, chordMajorSevenths, chordSeconds, chordFourths, chordAugmentedFifths, chordDiminishedFifths } from './config.js';
+import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass, chordTones, chordAlternateThirds, chordSevenths, chordMajorSevenths, chordSeconds, chordFourths, chordSixths, chordAugmentedFifths, chordDiminishedFifths } from './config.js';
 import { getNotesToPlayForChord } from './audio.js';
 
 export function updateWaveformDisplay() {
@@ -78,12 +78,10 @@ export function setSlotContent(slotIndex) {
   let hasContent = false;
 
   if (primaryChordName) {
-    // Use the new logic for displaying notes
     _createNoteRects(primaryChordName, false, slotIndex, primaryRects);
     hasContent = true;
   }
   if (isSplitActive && splitChordName) {
-    // Use the new logic for displaying notes
     _createNoteRects(splitChordName, true, slotIndex, splitRects);
     hasContent = true;
   }
@@ -106,6 +104,7 @@ function getNotesToDisplayForChord(chordName, isSplit, slotIndex) {
     const aug = isSplit ? progData.splitAug[slotIndex] : progData.aug[slotIndex];
     const s7 = isSplit ? progData.splitS7[slotIndex] : progData.s7[slotIndex];
     const maj7 = isSplit ? progData.splitMaj7[slotIndex] : progData.maj7[slotIndex];
+    const s6 = isSplit ? progData.splitS6[slotIndex] : progData.s6[slotIndex];
     const s2 = isSplit ? progData.splitS2[slotIndex] : progData.s2[slotIndex];
     const s4 = isSplit ? progData.splitS4[slotIndex] : progData.s4[slotIndex];
     const m = isSplit ? progData.splitM[slotIndex] : progData.m[slotIndex];
@@ -136,13 +135,15 @@ function getNotesToDisplayForChord(chordName, isSplit, slotIndex) {
 
     if (s2 && chordSeconds[chordName]) notes.set('second', chordSeconds[chordName]);
     if (s4 && chordFourths[chordName]) notes.set('fourth', chordFourths[chordName]);
+    if (s6 && chordSixths[chordName]) notes.set('sixth', chordSixths[chordName]);
+    
     if (maj7 && chordMajorSevenths[chordName]) {
         notes.set('seventh', chordMajorSevenths[chordName]);
     } else if (s7 && chordSevenths[chordName]) {
         notes.set('seventh', chordSevenths[chordName]);
     }
     
-    const sortOrder = ['root', 'second', 'third', 'fourth', 'fifth', 'seventh'];
+    const sortOrder = ['root', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh'];
     return Array.from(notes.entries())
         .sort(([keyA], [keyB]) => sortOrder.indexOf(keyA) - sortOrder.indexOf(keyB))
         .map(([, value]) => value);
