@@ -1,141 +1,134 @@
-import { waveforms, displayKeys, keyMap } from './config.js';
-
 export const appState = {
-  // Playback and timing
+  // Playback State
   isPlaying: false,
   rhythmInterval: null,
   slotHighlightStep: 0,
   pictureHighlightStep: 0,
   rhythmStep: 0,
-  
-  // Current musical context
-  currentWaveformIndex: 1,
-  get currentWaveform() { return waveforms[this.currentWaveformIndex]; },
-  
-  // The key displayed in the UI (e.g., "C#/Db")
+  beatEnabled: true, // New: Replaces brushSoundEnabled, default is ON
+  swingEnabled: false, // New: For future use
+
+  // Musical Context
+  currentWaveformIndex: 0,
+  get currentWaveform() {
+    const { waveforms } = require('./config.js');
+    return waveforms[this.currentWaveformIndex];
+  },
+  currentKeyIndex: 0,
   currentDisplayKey: 'C',
-  currentScale: 'Major',
-
-  // The actual musical key used for logic, derived from the display key and scale
   get musicalKey() {
-    const mapping = keyMap[this.currentDisplayKey];
-    if (mapping) {
-      return mapping[this.currentScale] || mapping['Major']; // Default to Major if scale not in map
-    }
-    return this.currentDisplayKey; // Fallback for non-enharmonic keys
+    const { keyMap } = require('./config.js');
+    return keyMap[this.currentDisplayKey][this.currentScale.replace(' ', '')] || keyMap[this.currentDisplayKey].Major;
   },
-
-  get currentKeyIndex() { 
-    return displayKeys.indexOf(this.currentDisplayKey);
-  },
-
-  availableScales: ['Major', 'Natural Minor'], // Expandable list of scales
-
-  // ABCD toggle and linking state
+  availableScales: ['Major', 'Natural Minor'],
+  currentScale: 'Major',
+  
+  // Progression Management
   currentToggle: 'A',
-  progressionLinkStates: { A: false, B: false, C: false, D: false },
+  slotIds: ['slot0', 'slot1', 'slot2', 'slot3'],
+  progressionLinkStates: { 'A': false, 'B': false, 'C': false, 'D': false },
   linkedProgressionSequence: [],
   currentLinkedProgressionIndex: 0,
-  slotIds: ['slot0', 'slot1', 'slot2', 'slot3'],
-
-  // Progression Data for A
-  progressionA: ['', '', '', ''],
-  rhythmBoxesA: Array(10).fill(false),
-  seventhA: [false, false, false, false],
-  sixthA: [false, false, false, false],
-  secondA: [false, false, false, false],
-  fourthA: [false, false, false, false],
-  susA: [false, false, false, false],
-  augA: Array(4).fill('none'), // 'none', 'aug', 'dim'
-  majSeventhA: [false, false, false, false],
-  majorA: ['none', 'none', 'none', 'none'],
-  splitChordActiveA: [false, false, false, false],
-  splitChordValueA: ['', '', '', ''],
-  splitSeventhA: [false, false, false, false],
-  splitSixthA: [false, false, false, false],
-  splitSecondA: [false, false, false, false],
-  splitFourthA: [false, false, false, false],
-  splitSusA: [false, false, false, false],
-  splitAugA: Array(4).fill('none'),
-  splitMajSeventhA: [false, false, false, false],
-  splitMajorA: ['none', 'none', 'none', 'none'],
-
-  // Progression Data for B
-  progressionB: ['', '', '', ''],
-  rhythmBoxesB: Array(10).fill(false),
-  seventhB: [false, false, false, false],
-  sixthB: [false, false, false, false],
-  secondB: [false, false, false, false],
-  fourthB: [false, false, false, false],
-  susB: [false, false, false, false],
-  augB: Array(4).fill('none'),
-  majSeventhB: [false, false, false, false],
-  majorB: ['none', 'none', 'none', 'none'],
-  splitChordActiveB: [false, false, false, false],
-  splitChordValueB: ['', '', '', ''],
-  splitSeventhB: [false, false, false, false],
-  splitSixthB: [false, false, false, false],
-  splitSecondB: [false, false, false, false],
-  splitFourthB: [false, false, false, false],
-  splitSusB: [false, false, false, false],
-  splitAugB: Array(4).fill('none'),
-  splitMajSeventhB: [false, false, false, false],
-  splitMajorB: ['none', 'none', 'none', 'none'],
-
-  // Progression Data for C
-  progressionC: ['', '', '', ''],
-  rhythmBoxesC: Array(10).fill(false),
-  seventhC: [false, false, false, false],
-  sixthC: [false, false, false, false],
-  secondC: [false, false, false, false],
-  fourthC: [false, false, false, false],
-  susC: [false, false, false, false],
-  augC: Array(4).fill('none'),
-  majSeventhC: [false, false, false, false],
-  majorC: ['none', 'none', 'none', 'none'],
-  splitChordActiveC: [false, false, false, false],
-  splitChordValueC: ['', '', '', ''],
-  splitSeventhC: [false, false, false, false],
-  splitSixthC: [false, false, false, false],
-  splitSecondC: [false, false, false, false],
-  splitFourthC: [false, false, false, false],
-  splitSusC: [false, false, false, false],
-  splitAugC: Array(4).fill('none'),
-  splitMajSeventhC: [false, false, false, false],
-  splitMajorC: ['none', 'none', 'none', 'none'],
-
-  // Progression Data for D
-  progressionD: ['', '', '', ''],
-  rhythmBoxesD: Array(10).fill(false),
-  seventhD: [false, false, false, false],
-  sixthD: [false, false, false, false],
-  secondD: [false, false, false, false],
-  fourthD: [false, false, false, false],
-  susD: [false, false, false, false],
-  augD: Array(4).fill('none'),
-  majSeventhD: [false, false, false, false],
-  majorD: ['none', 'none', 'none', 'none'],
-  splitChordActiveD: [false, false, false, false],
-  splitChordValueD: ['', '', '', ''],
-  splitSeventhD: [false, false, false, false],
-  splitSixthD: [false, false, false, false],
-  splitSecondD: [false, false, false, false],
-  splitFourthD: [false, false, false, false],
-  splitSusD: [false, false, false, false],
-  splitAugD: Array(4).fill('none'),
-  splitMajSeventhD: [false, false, false, false],
-  splitMajorD: ['none', 'none', 'none', 'none'],
 
   // Time Signature
   currentTimeSignatureIndex: 0,
+
+  // --- Progression Data ---
+  // A
+  progressionA: ['', '', '', ''],
+  rhythmBoxesA: Array(10).fill(false),
+  seventhA: Array(4).fill(false),
+  sixthA: Array(4).fill(false),
+  secondA: Array(4).fill(false),
+  fourthA: Array(4).fill(false),
+  susA: Array(4).fill(false),
+  majSeventhA: Array(4).fill(false),
+  augA: Array(4).fill('none'),
+  majorA: Array(4).fill('none'),
+  splitChordActiveA: Array(4).fill(false),
+  splitChordValueA: ['', '', '', ''],
+  splitSeventhA: Array(4).fill(false),
+  splitSixthA: Array(4).fill(false),
+  splitSecondA: Array(4).fill(false),
+  splitFourthA: Array(4).fill(false),
+  splitSusA: Array(4).fill(false),
+  splitMajSeventhA: Array(4).fill(false),
+  splitAugA: Array(4).fill('none'),
+  splitMajorA: Array(4).fill('none'),
+
+  // B
+  progressionB: ['', '', '', ''],
+  rhythmBoxesB: Array(10).fill(false),
+  seventhB: Array(4).fill(false),
+  sixthB: Array(4).fill(false),
+  secondB: Array(4).fill(false),
+  fourthB: Array(4).fill(false),
+  susB: Array(4).fill(false),
+  majSeventhB: Array(4).fill(false),
+  augB: Array(4).fill('none'),
+  majorB: Array(4).fill('none'),
+  splitChordActiveB: Array(4).fill(false),
+  splitChordValueB: ['', '', '', ''],
+  splitSeventhB: Array(4).fill(false),
+  splitSixthB: Array(4).fill(false),
+  splitSecondB: Array(4).fill(false),
+  splitFourthB: Array(4).fill(false),
+  splitSusB: Array(4).fill(false),
+  splitMajSeventhB: Array(4).fill(false),
+  splitAugB: Array(4).fill('none'),
+  splitMajorB: Array(4).fill('none'),
+
+  // C
+  progressionC: ['', '', '', ''],
+  rhythmBoxesC: Array(10).fill(false),
+  seventhC: Array(4).fill(false),
+  sixthC: Array(4).fill(false),
+  secondC: Array(4).fill(false),
+  fourthC: Array(4).fill(false),
+  susC: Array(4).fill(false),
+  majSeventhC: Array(4).fill(false),
+  augC: Array(4).fill('none'),
+  majorC: Array(4).fill('none'),
+  splitChordActiveC: Array(4).fill(false),
+  splitChordValueC: ['', '', '', ''],
+  splitSeventhC: Array(4).fill(false),
+  splitSixthC: Array(4).fill(false),
+  splitSecondC: Array(4).fill(false),
+  splitFourthC: Array(4).fill(false),
+  splitSusC: Array(4).fill(false),
+  splitMajSeventhC: Array(4).fill(false),
+  splitAugC: Array(4).fill('none'),
+  splitMajorC: Array(4).fill('none'),
+
+  // D
+  progressionD: ['', '', '', ''],
+  rhythmBoxesD: Array(10).fill(false),
+  seventhD: Array(4).fill(false),
+  sixthD: Array(4).fill(false),
+  secondD: Array(4).fill(false),
+  fourthD: Array(4).fill(false),
+  susD: Array(4).fill(false),
+  majSeventhD: Array(4).fill(false),
+  augD: Array(4).fill('none'),
+  majorD: Array(4).fill('none'),
+  splitChordActiveD: Array(4).fill(false),
+  splitChordValueD: ['', '', '', ''],
+  splitSeventhD: Array(4).fill(false),
+  splitSixthD: Array(4).fill(false),
+  splitSecondD: Array(4).fill(false),
+  splitFourthD: Array(4).fill(false),
+  splitSusD: Array(4).fill(false),
+  splitMajSeventhD: Array(4).fill(false),
+  splitAugD: Array(4).fill('none'),
+  splitMajorD: Array(4).fill('none'),
 };
 
 export function getProgressionData(progLetter) {
   switch(progLetter) {
-    case 'A': return { p: appState.progressionA, r: appState.rhythmBoxesA, s7: appState.seventhA, s6: appState.sixthA, s2: appState.secondA, s4: appState.fourthA, sus: appState.susA, aug: appState.augA, maj7: appState.majSeventhA, m: appState.majorA, splitActive: appState.splitChordActiveA, splitVal: appState.splitChordValueA, splitS7: appState.splitSeventhA, splitS6: appState.splitSixthA, splitS2: appState.splitSecondA, splitS4: appState.splitFourthA, splitSus: appState.splitSusA, splitAug: appState.splitAugA, splitMaj7: appState.splitMajSeventhA, splitM: appState.splitMajorA };
-    case 'B': return { p: appState.progressionB, r: appState.rhythmBoxesB, s7: appState.seventhB, s6: appState.sixthB, s2: appState.secondB, s4: appState.fourthB, sus: appState.susB, aug: appState.augB, maj7: appState.majSeventhB, m: appState.majorB, splitActive: appState.splitChordActiveB, splitVal: appState.splitChordValueB, splitS7: appState.splitSeventhB, splitS6: appState.splitSixthB, splitS2: appState.splitSecondB, splitS4: appState.splitFourthB, splitSus: appState.splitSusB, splitAug: appState.splitAugB, splitMaj7: appState.splitMajSeventhB, splitM: appState.splitMajorB };
-    case 'C': return { p: appState.progressionC, r: appState.rhythmBoxesC, s7: appState.seventhC, s6: appState.sixthC, s2: appState.secondC, s4: appState.fourthC, sus: appState.susC, aug: appState.augC, maj7: appState.majSeventhC, m: appState.majorC, splitActive: appState.splitChordActiveC, splitVal: appState.splitChordValueC, splitS7: appState.splitSeventhC, splitS6: appState.splitSixthC, splitS2: appState.splitSecondC, splitS4: appState.splitFourthC, splitSus: appState.splitSusC, splitAug: appState.splitAugC, splitMaj7: appState.splitMajSeventhC, splitM: appState.splitMajorC };
-    case 'D': return { p: appState.progressionD, r: appState.rhythmBoxesD, s7: appState.seventhD, s6: appState.sixthD, s2: appState.secondD, s4: appState.fourthD, sus: appState.susD, aug: appState.augD, maj7: appState.majSeventhD, m: appState.majorD, splitActive: appState.splitChordActiveD, splitVal: appState.splitChordValueD, splitS7: appState.splitSeventhD, splitS6: appState.splitSixthD, splitS2: appState.splitSecondD, splitS4: appState.splitFourthD, splitSus: appState.splitSusD, splitAug: appState.splitAugD, splitMaj7: appState.splitMajSeventhD, splitM: appState.splitMajorD };
+    case 'A': return { p: appState.progressionA, r: appState.rhythmBoxesA, s7: appState.seventhA, s6: appState.sixthA, s2: appState.secondA, s4: appState.fourthA, sus: appState.susA, aug: appState.augA, maj7: appState.majSeventhA, m: appState.majorA, splitActive: appState.splitChordActiveA, splitVal: appState.splitChordValueA, splitS7: appState.splitSeventhA, splitS6: appState.splitSixthA, splitS2: appState.splitSecondA, splitS4: appState.splitFourthA, splitSus: appState.splitSusA, splitMaj7: appState.splitMajSeventhA, splitAug: appState.splitAugA, splitM: appState.splitMajorA };
+    case 'B': return { p: appState.progressionB, r: appState.rhythmBoxesB, s7: appState.seventhB, s6: appState.sixthB, s2: appState.secondB, s4: appState.fourthB, sus: appState.susB, aug: appState.augB, maj7: appState.majSeventhB, m: appState.majorB, splitActive: appState.splitChordActiveB, splitVal: appState.splitChordValueB, splitS7: appState.splitSeventhB, splitS6: appState.splitSixthB, splitS2: appState.splitSecondB, splitS4: appState.splitFourthB, splitSus: appState.splitSusB, splitMaj7: appState.splitMajSeventhB, splitAug: appState.splitAugB, splitM: appState.splitMajorB };
+    case 'C': return { p: appState.progressionC, r: appState.rhythmBoxesC, s7: appState.seventhC, s6: appState.sixthC, s2: appState.secondC, s4: appState.fourthC, sus: appState.susC, aug: appState.augC, maj7: appState.majSeventhC, m: appState.majorC, splitActive: appState.splitChordActiveC, splitVal: appState.splitChordValueC, splitS7: appState.splitSeventhC, splitS6: appState.splitSixthC, splitS2: appState.splitSecondC, splitS4: appState.splitFourthC, splitSus: appState.splitSusC, splitMaj7: appState.splitMajSeventhC, splitAug: appState.splitAugC, splitM: appState.splitMajorC };
+    case 'D': return { p: appState.progressionD, r: appState.rhythmBoxesD, s7: appState.seventhD, s6: appState.sixthD, s2: appState.secondD, s4: appState.fourthD, sus: appState.susD, aug: appState.augD, maj7: appState.majSeventhD, m: appState.majorD, splitActive: appState.splitChordActiveD, splitVal: appState.splitChordValueD, splitS7: appState.splitSeventhD, splitS6: appState.splitSixthD, splitS2: appState.splitSecondD, splitS4: appState.splitFourthD, splitSus: appState.splitSusD, splitMaj7: appState.splitMajSeventhD, splitAug: appState.splitAugD, splitM: appState.splitMajorD };
     default: return null;
   }
 }
