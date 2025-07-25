@@ -5,18 +5,18 @@ export const waveforms = ['sine', 'triangle', 'square', 'saw', 'voice'];
 export const displayKeys = ['C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B'];
 
 export const keyMap = {
-    'C': { 'Major': 'C', 'Natural Minor': 'C' },
-    'C#/Db': { 'Major': 'Db', 'Natural Minor': 'C#' },
-    'D': { 'Major': 'D', 'Natural Minor': 'D' },
-    'D#/Eb': { 'Major': 'Eb', 'Natural Minor': 'Eb' },
-    'E': { 'Major': 'E', 'Natural Minor': 'E' },
-    'F': { 'Major': 'F', 'Natural Minor': 'F' },
-    'F#/Gb': { 'Major': 'Gb', 'Natural Minor': 'F#' },
-    'G': { 'Major': 'G', 'Natural Minor': 'G' },
-    'G#/Ab': { 'Major': 'Ab', 'Natural Minor': 'G#' },
-    'A': { 'Major': 'A', 'Natural Minor': 'A' },
-    'A#/Bb': { 'Major': 'Bb', 'Natural Minor': 'Bb' },
-    'B': { 'Major': 'B', 'Natural Minor': 'B' }
+    'C': { 'Major': 'C', 'Natural Minor': 'C', 'Harmonic Minor': 'C' },
+    'C#/Db': { 'Major': 'Db', 'Natural Minor': 'C#', 'Harmonic Minor': 'C#' },
+    'D': { 'Major': 'D', 'Natural Minor': 'D', 'Harmonic Minor': 'D' },
+    'D#/Eb': { 'Major': 'Eb', 'Natural Minor': 'Eb', 'Harmonic Minor': 'Eb' },
+    'E': { 'Major': 'E', 'Natural Minor': 'E', 'Harmonic Minor': 'E' },
+    'F': { 'Major': 'F', 'Natural Minor': 'F', 'Harmonic Minor': 'F' },
+    'F#/Gb': { 'Major': 'Gb', 'Natural Minor': 'F#', 'Harmonic Minor': 'F#' },
+    'G': { 'Major': 'G', 'Natural Minor': 'G', 'Harmonic Minor': 'G' },
+    'G#/Ab': { 'Major': 'Ab', 'Natural Minor': 'G#', 'Harmonic Minor': 'G#' },
+    'A': { 'Major': 'A', 'Natural Minor': 'A', 'Harmonic Minor': 'A' },
+    'A#/Bb': { 'Major': 'Bb', 'Natural Minor': 'Bb', 'Harmonic Minor': 'Bb' },
+    'B': { 'Major': 'B', 'Natural Minor': 'B', 'Harmonic Minor': 'B' }
 };
 
 // --- Time Signature Variables ---
@@ -34,18 +34,18 @@ export const optionColors = {
 
 // --- Chord Data for Each Key ---
 const majorKeyChordMap = {
-  'C': [ { value: 'C',  display: 'C / I' }, { value: 'Dm', display: 'Dm / ii' }, { value: 'Em', display: 'Em / iii' }, { value: 'F',  display: 'F / IV' }, { value: 'G',  display: 'G / V' }, { value: 'Am', display: 'Am / vi' }, { value: 'Bdim', display: 'Bdim / vii°' } ],
-  'Db': [ { value: 'Db', display: 'Db / I' }, { value: 'Ebm',display: 'Ebm / ii' }, { value: 'Fm', display: 'Fm / iii' }, { value: 'Gb', display: 'Gb / IV' }, { value: 'Ab', display: 'Ab / V' }, { value: 'Bbm',display: 'Bbm / vi' }, { value: 'Cdim', display: 'Cdim / vii°' } ],
-  'D': [ { value: 'D',  display: 'D / I' }, { value: 'Em', display: 'Em / ii' }, { value: 'F#m',display: 'F#m / iii' }, { value: 'G',  display: 'G / IV' }, { value: 'A',  display: 'A / V' }, { value: 'Bm', display: 'Bm / vi' }, { value: 'C#dim',display: 'C#dim / vii°' } ],
-  'Eb': [ { value: 'Eb', display: 'Eb / I' }, { value: 'Fm', display: 'Fm / ii' }, { value: 'Gm', display: 'Gm / iii' }, { value: 'Ab', display: 'Ab / IV' }, { value: 'Bb', display: 'Bb / V' }, { value: 'Cm', display: 'Cm / vi' }, { value: 'Ddim', display: 'Ddim / vii°' } ],
-  'E': [ { value: 'E',  display: 'E / I' }, { value: 'F#m',display: 'F#m / ii' }, { value: 'G#m',display: 'G#m / iii' }, { value: 'A',  display: 'A / IV' }, { value: 'B',  display: 'B / V' }, { value: 'C#m',display: 'C#m / vi' }, { value: 'D#dim',display: 'D#dim / vii°' } ],
-  'F': [ { value: 'F',  display: 'F / I' }, { value: 'Gm', display: 'Gm / ii' }, { value: 'Am', display: 'Am / iii' }, { value: 'Bb', display: 'Bb / IV' }, { value: 'C',  display: 'C / V' }, { value: 'Dm', display: 'Dm / vi' }, { value: 'Edim', display: 'Edim / vii°' } ],
-  'Gb': [ { value: 'Gb', display: 'Gb / I' }, { value: 'Abm',display: 'Abm / ii' }, { value: 'Bbm',display: 'Bbm / iii' }, { value: 'Cb', display: 'Cb / IV' },  { value: 'Db', display: 'Db / V' }, { value: 'Ebm',display: 'Ebm / vi' }, { value: 'Fdim', display: 'Fdim / vii°' } ],
-  'G': [ { value: 'G',  display: 'G / I' }, { value: 'Am', display: 'Am / ii' }, { value: 'Bm', display: 'Bm / iii' }, { value: 'C',  display: 'C / IV' }, { value: 'D',  display: 'D / V' }, { value: 'Em', display: 'Em / vi' }, { value: 'F#dim',display: 'F#dim / vii°' } ],
-  'Ab': [ { value: 'Ab', display: 'Ab / I' }, { value: 'Bbm',display: 'Bbm / ii' }, { value: 'Cm', display: 'Cm / iii' }, { value: 'Db', display: 'Db / IV' }, { value: 'Eb', display: 'Eb / V' }, { value: 'Fm', display: 'Fm / vi' }, { value: 'Gdim', display: 'Gdim / vii°' } ],
-  'A': [ { value: 'A',  display: 'A / I' }, { value: 'Bm', display: 'Bm / ii' }, { value: 'C#m',display: 'C#m / iii' }, { value: 'D',  display: 'D / IV' }, { value: 'E',  display: 'E / V' }, { value: 'F#m',display: 'F#m / vi' }, { value: 'G#dim',display: 'G#dim / vii°' } ],
-  'Bb': [ { value: 'Bb', display: 'Bb / I' }, { value: 'Cm', display: 'Cm / ii' }, { value: 'Dm', display: 'Dm / iii' }, { value: 'Eb', display: 'Eb / IV' }, { value: 'F',  display: 'F / V' }, { value: 'Gm', display: 'Gm / vi' }, { value: 'Adim', display: 'Adim / vii°' } ],
-  'B': [ { value: 'B',  display: 'B / I' }, { value: 'C#m',display: 'C#m / ii' }, { value: 'D#m',display: 'D#m / iii' }, { value: 'E',  display: 'E / IV' }, { value: 'F#', display: 'F# / V' }, { value: 'G#m',display: 'G#m / vi' }, { value: 'A#dim',display: 'A#dim / vii°' } ]
+  'C': [ { value: 'C',  display: 'C / I' }, { value: 'Dm', display: 'Dm / ii' }, { value: 'Em', display: 'Em / iii' }, { value: 'F',  display: 'F / IV' }, { value: 'G',  display: 'G / V' }, { value: 'Am', display: 'Am / vi' }, { value: 'Bb', display: 'Bb / bVII' } ],
+  'Db': [ { value: 'Db', display: 'Db / I' }, { value: 'Ebm',display: 'Ebm / ii' }, { value: 'Fm', display: 'Fm / iii' }, { value: 'Gb', display: 'Gb / IV' }, { value: 'Ab', display: 'Ab / V' }, { value: 'Bbm',display: 'Bbm / vi' }, { value: 'Cb', display: 'Cb / bVII' } ],
+  'D': [ { value: 'D',  display: 'D / I' }, { value: 'Em', display: 'Em / ii' }, { value: 'F#m',display: 'F#m / iii' }, { value: 'G',  display: 'G / IV' }, { value: 'A',  display: 'A / V' }, { value: 'Bm', display: 'Bm / vi' }, { value: 'C',  display: 'C / bVII' } ],
+  'Eb': [ { value: 'Eb', display: 'Eb / I' }, { value: 'Fm', display: 'Fm / ii' }, { value: 'Gm', display: 'Gm / iii' }, { value: 'Ab', display: 'Ab / IV' }, { value: 'Bb', display: 'Bb / V' }, { value: 'Cm', display: 'Cm / vi' }, { value: 'Db', display: 'Db / bVII' } ],
+  'E': [ { value: 'E',  display: 'E / I' }, { value: 'F#m',display: 'F#m / ii' }, { value: 'G#m',display: 'G#m / iii' }, { value: 'A',  display: 'A / IV' }, { value: 'B',  display: 'B / V' }, { value: 'C#m',display: 'C#m / vi' }, { value: 'D',  display: 'D / bVII' } ],
+  'F': [ { value: 'F',  display: 'F / I' }, { value: 'Gm', display: 'Gm / ii' }, { value: 'Am', display: 'Am / iii' }, { value: 'Bb', display: 'Bb / IV' }, { value: 'C',  display: 'C / V' }, { value: 'Dm', display: 'Dm / vi' }, { value: 'Eb', display: 'Eb / bVII' } ],
+  'Gb': [ { value: 'Gb', display: 'Gb / I' }, { value: 'Abm',display: 'Abm / ii' }, { value: 'Bbm',display: 'Bbm / iii' }, { value: 'Cb', display: 'Cb / IV' },  { value: 'Db', display: 'Db / V' }, { value: 'Ebm',display: 'Ebm / vi' }, { value: 'Fb', display: 'Fb / bVII' } ],
+  'G': [ { value: 'G',  display: 'G / I' }, { value: 'Am', display: 'Am / ii' }, { value: 'Bm', display: 'Bm / iii' }, { value: 'C',  display: 'C / IV' }, { value: 'D',  display: 'D / V' }, { value: 'Em', display: 'Em / vi' }, { value: 'F',  display: 'F / bVII' } ],
+  'Ab': [ { value: 'Ab', display: 'Ab / I' }, { value: 'Bbm',display: 'Bbm / ii' }, { value: 'Cm', display: 'Cm / iii' }, { value: 'Db', display: 'Db / IV' }, { value: 'Eb', display: 'Eb / V' }, { value: 'Fm', display: 'Fm / vi' }, { value: 'Gb', display: 'Gb / bVII' } ],
+  'A': [ { value: 'A',  display: 'A / I' }, { value: 'Bm', display: 'Bm / ii' }, { value: 'C#m',display: 'C#m / iii' }, { value: 'D',  display: 'D / IV' }, { value: 'E',  display: 'E / V' }, { value: 'F#m',display: 'F#m / vi' }, { value: 'G',  display: 'G / bVII' } ],
+  'Bb': [ { value: 'Bb', display: 'Bb / I' }, { value: 'Cm', display: 'Cm / ii' }, { value: 'Dm', display: 'Dm / iii' }, { value: 'Eb', display: 'Eb / IV' }, { value: 'F',  display: 'F / V' }, { value: 'Gm', display: 'Gm / vi' }, { value: 'Ab', display: 'Ab / bVII' } ],
+  'B': [ { value: 'B',  display: 'B / I' }, { value: 'C#m',display: 'C#m / ii' }, { value: 'D#m',display: 'D#m / iii' }, { value: 'E',  display: 'E / IV' }, { value: 'F#', display: 'F# / V' }, { value: 'G#m',display: 'G#m / vi' }, { value: 'A',  display: 'A / bVII' } ]
 };
 
 const naturalMinorKeyChordMap = {
@@ -62,6 +62,7 @@ const naturalMinorKeyChordMap = {
     'Bb': [ { value: 'Bbm', display: 'Bbm / i' }, { value: 'Fm', display: 'Fm / v' }, { value: 'Ebm', display: 'Ebm / iv' }, { value: 'Gb', display: 'Gb / bVI' }, { value: 'Ab', display: 'Ab / bVII' }, { value: 'Db', display: 'Db / bIII' }, { value: 'Cdim', display: 'Cdim / ii°' } ],
     'B': [ { value: 'Bm', display: 'Bm / i' }, { value: 'F#m', display: 'F#m / v' }, { value: 'Em', display: 'Em / iv' }, { value: 'G', display: 'G / bVI' }, { value: 'A', display: 'A / bVII' }, { value: 'D', display: 'D / bIII' }, { value: 'C#dim', display: 'C#dim / ii°' } ]
 };
+
 const harmonicMinorKeyChordMap = {
     'C': [
         { value: 'Cm', display: 'Cm / i' },
@@ -69,12 +70,134 @@ const harmonicMinorKeyChordMap = {
         { value: 'Fm', display: 'Fm / iv' },
         { value: 'Ab', display: 'Ab / bVI' },
         { value: 'Bdim', display: 'Bdim / vii°' },
-        { value: 'Eb+', display: 'Eb+ / bIII+' },
+        { value: 'Ebaug', display: 'Eb aug / bIII+' },
         { value: 'Db', display: 'Db / bII' },
         { value: 'Eb', display: 'Eb / bIII' },
         { value: 'F', display: 'F / IV' }
+    ],
+    'C#': [
+        { value: 'C#m', display: 'C#m / i' },
+        { value: 'G#', display: 'G# / V' },
+        { value: 'F#m', display: 'F#m / iv' },
+        { value: 'A', display: 'A / bVI' },
+        { value: 'B#dim', display: 'B#dim / vii°' },
+        { value: 'Eaug', display: 'E aug / bIII+' },
+        { value: 'D', display: 'D / bII' },
+        { value: 'E', display: 'E / bIII' },
+        { value: 'F#', display: 'F# / IV' }
+    ],
+    'D': [
+        { value: 'Dm', display: 'Dm / i' },
+        { value: 'A', display: 'A / V' },
+        { value: 'Gm', display: 'Gm / iv' },
+        { value: 'Bb', display: 'Bb / bVI' },
+        { value: 'C#dim', display: 'C#dim / vii°' },
+        { value: 'Faug', display: 'F aug / bIII+' },
+        { value: 'Eb', display: 'Eb / bII' },
+        { value: 'F', display: 'F / bIII' },
+        { value: 'G', display: 'G / IV' }
+    ],
+    'Eb': [
+        { value: 'Ebm', display: 'Ebm / i' },
+        { value: 'Bb', display: 'Bb / V' },
+        { value: 'Abm', display: 'Abm / iv' },
+        { value: 'Cb', display: 'Cb / bVI' },
+        { value: 'Ddim', display: 'Ddim / vii°' },
+        { value: 'Gbaug', display: 'Gb aug / bIII+' },
+        { value: 'Fb', display: 'Fb / bII' },
+        { value: 'Gb', display: 'Gb / bIII' },
+        { value: 'Ab', display: 'Ab / IV' }
+    ],
+    'E': [
+        { value: 'Em', display: 'Em / i' },
+        { value: 'B', display: 'B / V' },
+        { value: 'Am', display: 'Am / iv' },
+        { value: 'C', display: 'C / bVI' },
+        { value: 'D#dim', display: 'D#dim / vii°' },
+        { value: 'Gaug', display: 'G aug / bIII+' },
+        { value: 'F', display: 'F / bII' },
+        { value: 'G', display: 'G / bIII' },
+        { value: 'A', display: 'A / IV' }
+    ],
+    'F': [
+        { value: 'Fm', display: 'Fm / i' },
+        { value: 'C', display: 'C / V' },
+        { value: 'Bbm', display: 'Bbm / iv' },
+        { value: 'Db', display: 'Db / bVI' },
+        { value: 'Edim', display: 'Edim / vii°' },
+        { value: 'Abaug', display: 'Ab aug / bIII+' },
+        { value: 'Gb', display: 'Gb / bII' },
+        { value: 'Ab', display: 'Ab / bIII' },
+        { value: 'Bb', display: 'Bb / IV' }
+    ],
+    'F#': [
+        { value: 'F#m', display: 'F#m / i' },
+        { value: 'C#', display: 'C# / V' },
+        { value: 'Bm', display: 'Bm / iv' },
+        { value: 'D', display: 'D / bVI' },
+        { value: 'E#dim', display: 'E#dim / vii°' },
+        { value: 'Aaug', display: 'A aug / bIII+' },
+        { value: 'G', display: 'G / bII' },
+        { value: 'A', display: 'A / bIII' },
+        { value: 'B', display: 'B / IV' }
+    ],
+    'G': [
+        { value: 'Gm', display: 'Gm / i' },
+        { value: 'D', display: 'D / V' },
+        { value: 'Cm', display: 'Cm / iv' },
+        { value: 'Eb', display: 'Eb / bVI' },
+        { value: 'F#dim', display: 'F#dim / vii°' },
+        { value: 'Bbaug', display: 'Bb aug / bIII+' },
+        { value: 'Ab', display: 'Ab / bII' },
+        { value: 'Bb', display: 'Bb / bIII' },
+        { value: 'C', display: 'C / IV' }
+    ],
+    'G#': [
+        { value: 'G#m', display: 'G#m / i' },
+        { value: 'D#', display: 'D# / V' },
+        { value: 'C#m', display: 'C#m / iv' },
+        { value: 'E', display: 'E / bVI' },
+        { value: 'F##dim', display: 'F##dim / vii°' },
+        { value: 'Baug', display: 'B aug / bIII+' },
+        { value: 'A', display: 'A / bII' },
+        { value: 'B', display: 'B / bIII' },
+        { value: 'C#', display: 'C# / IV' }
+    ],
+    'A': [
+        { value: 'Am', display: 'Am / i' },
+        { value: 'E', display: 'E / V' },
+        { value: 'Dm', display: 'Dm / iv' },
+        { value: 'F', display: 'F / bVI' },
+        { value: 'G#dim', display: 'G#dim / vii°' },
+        { value: 'Caug', display: 'C aug / bIII+' },
+        { value: 'Bb', display: 'Bb / bII' },
+        { value: 'C', display: 'C / bIII' },
+        { value: 'D', display: 'D / IV' }
+    ],
+    'Bb': [
+        { value: 'Bbm', display: 'Bbm / i' },
+        { value: 'F', display: 'F / V' },
+        { value: 'Ebm', display: 'Ebm / iv' },
+        { value: 'Gb', display: 'Gb / bVI' },
+        { value: 'Adim', display: 'Adim / vii°' },
+        { value: 'Dbaug', display: 'Db aug / bIII+' },
+        { value: 'Cb', display: 'Cb / bII' },
+        { value: 'Db', display: 'Db / bIII' },
+        { value: 'Eb', display: 'Eb / IV' }
+    ],
+    'B': [
+        { value: 'Bm', display: 'Bm / i' },
+        { value: 'F#', display: 'F# / V' },
+        { value: 'Em', display: 'Em / iv' },
+        { value: 'G', display: 'G / bVI' },
+        { value: 'A#dim', display: 'A#dim / vii°' },
+        { value: 'Daug', display: 'D aug / bIII+' },
+        { value: 'C', display: 'C / bII' },
+        { value: 'D', display: 'D / bIII' },
+        { value: 'E', display: 'E / IV' }
     ]
 };
+
 // --- Structure for all scale maps ---
 export const scaleChordMaps = {
   'Major': majorKeyChordMap,
@@ -82,11 +205,11 @@ export const scaleChordMaps = {
   'Harmonic Minor': harmonicMinorKeyChordMap,
 };
 
-
 // --- Create a master list of all unique chords ---
 const allMajorChords = Object.values(majorKeyChordMap).flat().map(c => c.value);
 const allMinorChords = Object.values(naturalMinorKeyChordMap).flat().map(c => c.value);
-export const allChords = [...new Set([...allMajorChords, ...allMinorChords])].sort();
+const allHarmonicMinorChords = Object.values(harmonicMinorKeyChordMap).flat().map(c => c.value);
+export const allChords = [...new Set([...allMajorChords, ...allMinorChords, ...allHarmonicMinorChords])].sort();
 
 export const allChordOptions = allChords.map(chordValue => {
     // Find the best display name (e.g., from the key of C if possible)
@@ -107,9 +230,16 @@ export const allChordOptions = allChords.map(chordValue => {
             return { value: chordValue, display: displayName };
         }
     }
+    // If not in Natural Minor, check Harmonic Minor
+    for (const key in harmonicMinorKeyChordMap) {
+        const found = harmonicMinorKeyChordMap[key].find(c => c.value === chordValue);
+        if (found) {
+            displayName = found.display;
+            return { value: chordValue, display: displayName };
+        }
+    }
     return { value: chordValue, display: displayName };
 });
-
 
 export const songs = {
   "eagle-view-song": {
@@ -393,7 +523,11 @@ export const chordTypes = {
   'Eb': 'major', 'Gm': 'minor', 'Cm': 'minor',
   'E': 'major', 'G#m': 'minor', 'C#m': 'minor',
   'Fb': 'major', 'Abm': 'minor', 
-  'B': 'major', 'D#m': 'minor', 'F#': 'major', 'A': 'major' 
+  'B': 'major', 'D#m': 'minor', 'F#': 'major', 'A': 'major',
+  // Add augmented chords
+  'Ebaug': 'augmented', 'Eaug': 'augmented', 'Faug': 'augmented', 'Gbaug': 'augmented', 'Gaug': 'augmented',
+  'Abaug': 'augmented', 'Aaug': 'augmented', 'Bbaug': 'augmented', 'Baug': 'augmented', 'Caug': 'augmented',
+  'Dbaug': 'augmented', 'Daug': 'augmented'
 };
 
 export const chordAlternateThirds = {
@@ -437,7 +571,11 @@ export const chordAlternateThirds = {
   'Gdim': { 'major': 'B', 'minor': 'B♭', 'majorNote': 'B4', 'minorNote': 'Bb4' },
   'G#dim': { 'major': 'B♯', 'minor': 'B', 'majorNote': 'B#4', 'minorNote': 'B4' },
   'Adim': { 'major': 'C♯', 'minor': 'C', 'majorNote': 'C#5', 'minorNote': 'C5' },
-  'A#dim': { 'major': 'C𝄪', 'minor': 'C♯', 'majorNote': 'C##5', 'minorNote': 'C#5' }
+  'A#dim': { 'major': 'C𝄪', 'minor': 'C♯', 'majorNote': 'C##5', 'minorNote': 'C#5' },
+  // Add new chords from harmonic minor
+  'B#dim': { 'major': 'D𝄪', 'minor': 'D♯', 'majorNote': 'D##4', 'minorNote': 'D#4' },
+  'E#dim': { 'major': 'G𝄪', 'minor': 'G♯', 'majorNote': 'G##4', 'minorNote': 'G#4' },
+  'F##dim': { 'major': 'A𝄪', 'minor': 'A♯', 'majorNote': 'A##4', 'minorNote': 'A#4' }
 };
 
 export const chordTones = { 
@@ -448,7 +586,13 @@ export const chordTones = {
   'E': ['E', 'G♯', 'B'], 'G#m': ['G♯', 'B', 'D♯'], 'C#m': ['C♯', 'E', 'G♯'],
   'Fb': ['F♭', 'A♭', 'C♭'], 'Abm': ['A♭', 'C♭', 'E♭'], 
   'B': ['B', 'D♯', 'F♯'], 'D#m': ['D♯', 'F♯', 'A♯'], 'F#': ['F♯', 'A♯', 'C♯'], 'A': ['A', 'C♯', 'E'],
-  'Bdim': ['B', 'D', 'F'], 'Cdim': ['C', 'E♭', 'G♭'], 'C#dim': ['C♯', 'E', 'G'], 'Ddim': ['D', 'F', 'A♭'], 'D#dim': ['D♯', 'F♯', 'A'], 'Edim': ['E', 'G', 'B♭'], 'Fdim': ['F', 'A♭', 'C♭'], 'F#dim': ['F♯', 'A', 'C'], 'Gdim': ['G', 'B♭', 'D♭'], 'G#dim': ['G♯', 'B', 'D'], 'Adim': ['A', 'C', 'E♭'], 'A#dim': ['A♯', 'C♯', 'E']
+  'Bdim': ['B', 'D', 'F'], 'Cdim': ['C', 'E♭', 'G♭'], 'C#dim': ['C♯', 'E', 'G'], 'Ddim': ['D', 'F', 'A♭'], 'D#dim': ['D♯', 'F♯', 'A'], 'Edim': ['E', 'G', 'B♭'], 'Fdim': ['F', 'A♭', 'C♭'], 'F#dim': ['F♯', 'A', 'C'], 'Gdim': ['G', 'B♭', 'D♭'], 'G#dim': ['G♯', 'B', 'D'], 'Adim': ['A', 'C', 'E♭'], 'A#dim': ['A♯', 'C♯', 'E'],
+  // Add augmented chords
+  'Ebaug': ['E♭', 'G', 'B'], 'Eaug': ['E', 'G♯', 'B♯'], 'Faug': ['F', 'A', 'C♯'], 'Gbaug': ['G♭', 'B♭', 'D'], 'Gaug': ['G', 'B', 'D♯'],
+  'Abaug': ['A♭', 'C', 'E'], 'Aaug': ['A', 'C♯', 'E♯'], 'Bbaug': ['B♭', 'D', 'F♯'], 'Baug': ['B', 'D♯', 'F𝄪'], 'Caug': ['C', 'E', 'G♯'],
+  'Dbaug': ['D♭', 'F', 'A'], 'Daug': ['D', 'F♯', 'A♯'],
+  // Add new diminished chords
+  'B#dim': ['B♯', 'D♯', 'F♯'], 'E#dim': ['E♯', 'G♯', 'B'], 'F##dim': ['F𝄪', 'A♯', 'C♯']
 };
 
 export const chordSevenths = { 
@@ -459,150 +603,14 @@ export const chordSevenths = {
   'E': 'D', 'G#m': 'F♯', 'C#m': 'B',
   'Fb': 'E𝄫', 'Abm': 'G♭', 
   'B': 'A', 'D#m': 'C♯', 'F#': 'E', 'A': 'G',
-  'Bdim': 'A', 'Cdim': 'B♭', 'C#dim': 'B', 'Ddim': 'C', 'D#dim': 'C♯', 'Edim': 'D', 'Fdim': 'E♭', 'F#dim': 'E', 'Gdim': 'F', 'G#dim': 'F♯', 'Adim': 'G', 'A#dim': 'G♯'
+  'Bdim': 'A', 'Cdim': 'B♭', 'C#dim': 'B', 'Ddim': 'C', 'D#dim': 'C♯', 'Edim': 'D', 'Fdim': 'E♭', 'F#dim': 'E', 'Gdim': 'F', 'G#dim': 'F♯', 'Adim': 'G', 'A#dim': 'G♯',
+  // Add augmented chord sevenths
+  'Ebaug': 'D♭', 'Eaug': 'D', 'Faug': 'E♭', 'Gbaug': 'F♭', 'Gaug': 'F',
+  'Abaug': 'G♭', 'Aaug': 'G', 'Bbaug': 'A♭', 'Baug': 'A', 'Caug': 'B♭',
+  'Dbaug': 'C♭', 'Daug': 'C',
+  // Add new diminished chord sevenths
+  'B#dim': 'A♯', 'E#dim': 'D♯', 'F##dim': 'E♯'
 };
 export const chordMajorSevenths = { 
   'C': 'B', 'Dm': 'C♯', 'Em': 'D♯', 'F': 'E', 'G': 'F♯', 'Am': 'G♯', 'Bb': 'A',
-  'Db': 'C', 'Ebm': 'D', 'Fm': 'E', 'Gb': 'F', 'Ab': 'G', 'Bbm': 'A', 'Cb': 'B♭',
-  'D': 'C♯', 'F#m': 'E♯', 'Bm': 'A♯',
-  'Eb': 'D', 'Gm': 'F♯', 'Cm': 'B',
-  'E': 'D♯', 'G#m': 'F𝄪', 'C#m': 'B♯',
-  'Fb': 'E♭', 'Abm': 'G', 
-  'B': 'A♯', 'D#m': 'C𝄪', 'F#': 'E♯', 'A': 'G♯',
-  'Bdim': 'A♯', 'Cdim': 'B', 'C#dim': 'B♯', 'Ddim': 'C♯', 'D#dim': 'C𝄪', 'Edim': 'D♯', 'Fdim': 'E', 'F#dim': 'E♯', 'Gdim': 'F♯', 'G#dim': 'F𝄪', 'Adim': 'G♯', 'A#dim': 'G𝄪'
-};
-export const chordSeconds = { 
-  'C': 'D', 'Dm': 'E', 'Em': 'F♯', 'F': 'G', 'G': 'A', 'Am': 'B', 'Bb': 'C',
-  'Db': 'E♭', 'Ebm': 'F', 'Fm': 'G', 'Gb': 'A♭', 'Ab': 'B♭', 'Bbm': 'C', 'Cb': 'D♭',
-  'D': 'E', 'F#m': 'G♯', 'Bm': 'C♯',
-  'Eb': 'F', 'Gm': 'A', 'Cm': 'D',
-  'E': 'F♯', 'G#m': 'A♯', 'C#m': 'D♯',
-  'Fb': 'G♭', 'Abm': 'B♭', 
-  'B': 'C♯', 'D#m': 'E♯', 'F#': 'G♯', 'A': 'B',
-  'Bdim': 'C♯', 'Cdim': 'D', 'C#dim': 'D♯', 'Ddim': 'E', 'D#dim': 'E♯', 'Edim': 'F♯', 'Fdim': 'G', 'F#dim': 'G♯', 'Gdim': 'A', 'G#dim': 'A♯', 'Adim': 'B', 'A#dim': 'B♯'
-};
-export const chordFourths = { 
-  'C': 'F', 'Dm': 'G', 'Em': 'A', 'F': 'B♭', 'G': 'C', 'Am': 'D', 'Bb': 'E♭',
-  'Db': 'G♭', 'Ebm': 'A♭', 'Fm': 'B♭', 'Gb': 'C♭', 'Ab': 'D♭', 'Bbm': 'E♭', 'Cb': 'F♭',
-  'D': 'G', 'F#m': 'B', 'Bm': 'E',
-  'Eb': 'A♭', 'Gm': 'C', 'Cm': 'F',
-  'E': 'A', 'G#m': 'C♯', 'C#m': 'F♯',
-  'Fb': 'B𝄫', 'Abm': 'D♭', 
-  'B': 'E', 'D#m': 'G♯', 'F#': 'B', 'A': 'D',
-  'Bdim': 'E', 'Cdim': 'F', 'C#dim': 'F♯', 'Ddim': 'G', 'D#dim': 'G♯', 'Edim': 'A', 'Fdim': 'B♭', 'F#dim': 'B', 'Gdim': 'C', 'G#dim': 'C♯', 'Adim': 'D', 'A#dim': 'D♯'
-};
-export const chordSixths = {
-    'C': 'A', 'Dm': 'B', 'Em': 'C♯', 'F': 'D', 'G': 'E', 'Am': 'F♯', 'Bb': 'G',
-    'Db': 'B♭', 'Ebm': 'C', 'Fm': 'D', 'Gb': 'E♭', 'Ab': 'F', 'Bbm': 'G', 'Cb': 'A♭',
-    'D': 'B', 'F#m': 'D♯', 'Bm': 'G♯',
-    'Eb': 'C', 'Gm': 'E', 'Cm': 'A',
-    'E': 'C♯', 'G#m': 'E♯', 'C#m': 'A♯',
-    'Fb': 'D♭', 'Abm': 'F',
-    'B': 'G♯', 'D#m': 'B♯', 'F#': 'D♯', 'A': 'F♯',
-    'Bdim': 'G', 'Cdim': 'A', 'C#dim': 'A♯', 'Ddim': 'B', 'D#dim': 'B♯', 'Edim': 'C♯', 'Fdim': 'D', 'F#dim': 'D♯', 'Gdim': 'E', 'G#dim': 'E♯', 'Adim': 'F', 'A#dim': 'F♯'
-};
-export const chordAugmentedFifths = {
-    'C': 'G#', 'Dm': 'A#', 'Em': 'B#', 'F': 'C#', 'G': 'D#', 'Am': 'E#', 'Bb': 'F#',
-    'Db': 'A', 'Ebm': 'B', 'Fm': 'C#', 'Gb': 'D', 'Ab': 'E', 'Bbm': 'F#', 'Cb': 'G',
-    'D': 'A#', 'F#m': 'C𝄪', 'Bm': 'F𝄪',
-    'Eb': 'B', 'Gm': 'D#', 'Cm': 'G#',
-    'E': 'B#', 'G#m': 'D𝄪', 'C#m': 'G𝄪',
-    'Fb': 'C', 'Abm': 'E',
-    'B': 'F𝄪', 'D#m': 'A𝄪', 'F#': 'C𝄪', 'A': 'E#',
-    'Bdim': 'G', 'Cdim': 'Ab', 'C#dim': 'A', 'Ddim': 'Bb', 'D#dim': 'B', 'Edim': 'C', 'Fdim': 'Db', 'F#dim': 'D', 'Gdim': 'Eb', 'G#dim': 'E', 'Adim': 'F', 'A#dim': 'F#'
-};
-export const chordDiminishedFifths = {
-    'C': 'G♭', 'Dm': 'A♭', 'Em': 'B♭', 'F': 'C♭', 'G': 'D♭', 'Am': 'E♭', 'Bb': 'F♭',
-    'Db': 'A𝄫', 'Ebm': 'B𝄫', 'Fm': 'C♭', 'Gb': 'D𝄫', 'Ab': 'E𝄫', 'Bbm': 'F♭', 'Cb': 'G𝄫',
-    'D': 'A♭', 'F#m': 'C', 'Bm': 'F',
-    'Eb': 'B𝄫', 'Gm': 'D♭', 'Cm': 'G♭',
-    'E': 'B♭', 'G#m': 'D', 'C#m': 'G',
-    'Fb': 'C𝄫', 'Abm': 'E𝄫',
-    'B': 'F', 'D#m': 'A', 'F#': 'C', 'A': 'E♭',
-    'Bdim': 'F♭', 'Cdim': 'G𝄫', 'C#dim': 'G♭', 'Ddim': 'A𝄫', 'D#dim': 'A♭', 'Edim': 'B𝄫', 'Fdim': 'C𝄫', 'F#dim': 'C♭', 'Gdim': 'D𝄫', 'G#dim': 'D♭', 'Adim': 'E𝄫', 'A#dim': 'E♭'
-};
-
-export const rhythmChordNotes = { 
-  'C': ['C3', 'C4', 'E4', 'G4', 'C5'], 'Dm': ['D3', 'D4', 'F4', 'A4', 'D5'], 'Em': ['E3', 'E4', 'G4', 'B4', 'E5'], 'F':  ['F3', 'F4', 'A4', 'C5', 'F5'],  'G':  ['G3', 'G4', 'B4', 'D5', 'G5'], 'Am': ['A2', 'A3', 'C4', 'E4', 'A4'], 'Bb': ['Bb2', 'Bb3', 'D4', 'F4', 'Bb4'],
-  'Db': ['Db3','Db4','F4','Ab4','Db5'], 'Ebm':['Eb3','Eb4','Gb4','Bb4','Eb5'], 'Fm': ['F3','F4','Ab4','C5','F5'], 'Gb': ['Gb3', 'Gb4', 'Bb3', 'Db4', 'Gb5'], 'Ab': ['Ab2','Ab3','C4','Eb4','Ab4'], 'Bbm':['Bb2','Bb3','Db4','F4','Bb4'], 'Cb': ['Cb3','Cb4','Eb4','Gb4','Cb5'],
-  'D':  ['D3', 'D4', 'F#4', 'A4', 'D5'], 'F#m':['F#3','F#4','A4','C#5','F#5'], 'Bm': ['B2','B3','D4','F#4','B4'],
-  'Eb': ['Eb3','Eb4','G4','Bb4','Eb5'], 'Gm': ['G3','G4','Bb4','D5','G5'], 'Cm': ['C3','C4','Eb4','G4','C5'],
-  'E':  ['E3', 'E4', 'G#4', 'B4', 'E5'], 'G#m':['G#3','G#4','B4','D#5','G#5'], 'C#m':['C#3','C#4','E4','G#4','C#5'],
-  'Fb': ['Fb3','Fb4','Ab4','Cb4','Fb5'], 'Abm':['Ab2','Ab3','Cb4','Eb4','Ab4'], 
-  'B':  ['B2', 'B3', 'D#4', 'F#4', 'B4'], 'D#m':['D#3','D#4','F#4','A#4','D#5'], 'F#': ['F#3','F#4','A#4','C#5','F#5'], 'A': ['A2','A3','C#4','E4','A4'],
-  'Bdim': ['B2', 'B3', 'D4', 'F4', 'B4'], 'Cdim': ['C3', 'C4', 'Eb4', 'Gb4', 'C5'], 'C#dim': ['C#3', 'C#4', 'E4', 'G4', 'C#5'], 'Ddim': ['D3', 'D4', 'F4', 'Ab4', 'D5'], 'D#dim': ['D#3', 'D#4', 'F#4', 'A4', 'D#5'], 'Edim': ['E3', 'E4', 'G4', 'Bb4', 'E5'], 'Fdim': ['F3', 'F4', 'Ab4', 'C5', 'F5'], 'F#dim': ['F#3', 'F#4', 'A4', 'C4', 'F#4'], 'Gdim': ['G3', 'G4', 'Bb4', 'Db5', 'G5'], 'G#dim': ['G#3', 'G#4', 'B4', 'D5', 'G#5'], 'Adim': ['A2', 'A3', 'C4', 'Eb4', 'A4'], 'A#dim': ['A#2', 'A#3', 'C#4', 'E4', 'A#4'],
-  'Ddim7': ['D3', 'D4', 'F4', 'Ab4', 'Cb5'], 'D#dim7': ['D#3', 'D#4', 'F#4', 'A4', 'C5'], 'Edim7': ['E3', 'E4', 'G4', 'Bb4', 'Db5'], 'Fdim7': ['F3', 'F4', 'Ab4', 'Cb5', 'Ebb5'], 'F#dim7': ['F#3', 'F#4', 'A4', 'C5', 'E5'], 'Gdim7': ['G3', 'G4', 'Bb4', 'Db5', 'Fb5'], 'G#dim7': ['G#3', 'G#4', 'B4', 'D5', 'F5'], 'Adim7': ['A2', 'A3', 'C4', 'Eb4', 'Gb4'], 'A#dim7': ['A#2', 'A#3', 'C#4', 'E4', 'G4'], 'Bdim7': ['B2', 'B3', 'D4', 'F4', 'Ab4'], 'Cdim7': ['C3', 'C4', 'Eb4', 'Gb4', 'Bbb4'], 'C#dim7': ['C#3', 'C#4', 'E4', 'G4', 'Bb4']
-};
-export const rhythmChordSeventhNotes = { 
-  'C': 'Bb4', 'Dm': 'C5', 'Em': 'D5', 'F': 'Eb5', 'G': 'F5', 'Am': 'G4', 'Bb': 'Ab4',
-  'Db':'Cb4', 'Ebm':'Db5', 'Fm':'Eb5', 'Gb':'Fb5', 'Ab':'Gb4', 'Bbm':'Ab4', 'Cb':'Bbb4',
-  'D': 'C5', 'F#m':'E5', 'Bm':'A4',
-  'Eb':'Db5', 'Gm':'F5', 'Cm':'Bb4',
-  'E': 'D5', 'G#m':'F#5', 'C#m':'B4',
-  'Fb':'Ebb5', 'Abm': 'Gb4', 
-  'B': 'A4', 'D#m':'C#5', 'F#':'E5', 'A':'G4',
-  'Bdim': 'A4', 'Cdim': 'Bb4', 'C#dim': 'B4', 'Ddim': 'C5', 'D#dim': 'C#5', 'Edim': 'D5', 'Fdim': 'Eb5', 'F#dim': 'E5', 'Gdim': 'F5', 'G#dim': 'F#5', 'Adim': 'G4', 'A#dim': 'G#4'
-};
-export const rhythmChordMajorSeventhNotes = { 
-  'C': 'B4', 'Dm': 'C#5', 'Em': 'D#5', 'F': 'E5', 'G': 'F#4', 'Am': 'G#4', 'Bb': 'A4',
-  'Db':'C5', 'Ebm':'D5', 'Fm':'E5', 'Gb':'F4', 'Ab':'G4', 'Bbm':'A4', 'Cb':'Bb4',
-  'D': 'C#5', 'F#m':'E#5', 'Bm':'A#4', 
-  'Eb':'D5', 'Gm':'F#5', 'Cm':'B4',
-  'E': 'D#5', 'G#m':'F##5', 'C#m':'B#5', 
-  'Fb':'Eb5', 'Abm': 'G4', 
-  'B': 'A#4', 'D#m':'C##5', 'F#':'E#5', 'A':'G#4',
-  'Bdim': 'A#4', 'Cdim': 'B4', 'C#dim': 'B#4', 'Ddim': 'C#5', 'D#dim': 'C##5', 'Edim': 'D#5', 'Fdim': 'E5', 'F#dim': 'E#5', 'Gdim': 'F#5', 'G#dim': 'F##5', 'Adim': 'G#4', 'A#dim': 'G##4'
-};
-export const rhythmChordSecondNotes = {
-  'C': 'D4', 'Dm': 'E4', 'Em': 'F#4', 'F': 'G4', 'G': 'A4', 'Am': 'B4', 'Bb': 'C4',
-  'Db':'Eb4', 'Ebm':'F4', 'Fm':'G4', 'Gb':'Ab4', 'Ab':'Bb4', 'Bbm':'C4', 'Cb':'Db4',
-  'D': 'E4', 'F#m':'G#4', 'Bm':'C#4',
-  'Eb':'F4', 'Gm':'A4', 'Cm':'D4',
-  'E': 'F#4', 'G#m':'A#4', 'C#m':'D#4',
-  'Fb':'Gb4', 'Abm': 'Bb3', 
-  'B': 'C#4', 'D#m':'E#4', 'F#':'G#4', 'A':'B3',
-  'Bdim': 'C#4', 'Cdim': 'D4', 'C#dim': 'D#4', 'Ddim': 'E4', 'D#dim': 'E#4', 'Edim': 'F#4', 'Fdim': 'G4', 'F#dim': 'G#4', 'Gdim': 'A4', 'G#dim': 'A#4', 'Adim': 'B3', 'A#dim': 'B#3'
-};
-export const rhythmChordFourthNotes = {
-  'C': 'F4', 'Dm': 'G4', 'Em': 'A4', 'F': 'Bb4', 'G': 'C5', 'Am': 'D5', 'Bb': 'Eb4',
-  'Db':'Gb4', 'Ebm':'Ab4', 'Fm':'Bb4', 'Gb':'Cb4', 'Ab':'Db5', 'Bbm':'Eb4', 'Cb':'Fb4',
-  'D': 'G4', 'F#m':'B4', 'Bm':'E4',
-  'Eb':'Ab4', 'Gm':'C5', 'Cm':'F4',
-  'E': 'A4', 'G#m':'C#5', 'C#m':'F#4',
-  'Fb':'Bbb4', 'Abm': 'Db5', 
-  'B': 'E4', 'D#m':'G#4', 'F#':'B3', 'A':'D4',
-  'Bdim': 'E4', 'Cdim': 'F4', 'C#dim': 'F#4', 'Ddim': 'G4', 'D#dim': 'G#4', 'Edim': 'A4', 'Fdim': 'Bb4', 'F#dim': 'B3', 'Gdim': 'C5', 'G#dim': 'C#5', 'Adim': 'D4', 'A#dim': 'D#4'
-};
-export const rhythmChordSixthNotes = {
-  'C': 'A4', 'Dm': 'B4', 'Em': 'C#5', 'F': 'D5', 'G': 'E5', 'Am': 'F#4', 'Bb': 'G4',
-  'Db': 'Bb4', 'Ebm': 'C5', 'Fm': 'D5', 'Gb': 'Eb5', 'Ab': 'F4', 'Bbm': 'G4', 'Cb': 'Ab4',
-  'D': 'B4', 'F#m': 'D#5', 'Bm': 'G#4',
-  'Eb': 'C5', 'Gm': 'E5', 'Cm': 'A4',
-  'E': 'C#5', 'G#m': 'E#5', 'C#m': 'A#4',
-  'Fb': 'Db5', 'Abm': 'F4',
-  'B': 'G#4', 'D#m': 'B#4', 'F#': 'D#5', 'A': 'F#4',
-  'Bdim': 'G4', 'Cdim': 'A4', 'C#dim': 'A#4', 'Ddim': 'B4', 'D#dim': 'B#4', 'Edim': 'C#5', 'Fdim': 'D5', 'F#dim': 'D#5', 'Gdim': 'E5', 'G#dim': 'E#5', 'Adim': 'F4', 'A#dim': 'F#4'
-};
-
-
-export const noteColorClass = {
-  'C': 'note-C', 'D': 'note-D', 'E': 'note-E', 'F': 'note-F', 'G': 'note-G', 'A': 'note-A', 'B': 'note-B',
-  'F♯': 'note-F', 'G♯': 'note-G', 'B♭': 'note-B', 'E♭': 'note-E', 'A♭': 'note-A', 'C♯': 'note-C', 'D♭': 'note-D',
-  'F#': 'note-F', 'G#': 'note-G', 'Bb': 'note-B', 'Eb': 'note-E', 'Ab': 'note-A', 'C#': 'note-C', 'Db': 'note-D', 
-  'Cb': 'note-B', 'Fb': 'note-E', 
-  'Abm': 'note-A', 'Ebm': 'note-E', 'Bbm': 'note-B', 'F#m': 'note-F', 'C#m': 'note-C', 'G#m': 'note-G', 'D#m': 'note-D' 
-};
-
-export const restDashImgUrl = "https://eagleviewmusic.com/images/CartoonRhythmBox5.svg";
-export const dashImgUrl = "https://eagleviewmusic.com/images/CartoonRhythmBox1.svg";
-export const rhythmBox2 = "https://eagleviewmusic.com/images/CartoonRhythmBox2.svg";
-export const rhythmBox3 = "https://eagleviewmusic.com/images/CartoonRhythmBox3.svg";
-export const rhythmBox4 = "https://eagleviewmusic.com/images/CartoonRhythmBox4.svg";
-
-export const soundProfiles = {
-  sine: { duration: 0.4, attack: 0.04, hold: 0.2, release: 0.16, filterFreq: 3000, filterQ: 0.5, gain: 0.27, vibrato: false }, // Halfway between 0.36 and 0.18
-  triangle: { duration: 0.29, attack: 0.015, hold: 0.07, release: 0.2, filterFreq: 1200, filterQ: 1, gain: 0.285, vibrato: false }, // Halfway between 0.38 and 0.19
-  square: { duration: 0.25, attack: 0.005, hold: 0.02, release: 0.225, filterFreq: 900, filterQ: 2, gain: 0.225, vibrato: false }, // Halfway between 0.30 and 0.15
-  saw: { duration: 0.33, attack: 0.02, hold: 0.05, release: 0.26, filterFreq: 1600, filterQ: 1.5, gain: 0.21, pitchBend: true, bendAmount: 30, bendTime: 0.08, vibrato: false }, // Halfway between 0.28 and 0.14
-  voice: { duration: 0.5, attack: 0.08, hold: 0.3, release: 0.12, filterFreq: 1000, filterQ: 1, gain: 0.27, vibrato: true, vibratoFreq: 5, vibratoAmount: 4 } // Halfway between 0.36 and 0.18
-};
+  'Db': 'C', 'Ebm': 'D', 'Fm': 'E', 'Gb': 'F', 'Ab': 'G', 'Bbm': 'A', 
