@@ -143,6 +143,7 @@ function initializeSlotBoxes() {
 
 function initializeModifierButtons() {
     document.querySelectorAll('.seventh-btn').forEach((btn, idx) => { btn.onclick = () => toggleSeventh(idx); });
+    document.querySelectorAll('.sixth-btn').forEach((btn, idx) => { btn.onclick = () => toggleSixth(idx); });
     document.querySelectorAll('.second-btn').forEach((btn, idx) => { btn.onclick = () => toggleSecond(idx); });
     document.querySelectorAll('.fourth-btn').forEach((btn, idx) => { btn.onclick = () => toggleFourth(idx); });
     document.querySelectorAll('.sus-btn').forEach((btn, idx) => { btn.onclick = () => toggleSus(idx); });
@@ -411,7 +412,7 @@ function loadProgression(progLetter) {
   const dataToLoad = getProgressionData(progLetter);
   if (!dataToLoad) return;
 
-  const { p, r, s7, s2, s4, sus, aug, maj7, m, splitActive, splitVal } = dataToLoad;
+  const { p, r, s7, s6, s2, s4, sus, aug, maj7, m, splitActive, splitVal } = dataToLoad;
 
   updateChordDropdowns(); 
 
@@ -435,7 +436,8 @@ function loadProgression(progLetter) {
 
   document.querySelectorAll('.bottom-rhythm-box').forEach((box, idx) => box.classList.toggle('active', r[idx]));
   
-  updateModifierButtonVisuals('s7', 'seventh-btn', s7); 
+  updateModifierButtonVisuals('s7', 'seventh-btn', s7);
+  updateModifierButtonVisuals('s6', 'sixth-btn', s6); 
   updateModifierButtonVisuals('s2', 'second-btn', s2); 
   updateModifierButtonVisuals('s4', 'fourth-btn', s4); 
   updateModifierButtonVisuals('sus', 'sus-btn', sus); 
@@ -452,20 +454,20 @@ function clearAll() {
   // Clear Primary
   appState.progressionA = ['', '', '', '']; appState.progressionB = ['', '', '', '']; appState.progressionC = ['', '', '', '']; appState.progressionD = ['', '', '', ''];
   appState.rhythmBoxesA.fill(false); appState.rhythmBoxesB.fill(false); appState.rhythmBoxesC.fill(false); appState.rhythmBoxesD.fill(false);
-  [appState.seventhA, appState.secondA, appState.fourthA, appState.susA, appState.majSeventhA, 
-   appState.seventhB, appState.secondB, appState.fourthB, appState.susB, appState.majSeventhB, 
-   appState.seventhC, appState.secondC, appState.fourthC, appState.susC, appState.majSeventhC, 
-   appState.seventhD, appState.secondD, appState.fourthD, appState.susD, appState.majSeventhD].forEach(arr => arr.fill(false));
+  [appState.seventhA, appState.sixthA, appState.secondA, appState.fourthA, appState.susA, appState.majSeventhA, 
+   appState.seventhB, appState.sixthB, appState.secondB, appState.fourthB, appState.susB, appState.majSeventhB, 
+   appState.seventhC, appState.sixthC, appState.secondC, appState.fourthC, appState.susC, appState.majSeventhC, 
+   appState.seventhD, appState.sixthD, appState.secondD, appState.fourthD, appState.susD, appState.majSeventhD].forEach(arr => arr.fill(false));
   [appState.augA, appState.augB, appState.augC, appState.augD].forEach(arr => arr.fill('none'));
   [appState.majorA, appState.majorB, appState.majorC, appState.majorD].forEach(arr => arr.fill('none'));
   [appState.splitChordActiveA, appState.splitChordActiveB, appState.splitChordActiveC, appState.splitChordActiveD].forEach(arr => arr.fill(false));
   [appState.splitChordValueA, appState.splitChordValueB, appState.splitChordValueC, appState.splitChordValueD].forEach(arr => arr.fill(''));
 
   // Clear Split Chord Modifiers
-  [appState.splitSeventhA, appState.splitSecondA, appState.splitFourthA, appState.splitSusA, appState.splitMajSeventhA,
-   appState.splitSeventhB, appState.splitSecondB, appState.splitFourthB, appState.splitSusB, appState.splitMajSeventhB,
-   appState.splitSeventhC, appState.splitSecondC, appState.splitFourthC, appState.splitSusC, appState.splitMajSeventhC,
-   appState.splitSeventhD, appState.splitSecondD, appState.splitFourthD, appState.splitSusD, appState.splitMajSeventhD].forEach(arr => arr.fill(false));
+  [appState.splitSeventhA, appState.splitSixthA, appState.splitSecondA, appState.splitFourthA, appState.splitSusA, appState.splitMajSeventhA,
+   appState.splitSeventhB, appState.splitSixthB, appState.splitSecondB, appState.splitFourthB, appState.splitSusB, appState.splitMajSeventhB,
+   appState.splitSeventhC, appState.splitSixthC, appState.splitSecondC, appState.splitFourthC, appState.splitSusC, appState.splitMajSeventhC,
+   appState.splitSeventhD, appState.splitSixthD, appState.splitSecondD, appState.splitFourthD, appState.splitSusD, appState.splitMajSeventhD].forEach(arr => arr.fill(false));
   [appState.splitAugA, appState.splitAugB, appState.splitAugC, appState.splitAugD].forEach(arr => arr.fill('none'));
   [appState.splitMajorA, appState.splitMajorB, appState.splitMajorC, appState.splitMajorD].forEach(arr => arr.fill('none'));
 
@@ -612,6 +614,7 @@ function cycleAugDim(idx) {
 }
 
 const toggleSeventh = _createToggleFunction('s7', (s7Arr) => updateModifierButtonVisuals('s7', 'seventh-btn', s7Arr), { updateFnMaj7: (maj7Arr) => updateModifierButtonVisuals('maj7', 'maj-seventh-btn', maj7Arr) });
+const toggleSixth = _createToggleFunction('s6', (s6Arr) => updateModifierButtonVisuals('s6', 'sixth-btn', s6Arr));
 const toggleSecond = _createToggleFunction('s2', (s2Arr) => updateModifierButtonVisuals('s2', 'second-btn', s2Arr)); 
 const toggleFourth = _createToggleFunction('s4', (s4Arr) => updateModifierButtonVisuals('s4', 'fourth-btn', s4Arr)); 
 const toggleSus = _createToggleFunction('sus', (susArr) => updateModifierButtonVisuals('sus', 'sus-btn', susArr));
@@ -804,6 +807,7 @@ function _generateChordString(baseChord, progData, idx, isSplit) {
 
     const s2 = isSplit ? progData.splitS2[idx] : progData.s2[idx];
     const s4 = isSplit ? progData.splitS4[idx] : progData.s4[idx];
+    const s6 = isSplit ? progData.splitS6[idx] : progData.s6[idx];
     const maj7 = isSplit ? progData.splitMaj7[idx] : progData.maj7[idx];
     const s7 = isSplit ? progData.splitS7[idx] : progData.s7[idx];
     const m = isSplit ? progData.splitM[idx] : progData.m[idx];
@@ -812,27 +816,27 @@ function _generateChordString(baseChord, progData, idx, isSplit) {
 
     let chordStr = baseChord;
     
-    // Handle inherent diminished quality
     let isDiminished = chordStr.endsWith('dim');
     if (isDiminished) {
         chordStr = chordStr.slice(0, -3);
     }
+    let isMinor = chordStr.endsWith('m');
+    if (isMinor) {
+        chordStr = chordStr.slice(0, -1);
+    }
 
-    // [m]
-    if (m === 'minor' && !chordStr.endsWith('m')) {
+    if (m === 'minor' || isMinor) {
         chordStr += 'm';
     }
 
-    // [2][4][sus]
     if (s2) chordStr += '2';
     if (s4) chordStr += '4';
+    if (s6) chordStr += '6';
     if (sus) chordStr += 'sus';
     
-    // [maj7/7]
     if (maj7) chordStr += 'maj7';
     else if (s7) chordStr += '7';
     
-    // [+/o]
     if (aug === 'aug') {
         chordStr += '+';
     } else if (aug === 'dim' || isDiminished) {
@@ -882,45 +886,40 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
 
     let token = chordToken.trim();
     
-    // --- Parse modifiers from the token ---
     const s7 = token.includes('7') && !token.includes('maj7');
     const maj7 = token.includes('maj7');
+    const s6 = token.includes('6');
     const s2 = token.includes('2');
     const s4 = token.includes('4');
     const sus = token.includes('sus');
     const aug = token.endsWith('+');
     const dim = token.endsWith('o');
 
-    // --- Clean the token of modifier text ---
-    token = token.replace('maj7', '').replace('7', '').replace('sus', '').replace('2', '').replace('4', '').replace('+', '').replace('o', '');
-
-    // --- Determine base chord and quality ---
+    token = token.replace(/maj7|7|sus|6|2|4|\+|o/g, '');
+    
     const baseChordMatch = token.match(/^([A-G][b#]?)/);
-    if (!baseChordMatch) return; // Invalid chord name
+    if (!baseChordMatch) return;
     
     const root = baseChordMatch[0];
-    const qualityMarker = token.substring(root.length);
-    const isMinor = qualityMarker.startsWith('m');
+    const isMinor = token.substring(root.length).startsWith('m');
     
     let finalBaseChord = isMinor ? root + 'm' : root;
     let finalAugState = aug ? 'aug' : (dim ? 'dim' : 'none');
     
-    // Check if the combination is a natural diminished chord (e.g., Bo -> Bdim)
     if (dim && !isMinor) {
         const potentialDimChord = root + 'dim';
         if (allChords.includes(potentialDimChord)) {
             finalBaseChord = potentialDimChord;
-            finalAugState = 'none'; // Quality is inherent, not a modifier
+            finalAugState = 'none';
         }
     }
     
-    // If the base chord from dropdown is minor (like Dm), quality is inherent
     const mState = (finalBaseChord.endsWith('m')) ? 'none' : (isMinor ? 'minor' : 'none');
 
-    // --- Apply to state ---
     const target = {
         p: isSplit ? progData.splitVal : progData.p,
         s7: isSplit ? progData.splitS7 : progData.s7,
+        s6: isSplit ? progData.splitS6 : progData.s6,
         maj7: isSplit ? progData.splitMaj7 : progData.maj7,
         s2: isSplit ? progData.splitS2 : progData.s2,
         s4: isSplit ? progData.splitS4 : progData.s4,
@@ -932,6 +931,7 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
 
     target.p[idx] = finalBaseChord;
     target.s7[idx] = s7 || maj7;
+    target.s6[idx] = s6;
     target.maj7[idx] = maj7;
     target.s2[idx] = s2;
     target.s4[idx] = s4;
