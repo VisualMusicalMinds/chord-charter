@@ -787,6 +787,7 @@ function _generateChordString(baseChord, progData, idx, isSplit) {
     const s7 = isSplit ? progData.splitS7[idx] : progData.s7[idx];
     const m = isSplit ? progData.splitM[idx] : progData.m[idx];
     const sus = isSplit ? progData.splitSus[idx] : progData.sus[idx];
+    const aug = isSplit ? progData.splitAug[idx] : progData.aug[idx];
 
     let chordStr = baseChord;
     const appendedMods = [];
@@ -804,6 +805,9 @@ function _generateChordString(baseChord, progData, idx, isSplit) {
     chordStr += appendedMods.join('');
     if (parenMods.length > 0) {
         chordStr += `(${parenMods.join(',')})`;
+    }
+    if (aug) {
+        chordStr += '+';
     }
     return chordStr;
 }
@@ -844,6 +848,13 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
     if (!chordToken || chordToken.trim() === '--') return;
     
     let remainingToken = chordToken.trim();
+
+    // Check for and remove the augmented sign
+    const isAugmented = remainingToken.endsWith('+');
+    if (isAugmented) {
+        remainingToken = remainingToken.slice(0, -1);
+    }
+
     const parenMatch = remainingToken.match(/\((.*)\)/);
     const parenMods = parenMatch ? parenMatch[1] : '';
     if (parenMatch) remainingToken = remainingToken.replace(parenMatch[0], '');
@@ -869,6 +880,7 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
         progData.splitS4[idx] = s4;
         progData.splitM[idx] = m;
         progData.splitSus[idx] = sus;
+        progData.splitAug[idx] = isAugmented;
         progData.splitActive[idx] = true;
     } else {
         progData.p[idx] = baseChord;
@@ -878,6 +890,7 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
         progData.s4[idx] = s4;
         progData.m[idx] = m;
         progData.sus[idx] = sus;
+        progData.aug[idx] = isAugmented;
     }
 }
 
