@@ -20,6 +20,8 @@ export function ensureAudio() {
         try {
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
             masterGain = audioContext.createGain();
+            // Reduce master volume to prevent clipping
+            masterGain.gain.setValueAtTime(0.3, audioContext.currentTime);
             masterGain.connect(audioContext.destination);
         } catch (e) {
             console.error("Web Audio API is not supported in this browser", e);
@@ -57,6 +59,14 @@ function playTone(frequency, waveform, soundProfile) {
     const osc = audioContext.createOscillator();
     const noteGain = audioContext.createGain();
     const filter = audioContext.createBiquadFilter();
+    
+    // Add compression to prevent clipping
+    const compressor = audioContext.createDynamicsCompressor();
+    compressor.threshold.setValueAtTime(-24, audioContext.currentTime);
+    compressor.knee.setValueAtTime(30, audioContext.currentTime);
+    compressor.ratio.setValueAtTime(12, audioContext.currentTime);
+    compressor.attack.setValueAtTime(0.003, audioContext.currentTime);
+    compressor.release.setValueAtTime(0.25, audioContext.currentTime);
 
     osc.type = waveform;
     osc.frequency.setValueAtTime(frequency, audioContext.currentTime);
@@ -79,18 +89,22 @@ function playTone(frequency, waveform, soundProfile) {
         vibratoOsc.stop(audioContext.currentTime + duration);
     }
     
+    // Reduce individual note gain significantly
+    const adjustedGain = gain * 0.4; // Reduce by 60%
     noteGain.gain.setValueAtTime(0, audioContext.currentTime);
-    noteGain.gain.linearRampToValueAtTime(gain, audioContext.currentTime + attack);
-    noteGain.gain.setValueAtTime(gain, audioContext.currentTime + attack + hold);
+    noteGain.gain.linearRampToValueAtTime(adjustedGain, audioContext.currentTime + attack);
+    noteGain.gain.setValueAtTime(adjustedGain, audioContext.currentTime + attack + hold);
     noteGain.gain.linearRampToValueAtTime(0, audioContext.currentTime + attack + hold + release);
 
     filter.type = 'lowpass';
     filter.frequency.setValueAtTime(filterFreq, audioContext.currentTime);
     filter.Q.setValueAtTime(filterQ, audioContext.currentTime);
 
+    // Connect through compressor
     osc.connect(filter);
     filter.connect(noteGain);
-    noteGain.connect(masterGain);
+    noteGain.connect(compressor);
+    compressor.connect(masterGain);
 
     osc.start();
     osc.stop(audioContext.currentTime + duration);
@@ -190,7 +204,8 @@ export function playBrush() {
     bandpass.Q.value = 1;
 
     const brushGain = audioContext.createGain();
-    brushGain.gain.setValueAtTime(0.1, audioContext.currentTime);
+    // Reduce brush volume significantly
+    brushGain.gain.setValueAtTime(0.03, audioContext.currentTime); // Reduced from 0.1
     brushGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2);
 
     noiseSource.connect(bandpass);
@@ -209,7 +224,8 @@ export function playBassDrum() {
     osc.frequency.setValueAtTime(150, audioContext.currentTime);
     osc.frequency.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
     
-    drumGain.gain.setValueAtTime(1, audioContext.currentTime);
+    // Reduce bass drum volume
+    drumGain.gain.setValueAtTime(0.4, audioContext.currentTime); // Reduced from 1
     drumGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
     
     osc.connect(drumGain);
