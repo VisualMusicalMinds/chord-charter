@@ -318,22 +318,35 @@ input[type="number"].bpm-input:focus {
 }
 .bpm-arrow:active, .bpm-arrow:focus-visible { color: #135ba1; background: #e3eafd; }
 
-.brush-toggle {
+/* --- Component: Beat/Swing Toggles --- */
+.beat-swing-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-top: calc(var(--box-size) * 0.04);
-  margin-bottom: calc(var(--box-size) * 0.05);
-  user-select: none;
+  gap: 10px;
+  width: 100%;
+  margin-top: 8px;
 }
 
-.brush-toggle input[type="checkbox"] {
+.beat-swing-btn {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f0f0f0;
+  color: #555;
+  font-family: Arial, sans-serif;
+  font-size: 0.9em;
+  font-weight: bold;
   cursor: pointer;
-  width: calc(var(--box-size) * 0.20);
-  height: calc(var(--box-size) * 0.20);
-  margin: 0;
-  accent-color: #1976d2;
+  user-select: none;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
+
+.beat-swing-btn.active {
+  background-color: #4CAF50;
+  color: white;
+  border-color: #388e3c;
+}
+
 
 .circle-play-btn {
   width: calc(var(--box-size) * 0.55);
