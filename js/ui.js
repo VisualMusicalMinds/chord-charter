@@ -163,27 +163,28 @@ function getNotesToDisplayForChord(chordName, isSplit, slotIndex) {
 function _createNoteRects(chordName, isSplit, slotIndex, container) {
     if (!chordName) return;
     
-    // Call the new display-specific function
     const notes = getNotesToDisplayForChord(chordName, isSplit, slotIndex);
 
     notes.forEach(noteName => {
-        const rootNote = noteName.match(/^[A-G][b#♭♯]*/)?.[0];
-        if (!rootNote) return;
+        if (!noteName) return;
 
-        // Normalize note for color class (e.g., 'C#' -> 'C', 'Db' -> 'D')
-        const colorRoot = rootNote.charAt(0);
-        const colorClass = noteColorClass[colorRoot] || `note-${colorRoot}`;
+        const baseNote = noteName.charAt(0);
+        const colorClass = noteColorClass[baseNote] || `note-${baseNote}`;
+        const accidentals = noteName.substring(1).replace('b', '♭').replace('#', '♯');
         
         const rect = document.createElement('div');
         rect.className = `note-rect ${colorClass}`;
         
-        // Use the full note name for display
-        let textContent = rootNote.charAt(0);
-        let accidental = rootNote.substring(1).replace('b', '♭').replace('#', '♯');
-        if (accidental) {
-            accidental = `<span class="accidental">${accidental}</span>`;
+        let displayAccidental = accidentals;
+        if (accidentals === '##') {
+            displayAccidental = '𝄪';
         }
-        rect.innerHTML = `${textContent}${accidental}`;
+        
+        if (displayAccidental) {
+            rect.innerHTML = `${baseNote}<span class="accidental">${displayAccidental}</span>`;
+        } else {
+            rect.innerHTML = baseNote;
+        }
         
         container.appendChild(rect);
     });
