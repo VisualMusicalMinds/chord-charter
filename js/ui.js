@@ -119,9 +119,9 @@ function getNotesToDisplayForChord(chordName, isSplit, slotIndex) {
 
     notes.set('root', baseTones[0]);
 
-    if ((aug === 'aug' || chordName.endsWith('aug') || chordName.endsWith('+')) && chordAugmentedFifths[chordName]) {
+    if (aug === 'aug' || chordName.endsWith('+')) {
         notes.set('fifth', chordAugmentedFifths[chordName]);
-    } else if ((aug === 'dim' || chordName.endsWith('dim') || chordName.endsWith('°')) && chordDiminishedFifths[chordName]) {
+    } else if (aug === 'dim' || chordName.endsWith('°')) {
         notes.set('fifth', chordDiminishedFifths[chordName]);
     } else {
         notes.set('fifth', baseTones[2]);
