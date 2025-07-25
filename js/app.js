@@ -811,33 +811,31 @@ function _generateChordString(baseChord, progData, idx, isSplit) {
     const aug = isSplit ? progData.splitAug[idx] : progData.aug[idx];
 
     let chordStr = baseChord;
-    const appendedMods = [];
-    const parenMods = [];
-
-    // Handle inherent diminished quality first
-    if (chordStr.endsWith('dim')) {
-        chordStr = chordStr.slice(0, -3) + 'o';
-    }
-
-    if (s2) appendedMods.push('2');
-    if (s4) appendedMods.push('4');
-    if (maj7) appendedMods.push('maj7');
-    else if (s7) appendedMods.push('7');
-
-    if (m === 'major') parenMods.push('M');
-    if (m === 'minor') parenMods.push('m');
-    if (sus) parenMods.push('sus');
-
-    chordStr += appendedMods.join('');
-    if (parenMods.length > 0) {
-        chordStr += `(${parenMods.join(',')})`;
-    }
     
-    // Handle manual fifth modifications
+    // Handle inherent diminished quality
+    let isDiminished = chordStr.endsWith('dim');
+    if (isDiminished) {
+        chordStr = chordStr.slice(0, -3);
+    }
+
+    // [m]
+    if (m === 'minor' && !chordStr.endsWith('m')) {
+        chordStr += 'm';
+    }
+
+    // [2][4][sus]
+    if (s2) chordStr += '2';
+    if (s4) chordStr += '4';
+    if (sus) chordStr += 'sus';
+    
+    // [maj7/7]
+    if (maj7) chordStr += 'maj7';
+    else if (s7) chordStr += '7';
+    
+    // [+/o]
     if (aug === 'aug') {
         chordStr += '+';
-    } else if (aug === 'dim' && !chordStr.endsWith('o')) {
-        // Only add 'o' if it's not already there from 'dim'
+    } else if (aug === 'dim' || isDiminished) {
         chordStr += 'o';
     }
 
@@ -881,66 +879,70 @@ function generateSongSummary() {
 
 function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
     if (!chordToken || chordToken.trim() === '--') return;
+
+    let token = chordToken.trim();
     
-    let remainingToken = chordToken.trim();
-    let augState = 'none';
+    // --- Parse modifiers from the token ---
+    const s7 = token.includes('7') && !token.includes('maj7');
+    const maj7 = token.includes('maj7');
+    const s2 = token.includes('2');
+    const s4 = token.includes('4');
+    const sus = token.includes('sus');
+    const aug = token.endsWith('+');
+    const dim = token.endsWith('o');
 
-    if (remainingToken.endsWith('+')) {
-        augState = 'aug';
-        remainingToken = remainingToken.slice(0, -1);
-    } else if (remainingToken.endsWith('o')) {
-        augState = 'dim';
-        remainingToken = remainingToken.slice(0, -1);
-    }
+    // --- Clean the token of modifier text ---
+    token = token.replace('maj7', '').replace('7', '').replace('sus', '').replace('2', '').replace('4', '').replace('+', '').replace('o', '');
 
-    const parenMatch = remainingToken.match(/\((.*)\)/);
-    const parenMods = parenMatch ? parenMatch[1] : '';
-    if (parenMatch) remainingToken = remainingToken.replace(parenMatch[0], '');
-
-    const mainPartMatch = remainingToken.match(/([A-G][b#]?[m]?)(.*)/);
-    if (!mainPartMatch) return;
-
-    let baseChord = mainPartMatch[1];
-    const appendedMods = mainPartMatch[2];
+    // --- Determine base chord and quality ---
+    const baseChordMatch = token.match(/^([A-G][b#]?)/);
+    if (!baseChordMatch) return; // Invalid chord name
     
-    // If we parsed a diminished chord ('o'), check if it's a naturally diminished chord (like Bdim).
-    // If so, use the 'dim' version for our internal state. If not, it's a manually modified chord.
-    if (augState === 'dim') {
-        const potentialDimChord = baseChord + 'dim';
+    const root = baseChordMatch[0];
+    const qualityMarker = token.substring(root.length);
+    const isMinor = qualityMarker.startsWith('m');
+    
+    let finalBaseChord = isMinor ? root + 'm' : root;
+    let finalAugState = aug ? 'aug' : (dim ? 'dim' : 'none');
+    
+    // Check if the combination is a natural diminished chord (e.g., Bo -> Bdim)
+    if (dim && !isMinor) {
+        const potentialDimChord = root + 'dim';
         if (allChords.includes(potentialDimChord)) {
-            baseChord = potentialDimChord; // It's a natural dim chord, so use the full name.
-            augState = 'none'; // The 'dim' quality is inherent, not a modification.
+            finalBaseChord = potentialDimChord;
+            finalAugState = 'none'; // Quality is inherent, not a modifier
         }
     }
+    
+    // If the base chord from dropdown is minor (like Dm), quality is inherent
+    const mState = (finalBaseChord.endsWith('m')) ? 'none' : (isMinor ? 'minor' : 'none');
 
-    const s7 = appendedMods.includes('maj7') || appendedMods.includes('7');
-    const maj7 = appendedMods.includes('maj7');
-    const s2 = appendedMods.includes('2');
-    const s4 = appendedMods.includes('4');
-    const m = parenMods.includes('M') ? 'major' : (parenMods.includes('m') ? 'minor' : 'none');
-    const sus = parenMods.includes('sus');
+    // --- Apply to state ---
+    const target = {
+        p: isSplit ? progData.splitVal : progData.p,
+        s7: isSplit ? progData.splitS7 : progData.s7,
+        maj7: isSplit ? progData.splitMaj7 : progData.maj7,
+        s2: isSplit ? progData.splitS2 : progData.s2,
+        s4: isSplit ? progData.splitS4 : progData.s4,
+        sus: isSplit ? progData.splitSus : progData.sus,
+        aug: isSplit ? progData.splitAug : progData.aug,
+        m: isSplit ? progData.splitM : progData.m,
+        splitActive: progData.splitActive
+    };
 
+    target.p[idx] = finalBaseChord;
+    target.s7[idx] = s7 || maj7;
+    target.maj7[idx] = maj7;
+    target.s2[idx] = s2;
+    target.s4[idx] = s4;
+    target.sus[idx] = sus;
+    target.aug[idx] = finalAugState;
+    target.m[idx] = mState;
     if (isSplit) {
-        progData.splitVal[idx] = baseChord;
-        progData.splitS7[idx] = s7;
-        progData.splitMaj7[idx] = maj7;
-        progData.splitS2[idx] = s2;
-        progData.splitS4[idx] = s4;
-        progData.splitM[idx] = m;
-        progData.splitSus[idx] = sus;
-        progData.splitAug[idx] = augState;
-        progData.splitActive[idx] = true;
-    } else {
-        progData.p[idx] = baseChord;
-        progData.s7[idx] = s7;
-        progData.maj7[idx] = maj7;
-        progData.s2[idx] = s2;
-        progData.s4[idx] = s4;
-        progData.m[idx] = m;
-        progData.sus[idx] = sus;
-        progData.aug[idx] = augState;
+        target.splitActive[idx] = true;
     }
 }
+
 
 function parseAndLoadSongSummary(summaryText) {
     try {
