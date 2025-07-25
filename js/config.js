@@ -479,14 +479,14 @@ export const chordFourths = {
   'Bdim': 'E', 'Cdim': 'F', 'C#dim': 'F♯', 'Ddim': 'G', 'D#dim': 'G♯', 'Edim': 'A', 'Fdim': 'B♭', 'F#dim': 'B', 'Gdim': 'C', 'G#dim': 'C♯', 'Adim': 'D', 'A#dim': 'D♯'
 };
 export const chordAugmentedFifths = {
-    'C': 'G♯', 'Dm': 'A♯', 'Em': 'B♯', 'F': 'C♯', 'G': 'D♯', 'Am': 'E♯', 'Bb': 'F♯',
-    'Db': 'A', 'Ebm': 'B', 'Fm': 'C♯', 'Gb': 'D', 'Ab': 'E', 'Bbm': 'F♯', 'Cb': 'G',
-    'D': 'A♯', 'F#m': 'C♯♯', 'Bm': 'F♯♯',
-    'Eb': 'B', 'Gm': 'D♯', 'Cm': 'G♯',
-    'E': 'B♯', 'G#m': 'D♯♯', 'C#m': 'G♯♯',
+    'C': 'G#', 'Dm': 'A#', 'Em': 'B#', 'F': 'C#', 'G': 'D#', 'Am': 'E#', 'Bb': 'F#',
+    'Db': 'A', 'Ebm': 'B', 'Fm': 'C#', 'Gb': 'D', 'Ab': 'E', 'Bbm': 'F#', 'Cb': 'G',
+    'D': 'A#', 'F#m': 'C##', 'Bm': 'F##',
+    'Eb': 'B', 'Gm': 'D#', 'Cm': 'G#',
+    'E': 'B#', 'G#m': 'D##', 'C#m': 'G##',
     'Fb': 'C', 'Abm': 'E',
-    'B': 'F♯♯', 'D#m': 'A♯♯', 'F#': 'C♯♯', 'A': 'E♯',
-    'Bdim': 'G', 'Cdim': 'A♭', 'C#dim': 'A', 'Ddim': 'B♭', 'D#dim': 'B', 'Edim': 'C', 'Fdim': 'D♭', 'F#dim': 'D', 'Gdim': 'E♭', 'G#dim': 'E', 'Adim': 'F', 'A#dim': 'F♯'
+    'B': 'F##', 'D#m': 'A##', 'F#': 'C##', 'A': 'E#',
+    'Bdim': 'G', 'Cdim': 'Ab', 'C#dim': 'A', 'Ddim': 'Bb', 'D#dim': 'B', 'Edim': 'C', 'Fdim': 'Db', 'F#dim': 'D', 'Gdim': 'Eb', 'G#dim': 'E', 'Adim': 'F', 'A#dim': 'F#'
 };
 
 export const rhythmChordNotes = { 
