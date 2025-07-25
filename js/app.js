@@ -5,7 +5,7 @@ import {
     updateWaveformDisplay, updateKeyDisplay, setSlotContent, updateRhythmPictures, 
     setPlayingUI, updateSlotHighlights, updatePictureHighlights, updateModifierButtonVisuals, 
     _updateQualityButtonVisualForSlot, setPrimarySlotColorAndStyle, setSplitSlotColorAndStyle, 
-    updateChordDropdowns, updateLinkVisuals, updateGridForTimeSignature 
+    updateChordDropdowns, updateLinkVisuals, updateGridForTimeSignature, updateAugButtonVisuals
 } from './ui.js';
 import { clampBpm } from './utils.js';
 
@@ -146,7 +146,7 @@ function initializeModifierButtons() {
     document.querySelectorAll('.second-btn').forEach((btn, idx) => { btn.onclick = () => toggleSecond(idx); });
     document.querySelectorAll('.fourth-btn').forEach((btn, idx) => { btn.onclick = () => toggleFourth(idx); });
     document.querySelectorAll('.sus-btn').forEach((btn, idx) => { btn.onclick = () => toggleSus(idx); });
-    document.querySelectorAll('.aug-btn').forEach((btn, idx) => { btn.onclick = () => toggleAug(idx); });
+    document.querySelectorAll('.aug-btn').forEach((btn, idx) => { btn.onclick = () => cycleAugDim(idx); });
     document.querySelectorAll('.maj-seventh-btn').forEach((btn, idx) => { btn.onclick = () => toggleMajSeventh(idx); });
     document.querySelectorAll('.slot-box .quality-toggle-btn').forEach((btn, idx) => { btn.onclick = () => toggleMajorMinor(idx); });
 }
@@ -439,7 +439,7 @@ function loadProgression(progLetter) {
   updateModifierButtonVisuals('s2', 'second-btn', s2); 
   updateModifierButtonVisuals('s4', 'fourth-btn', s4); 
   updateModifierButtonVisuals('sus', 'sus-btn', sus); 
-  updateModifierButtonVisuals('aug', 'aug-btn', aug);
+  updateAugButtonVisuals(aug);
   updateModifierButtonVisuals('maj7', 'maj-seventh-btn', maj7);
   
   m.forEach((state, idx) => _updateQualityButtonVisualForSlot(idx, state || 'none')); 
@@ -452,19 +452,21 @@ function clearAll() {
   // Clear Primary
   appState.progressionA = ['', '', '', '']; appState.progressionB = ['', '', '', '']; appState.progressionC = ['', '', '', '']; appState.progressionD = ['', '', '', ''];
   appState.rhythmBoxesA.fill(false); appState.rhythmBoxesB.fill(false); appState.rhythmBoxesC.fill(false); appState.rhythmBoxesD.fill(false);
-  [appState.seventhA, appState.secondA, appState.fourthA, appState.susA, appState.augA, appState.majSeventhA, 
-   appState.seventhB, appState.secondB, appState.fourthB, appState.susB, appState.augB, appState.majSeventhB, 
-   appState.seventhC, appState.secondC, appState.fourthC, appState.susC, appState.augC, appState.majSeventhC, 
-   appState.seventhD, appState.secondD, appState.fourthD, appState.susD, appState.augD, appState.majSeventhD].forEach(arr => arr.fill(false));
+  [appState.seventhA, appState.secondA, appState.fourthA, appState.susA, appState.majSeventhA, 
+   appState.seventhB, appState.secondB, appState.fourthB, appState.susB, appState.majSeventhB, 
+   appState.seventhC, appState.secondC, appState.fourthC, appState.susC, appState.majSeventhC, 
+   appState.seventhD, appState.secondD, appState.fourthD, appState.susD, appState.majSeventhD].forEach(arr => arr.fill(false));
+  [appState.augA, appState.augB, appState.augC, appState.augD].forEach(arr => arr.fill('none'));
   [appState.majorA, appState.majorB, appState.majorC, appState.majorD].forEach(arr => arr.fill('none'));
   [appState.splitChordActiveA, appState.splitChordActiveB, appState.splitChordActiveC, appState.splitChordActiveD].forEach(arr => arr.fill(false));
   [appState.splitChordValueA, appState.splitChordValueB, appState.splitChordValueC, appState.splitChordValueD].forEach(arr => arr.fill(''));
 
   // Clear Split Chord Modifiers
-  [appState.splitSeventhA, appState.splitSecondA, appState.splitFourthA, appState.splitSusA, appState.splitAugA, appState.splitMajSeventhA,
-   appState.splitSeventhB, appState.splitSecondB, appState.splitFourthB, appState.splitSusB, appState.splitAugB, appState.splitMajSeventhB,
-   appState.splitSeventhC, appState.splitSecondC, appState.splitFourthC, appState.splitSusC, appState.splitAugC, appState.splitMajSeventhC,
-   appState.splitSeventhD, appState.splitSecondD, appState.splitFourthD, appState.splitSusD, appState.splitAugD, appState.splitMajSeventhD].forEach(arr => arr.fill(false));
+  [appState.splitSeventhA, appState.splitSecondA, appState.splitFourthA, appState.splitSusA, appState.splitMajSeventhA,
+   appState.splitSeventhB, appState.splitSecondB, appState.splitFourthB, appState.splitSusB, appState.splitMajSeventhB,
+   appState.splitSeventhC, appState.splitSecondC, appState.splitFourthC, appState.splitSusC, appState.splitMajSeventhC,
+   appState.splitSeventhD, appState.splitSecondD, appState.splitFourthD, appState.splitSusD, appState.splitMajSeventhD].forEach(arr => arr.fill(false));
+  [appState.splitAugA, appState.splitAugB, appState.splitAugC, appState.splitAugD].forEach(arr => arr.fill('none'));
   [appState.splitMajorA, appState.splitMajorB, appState.splitMajorC, appState.splitMajorD].forEach(arr => arr.fill('none'));
 
   // Clear Links
@@ -589,11 +591,30 @@ function _createToggleFunction(modifierKey, updateBtnStatesFn, dependencies = nu
   };
 }
 
+function cycleAugDim(idx) {
+    const currentData = getProgressionData(appState.currentToggle);
+    const currentState = currentData.aug[idx];
+    let nextState;
+
+    if (currentState === 'none') {
+        nextState = 'aug';
+    } else if (currentState === 'aug') {
+        nextState = 'dim';
+    } else { // 'dim'
+        nextState = 'none';
+    }
+    currentData.aug[idx] = nextState;
+
+    updateAugButtonVisuals(currentData.aug);
+    setSlotContent(idx);
+    saveCurrentProgression();
+    playChordPreview(idx);
+}
+
 const toggleSeventh = _createToggleFunction('s7', (s7Arr) => updateModifierButtonVisuals('s7', 'seventh-btn', s7Arr), { updateFnMaj7: (maj7Arr) => updateModifierButtonVisuals('maj7', 'maj-seventh-btn', maj7Arr) });
 const toggleSecond = _createToggleFunction('s2', (s2Arr) => updateModifierButtonVisuals('s2', 'second-btn', s2Arr)); 
 const toggleFourth = _createToggleFunction('s4', (s4Arr) => updateModifierButtonVisuals('s4', 'fourth-btn', s4Arr)); 
 const toggleSus = _createToggleFunction('sus', (susArr) => updateModifierButtonVisuals('sus', 'sus-btn', susArr));
-const toggleAug = _createToggleFunction('aug', (augArr) => updateModifierButtonVisuals('aug', 'aug-btn', augArr));
 const toggleMajSeventh = _createToggleFunction('maj7', (maj7Arr) => updateModifierButtonVisuals('maj7', 'maj-seventh-btn', maj7Arr), { updateFnS7: (s7Arr) => updateModifierButtonVisuals('s7', 'seventh-btn', s7Arr) });
 
 function getBpmInputValue() { let val = parseInt(document.getElementById('bpmInput').value, 10); return isNaN(val) ? 90 : val; }
@@ -806,8 +827,10 @@ function _generateChordString(baseChord, progData, idx, isSplit) {
     if (parenMods.length > 0) {
         chordStr += `(${parenMods.join(',')})`;
     }
-    if (aug) {
+    if (aug === 'aug') {
         chordStr += '+';
+    } else if (aug === 'dim') {
+        chordStr += '-';
     }
     return chordStr;
 }
@@ -848,10 +871,13 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
     if (!chordToken || chordToken.trim() === '--') return;
     
     let remainingToken = chordToken.trim();
+    let augState = 'none';
 
-    // Check for and remove the augmented sign
-    const isAugmented = remainingToken.endsWith('+');
-    if (isAugmented) {
+    if (remainingToken.endsWith('+')) {
+        augState = 'aug';
+        remainingToken = remainingToken.slice(0, -1);
+    } else if (remainingToken.endsWith('-')) {
+        augState = 'dim';
         remainingToken = remainingToken.slice(0, -1);
     }
 
@@ -880,7 +906,7 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
         progData.splitS4[idx] = s4;
         progData.splitM[idx] = m;
         progData.splitSus[idx] = sus;
-        progData.splitAug[idx] = isAugmented;
+        progData.splitAug[idx] = augState;
         progData.splitActive[idx] = true;
     } else {
         progData.p[idx] = baseChord;
@@ -890,7 +916,7 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
         progData.s4[idx] = s4;
         progData.m[idx] = m;
         progData.sus[idx] = sus;
-        progData.aug[idx] = isAugmented;
+        progData.aug[idx] = augState;
     }
 }
 
