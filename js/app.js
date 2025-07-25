@@ -26,7 +26,7 @@ function main() {
   initializeSongLoader();
   initializeTimeSignature();
   initializeSaveModal();
-  initializeBeatSwingToggles(); // New initializer
+  initializeBeatSwingToggles();
 
   // Initial UI setup
   updateKeyDisplay();
@@ -104,8 +104,6 @@ function initializeABCDToggles() {
 
         if (btn) {
             btn.addEventListener('click', (event) => {
-                // event.target is the specific element that was clicked.
-                // We check if the clicked element *is* the link icon.
                 if (event.target === linkIcon) {
                     toggleLinkState(t);
                 } else {
@@ -113,13 +111,12 @@ function initializeABCDToggles() {
                 }
             });
 
-            // Make the link icon focusable and handle its keyboard events separately
             if (linkIcon) {
-                linkIcon.setAttribute('tabindex', '0'); // Allows focus
+                linkIcon.setAttribute('tabindex', '0'); 
                 linkIcon.addEventListener('keydown', (e) => {
                     if (e.key === ' ' || e.key === 'Enter') {
                         e.preventDefault();
-                        e.stopPropagation(); // Prevent the button's keydown listener from firing
+                        e.stopPropagation(); 
                         toggleLinkState(t);
                     }
                 });
@@ -185,7 +182,7 @@ function initializePlaybackControls() {
         function togglePlay(e) { 
             e.preventDefault(); 
             ensureAudio();
-            saveCurrentProgression(); // Save before playing
+            saveCurrentProgression(); 
             setPlaying(!appState.isPlaying); 
         }
         playPauseBtn.addEventListener('click', togglePlay);
@@ -248,7 +245,7 @@ function initializeSaveModal() {
     const copySummaryBtn = document.getElementById('copy-summary-btn');
     
     function openModal() {
-        saveCurrentProgression(); // Ensure state is saved before generating summary
+        saveCurrentProgression(); 
         summaryTextarea.value = generateSongSummary();
         saveModalOverlay.classList.remove('modal-hidden');
     }
@@ -300,6 +297,7 @@ function initializeBeatSwingToggles() {
         swingBtn.addEventListener('click', () => {
             appState.swingEnabled = !appState.swingEnabled;
             swingBtn.classList.toggle('active', appState.swingEnabled);
+            restartAnimationWithBpm();
         });
     }
 }
@@ -319,17 +317,21 @@ function saveCurrentProgression() {
 function setPlaying(playing) {
   appState.isPlaying = playing;
   setPlayingUI(playing);
-  if (appState.isPlaying) startMainAnimation(); else stopMainAnimation();
+  if (appState.isPlaying) {
+    startMainAnimation();
+  } else {
+    stopMainAnimation();
+  }
 }
 
 function startMainAnimation() {
-  stopMainAnimation();
+  stopMainAnimation(); // Clear any existing timer
   appState.slotHighlightStep = 0;
   appState.pictureHighlightStep = 0;
   appState.rhythmStep = 0;
   appState.currentLinkedProgressionIndex = 0;
 
-  updateLinkedProgressionSequence(); // Update sequence once at the start
+  updateLinkedProgressionSequence(); 
 
   if (appState.linkedProgressionSequence.length > 0) {
       const firstLinkedProg = appState.linkedProgressionSequence[0];
@@ -348,21 +350,20 @@ function startMainAnimation() {
   updateSlotHighlights(); 
   updatePictureHighlights();
 
-  const intervalMs = (60 / getBpmInputValue()) * 1000 / 2;
-  if (intervalMs > 0 && isFinite(intervalMs)) { 
-      playEighthNoteStep(); 
-      appState.rhythmInterval = setInterval(playEighthNoteStep, intervalMs); 
-  }
+  // Kick off the self-adjusting timer
+  playEighthNoteStep(); 
 }
 
 function stopMainAnimation() {
-  if (appState.rhythmInterval) clearInterval(appState.rhythmInterval);
+  if (appState.rhythmInterval) clearTimeout(appState.rhythmInterval); // Use clearTimeout
   appState.rhythmInterval = null;
   updateSlotHighlights();
   updatePictureHighlights();
 }
 
 function playEighthNoteStep() {
+    if (!appState.isPlaying) return; // Stop the loop if playback is paused
+
     const numerator = timeSignatureNumerators[appState.currentTimeSignatureIndex];
     const totalEighthNotes = numerator * 2;
 
@@ -370,7 +371,6 @@ function playEighthNoteStep() {
     let isLinkedMode = appState.linkedProgressionSequence.length > 0;
 
     if (isLinkedMode) {
-        // Ensure the index is valid for the current sequence
         if (appState.currentLinkedProgressionIndex >= appState.linkedProgressionSequence.length) {
             appState.currentLinkedProgressionIndex = 0;
         }
@@ -389,7 +389,6 @@ function playEighthNoteStep() {
     const progData = getProgressionData(playingProgLetter);
     if (!progData) return;
 
-    // Update highlights before playing sound
     updateSlotHighlights();
     
     if (appState.rhythmStep % 2 === 0) {
@@ -423,11 +422,33 @@ function playEighthNoteStep() {
         }
     }
 
-    if (appState.rhythmStep % 2 === 0 && appState.beatEnabled) { // Check beatEnabled state
+    if (appState.rhythmStep % 2 === 0 && appState.beatEnabled) {
         playBrush();
     }
 
-    // Advance the steps
+    // --- Calculate delay for the NEXT step ---
+    const beatDurationMs = (60 / getBpmInputValue()) * 1000;
+    let nextStepDelay;
+
+    if (appState.swingEnabled) {
+        // Your 5:3 swing ratio
+        // 1/8 + 1/32 = 5/32 of a whole note. For a quarter note beat, this is 5/8 of the beat.
+        // 1/16 + 1/32 = 3/32 of a whole note. For a quarter note beat, this is 3/8 of the beat.
+        const longDuration = beatDurationMs * (5 / 8);
+        const shortDuration = beatDurationMs * (3 / 8);
+        
+        // If current step is ON the beat (0, 2, 4...), the next delay is long.
+        if (appState.rhythmStep % 2 === 0) {
+            nextStepDelay = longDuration;
+        } else { // If current step is OFF the beat (1, 3, 5...), the next delay is short.
+            nextStepDelay = shortDuration;
+        }
+    } else {
+        // Straight rhythm: each eighth note is half a beat.
+        nextStepDelay = beatDurationMs / 2;
+    }
+
+    // --- Advance the steps ---
     appState.rhythmStep = (appState.rhythmStep + 1) % totalEighthNotes;
     if (appState.rhythmStep % 2 === 0) {
         appState.pictureHighlightStep = (appState.pictureHighlightStep + 1) % numerator;
@@ -439,6 +460,9 @@ function playEighthNoteStep() {
             appState.currentLinkedProgressionIndex = (appState.currentLinkedProgressionIndex + 1) % appState.linkedProgressionSequence.length;
         }
     }
+    
+    // Schedule the next call
+    appState.rhythmInterval = setTimeout(playEighthNoteStep, nextStepDelay);
 }
 
 function loadProgression(progLetter) {
@@ -711,7 +735,7 @@ function handleWaveformDial(dir) {
 function toggleLinkState(progLetter) {
   appState.progressionLinkStates[progLetter] = !appState.progressionLinkStates[progLetter];
   updateLinkVisuals(progLetter);
-  updateLinkedProgressionSequence(); // Update the sequence, but don't restart playback.
+  updateLinkedProgressionSequence(); 
 }
 
 function updateLinkedProgressionSequence() {
@@ -729,7 +753,6 @@ function updateLinkedProgressionSequence() {
     if (newIndex !== -1) {
       appState.currentLinkedProgressionIndex = newIndex;
     } else {
-      // Current prog was unlinked, so we reset to 0 but it will be handled gracefully in playEighthNoteStep
       appState.currentLinkedProgressionIndex = 0;
     }
   } else {
@@ -771,7 +794,6 @@ function loadSong(songId) {
       targetData.p.splice(0, 4, ...(songProgDetails.chords || ["", "", "", ""]));
       targetData.r.splice(0, targetData.r.length, ...(songProgDetails.rhythm || Array(8).fill(false)));
       
-      // Load split chord data
       targetData.splitVal.splice(0, 4, ...(songProgDetails.splitVal || ["", "", "", ""]));
       targetData.splitActive.splice(0, 4, ...(songProgDetails.splitActive || [false, false, false, false]));
 
@@ -988,7 +1010,6 @@ function parseAndLoadSongSummary(summaryText) {
         clearAll();
         const lines = summaryText.split('\n').filter(line => line.trim() !== '');
 
-        // Parse Header first to set the key
         const headerLine = lines.find(line => line.includes('BPM:'));
         if (headerLine) {
             const headerContent = headerLine.slice(1, -1);
@@ -1008,7 +1029,6 @@ function parseAndLoadSongSummary(summaryText) {
             }
             if (parts['Key']) {
                 const musicalKey = parts['Key'];
-                // Find the corresponding displayKey from the keyMap
                 const displayKey = Object.keys(keyMap).find(dKey => 
                     keyMap[dKey].Major === musicalKey || keyMap[dKey]['Natural Minor'] === musicalKey
                 );
@@ -1018,12 +1038,10 @@ function parseAndLoadSongSummary(summaryText) {
             }
         }
 
-        // Update UI related to key and time signature before parsing sections
         updateKeyDisplay();
         updateGridForTimeSignature(timeSignatureNumerators[appState.currentTimeSignatureIndex]);
         document.getElementById('time-sig-top').textContent = timeSignatureNumerators[appState.currentTimeSignatureIndex];
 
-        // Parse Sections
         const sectionLines = lines.filter(line => line.includes('Section'));
         sectionLines.forEach(line => {
             const sectionMatch = line.match(/\[Section ([A-D]), (linked|unlinked); Rhythm: (.*?); Chords: (.*?)\]/);
@@ -1053,7 +1071,6 @@ function parseAndLoadSongSummary(summaryText) {
             }
         });
 
-        // Final UI update
         updateChordDropdowns();
         ['A', 'B', 'C', 'D'].forEach(updateLinkVisuals);
         updateLinkedProgressionSequence();
