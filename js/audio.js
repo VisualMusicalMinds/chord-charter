@@ -20,8 +20,8 @@ export function ensureAudio() {
         try {
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
             masterGain = audioContext.createGain();
-            // Reduce master volume to prevent clipping
-            masterGain.gain.setValueAtTime(0.3, audioContext.currentTime);
+            // Set master volume to 65% (halfway between 100% and 30%)
+            masterGain.gain.setValueAtTime(0.65, audioContext.currentTime);
             masterGain.connect(audioContext.destination);
         } catch (e) {
             console.error("Web Audio API is not supported in this browser", e);
@@ -89,8 +89,8 @@ function playTone(frequency, waveform, soundProfile) {
         vibratoOsc.stop(audioContext.currentTime + duration);
     }
     
-    // Reduce individual note gain significantly
-    const adjustedGain = gain * 0.4; // Reduce by 60%
+    // Reduce individual note gain by 30% (halfway between 0% and 60% reduction)
+    const adjustedGain = gain * 0.7;
     noteGain.gain.setValueAtTime(0, audioContext.currentTime);
     noteGain.gain.linearRampToValueAtTime(adjustedGain, audioContext.currentTime + attack);
     noteGain.gain.setValueAtTime(adjustedGain, audioContext.currentTime + attack + hold);
@@ -204,8 +204,8 @@ export function playBrush() {
     bandpass.Q.value = 1;
 
     const brushGain = audioContext.createGain();
-    // Reduce brush volume significantly
-    brushGain.gain.setValueAtTime(0.03, audioContext.currentTime); // Reduced from 0.1
+    // Set brush volume to 0.055 (halfway between 0.1 and 0.01)
+    brushGain.gain.setValueAtTime(0.055, audioContext.currentTime);
     brushGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2);
 
     noiseSource.connect(bandpass);
@@ -224,8 +224,8 @@ export function playBassDrum() {
     osc.frequency.setValueAtTime(150, audioContext.currentTime);
     osc.frequency.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
     
-    // Reduce bass drum volume
-    drumGain.gain.setValueAtTime(0.4, audioContext.currentTime); // Reduced from 1
+    // Set bass drum volume to 0.7 (halfway between 1.0 and 0.4)
+    drumGain.gain.setValueAtTime(0.7, audioContext.currentTime);
     drumGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
     
     osc.connect(drumGain);
