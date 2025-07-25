@@ -415,6 +415,7 @@ input[type="number"].bpm-input:focus {
 }
 .second-btn, .fourth-btn, .seventh-btn { font-size: var(--font-size-247); }
 .aug-btn { font-size: var(--font-size-aug); }
+.aug-btn.diminished { font-size: calc(var(--font-size-aug) * 1.4); line-height: 1; }
 .sus-btn { 
   font-size: var(--font-size-sus); 
   font-family: 'Brush Script MT', 'Brush Script Std', 'Lucida Calligraphy', cursive;
