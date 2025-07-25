@@ -62,7 +62,19 @@ const naturalMinorKeyChordMap = {
     'Bb': [ { value: 'Bbm', display: 'Bbm / i' }, { value: 'Fm', display: 'Fm / v' }, { value: 'Ebm', display: 'Ebm / iv' }, { value: 'Gb', display: 'Gb / bVI' }, { value: 'Ab', display: 'Ab / bVII' }, { value: 'Db', display: 'Db / bIII' }, { value: 'Cdim', display: 'Cdim / ii°' } ],
     'B': [ { value: 'Bm', display: 'Bm / i' }, { value: 'F#m', display: 'F#m / v' }, { value: 'Em', display: 'Em / iv' }, { value: 'G', display: 'G / bVI' }, { value: 'A', display: 'A / bVII' }, { value: 'D', display: 'D / bIII' }, { value: 'C#dim', display: 'C#dim / ii°' } ]
 };
-
+const harmonicMinorKeyChordMap = {
+    'C': [
+        { value: 'Cm', display: 'Cm / i' },
+        { value: 'G', display: 'G / V' },
+        { value: 'Fm', display: 'Fm / iv' },
+        { value: 'Ab', display: 'Ab / bVI' },
+        { value: 'Bdim', display: 'Bdim / vii°' },
+        { value: 'Eb+', display: 'Eb+ / bIII+' },
+        { value: 'Db', display: 'Db / bII' },
+        { value: 'Eb', display: 'Eb / bIII' },
+        { value: 'F', display: 'F / IV' }
+    ]
+};
 // --- Structure for all scale maps ---
 export const scaleChordMaps = {
   'Major': majorKeyChordMap,
