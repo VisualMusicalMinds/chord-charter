@@ -176,12 +176,14 @@ function _createNoteRects(chordName, isSplit, slotIndex, container) {
         rect.className = `note-rect ${colorClass}`;
         
         let displayAccidental = accidentals;
-        if (accidentals === '##') {
-            displayAccidental = '𝄪';
+        let accidentalClass = 'accidental';
+
+        if (accidentals.includes('𝄪')) {
+            accidentalClass += ' double-sharp';
         }
         
         if (displayAccidental) {
-            rect.innerHTML = `${baseNote}<span class="accidental">${displayAccidental}</span>`;
+            rect.innerHTML = `${baseNote}<span class="${accidentalClass}">${displayAccidental}</span>`;
         } else {
             rect.innerHTML = baseNote;
         }
