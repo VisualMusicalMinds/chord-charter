@@ -31,9 +31,10 @@
   --font-size-mm: calc(var(--large-mm-button-size) * 0.5); 
 
   /* --- Vertical Row Positions (from bottom of slot-box) --- */
-  --row1-bottom-pos: calc(var(--box-size) * 0.42); 
+  --row1-bottom-pos: calc(var(--box-size) * 0.38); 
   --row2-bottom-pos: calc(var(--row1-bottom-pos) + var(--small-button-size) + var(--button-float-spacing)); 
   --row3-bottom-pos: calc(var(--row2-bottom-pos) + var(--small-button-size) + var(--button-float-spacing)); 
+  --row4-bottom-pos: calc(var(--row3-bottom-pos) + var(--small-button-size) + var(--button-float-spacing));
 
   /* --- Horizontal Positions --- */
   --right-stack-offset-from-edge: calc(var(--box-size) * 0.02);
@@ -82,17 +83,17 @@ body {
 }
 
 .bottom-grid-container {
-  width: fit-content;
-  max-width: calc(var(--bottom-grid-columns) * var(--box-size) + (var(--bottom-grid-columns) - 1) * var(--box-gap));
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-  margin: 0 auto;
-  margin-bottom: calc(var(--box-size) * 0.3);
-  background: rgba(100,100,100,0.01);
-  padding-right: calc(var(--box-size) * 0.05);
+    display: grid;
+    grid-template-columns: var(--box-size) var(--box-size) repeat(var(--time-sig-beats), var(--box-size));
+    grid-template-rows: var(--box-size) calc(var(--box-size) / 2);
+    gap: var(--box-gap);
+    width: fit-content;
+    height: calc(var(--box-size) + var(--box-size) / 2 + var(--box-gap));
+    margin: 0 auto;
+    margin-bottom: calc(var(--box-size) * 0.3);
+    background: rgba(100,100,100,0.01);
 }
+
 
 .box-space {
   display: flex;
@@ -395,7 +396,7 @@ input[type="number"].bpm-input:focus {
 }
 
 /* --- Floating Chord Modifier Buttons --- */
-.sus-btn, .maj-seventh-btn, .seventh-btn, .second-btn, .fourth-btn, .aug-btn {
+.sus-btn, .maj-seventh-btn, .seventh-btn, .sixth-btn, .second-btn, .fourth-btn, .aug-btn {
   position: absolute;
   width: var(--small-button-size);
   height: var(--small-button-size);
@@ -413,7 +414,7 @@ input[type="number"].bpm-input:focus {
   transition: background 0.13s, color 0.13s, border-color 0.13s, box-shadow 0.13s, visibility 0s, opacity 0.2s;
   box-sizing: border-box;
 }
-.second-btn, .fourth-btn, .seventh-btn { font-size: var(--font-size-247); }
+.second-btn, .fourth-btn, .sixth-btn, .seventh-btn { font-size: var(--font-size-247); }
 .aug-btn { font-size: var(--font-size-aug); }
 .aug-btn.diminished { font-size: calc(var(--font-size-aug) * 1.4); line-height: 1; }
 .sus-btn { 
@@ -426,17 +427,19 @@ input[type="number"].bpm-input:focus {
   font-family: 'Brush Script MT', 'Brush Script Std', 'Lucida Calligraphy', cursive;
   padding-top: 1px; 
 }
-.sus-btn.active, .maj-seventh-btn.active, .seventh-btn.active, .second-btn.active, .fourth-btn.active, .aug-btn.active,
-.sus-btn:active, .maj-seventh-btn:active, .seventh-btn:active, .second-btn:active, .fourth-btn:active, .aug-btn:active,
-.sus-btn:focus-visible, .maj-seventh-btn:focus-visible, .seventh-btn:focus-visible, .second-btn:focus-visible, .fourth-btn:focus-visible, .aug-btn:focus-visible {
+.sus-btn.active, .maj-seventh-btn.active, .seventh-btn.active, .sixth-btn.active, .second-btn.active, .fourth-btn.active, .aug-btn.active,
+.sus-btn:active, .maj-seventh-btn:active, .seventh-btn:active, .sixth-btn:active, .second-btn:active, .fourth-btn:active, .aug-btn:active,
+.sus-btn:focus-visible, .maj-seventh-btn:focus-visible, .seventh-btn:focus-visible, .sixth-btn:focus-visible, .second-btn:focus-visible, .fourth-btn:focus-visible, .aug-btn:focus-visible {
   background: #1976d2;
   color: #fff; 
   border-color: #135ba1; 
   box-shadow: 0 1px 4px rgba(25,118,210,0.3);
 }
 .seventh-btn { bottom: var(--row1-bottom-pos); right: var(--right-stack-offset-from-edge); }
-.fourth-btn  { bottom: var(--row2-bottom-pos); right: var(--right-stack-offset-from-edge); }
-.second-btn  { bottom: var(--row3-bottom-pos); right: var(--right-stack-offset-from-edge); }
+.sixth-btn   { bottom: var(--row2-bottom-pos); right: var(--right-stack-offset-from-edge); }
+.fourth-btn  { bottom: var(--row3-bottom-pos); right: var(--right-stack-offset-from-edge); }
+.second-btn  { bottom: var(--row4-bottom-pos); right: var(--right-stack-offset-from-edge); }
+
 .maj-seventh-btn { 
   bottom: var(--row1-bottom-pos); 
   right: var(--center-left-stack-offset-from-right-edge);
@@ -493,6 +496,7 @@ input[type="number"].bpm-input:focus {
 .slot-box.split-active .sus-btn,
 .slot-box.split-active .maj-seventh-btn,
 .slot-box.split-active .seventh-btn,
+.slot-box.split-active .sixth-btn,
 .slot-box.split-active .second-btn,
 .slot-box.split-active .fourth-btn,
 .slot-box.split-active .aug-btn,
@@ -611,14 +615,15 @@ input[type="number"].bpm-input:focus {
 }
 
 .bottom-grid {
-  display: grid;
-  grid-template-columns: var(--box-size) var(--box-size) repeat(var(--time-sig-beats), var(--box-size));
-  grid-template-rows: var(--box-size) calc(var(--box-size) / 2);
-  gap: 0;
-  width: 100%;
-  height: calc(var(--box-size) + var(--box-size) / 2);
-  background: rgba(200,200,200,0.01);
+    grid-column: 3 / -1;
+    grid-row: 1 / span 2;
+    display: grid;
+    grid-template-columns: repeat(var(--time-sig-beats), var(--box-size));
+    grid-template-rows: var(--box-size) calc(var(--box-size) / 2);
+    gap: var(--box-gap);
+    width: 100%;
 }
+
 .play-btn-cell {
   grid-row: 1 / span 2;
   grid-column: 1 / 2;
@@ -1017,7 +1022,15 @@ input[type="number"].bpm-input:focus {
   letter-spacing: -0.2em; /* Tighten up the double flat symbol */
 }
 
-.play-btn-vertical { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; width: 100%;}
+.play-btn-vertical { 
+  grid-row: 1 / span 2;
+  grid-column: 1 / 2;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: flex-start; 
+  width: 100%;
+}
 .play-controls-container {
   display: flex;
   align-items: center;
