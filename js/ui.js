@@ -1,5 +1,5 @@
 import { appState, getProgressionData } from './state.js';
-import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass, chordTones, chordAlternateThirds, chordSevenths, chordMajorSevenths, chordSeconds, chordFourths, chordSixths, chordAugmentedFifths, chordDiminishedFifths } from './config.js';
+import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass, chordTones, chordAlternateThirds, chordSevenths, chordMajorSeven[...]
 import { getNotesToPlayForChord } from './audio.js';
 
 export function updateWaveformDisplay() {
@@ -309,8 +309,14 @@ export function setSplitSlotColorAndStyle(idx, splitSelect, splitVal) {
 
 export function updateLinkVisuals(progLetter) {
   const icon = document.getElementById('linkIcon' + progLetter);
+  const button = document.getElementById('toggle' + progLetter);
+  const isLinked = appState.progressionLinkStates[progLetter];
+
   if (icon) {
-    icon.classList.toggle('linked', appState.progressionLinkStates[progLetter]);
+    icon.classList.toggle('linked', isLinked);
+  }
+  if (button) {
+    button.classList.toggle('progression-linked', isLinked);
   }
 }
 
