@@ -1011,6 +1011,12 @@ input[type="number"].bpm-input:focus {
   top: 0.4em; /* Adjust vertical position to compensate for larger size */
 }
 
+.accidental.double-flat {
+  font-size: 0.75em;
+  top: 0.4em;
+  letter-spacing: -0.2em; /* Tighten up the double flat symbol */
+}
+
 .play-btn-vertical { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; width: 100%;}
 .play-controls-container {
   display: flex;
