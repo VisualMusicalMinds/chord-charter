@@ -1,5 +1,5 @@
 import { appState, getProgressionData } from './state.js';
-import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass, chordTones, chordAlternateThirds, chordSevenths, chordMajorSevenths, chordSeconds, chordFourths, chordAugmentedFifths } from './config.js';
+import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass, chordTones, chordAlternateThirds, chordSevenths, chordMajorSevenths, chordSeconds, chordFourths, chordAugmentedFifths, chordDiminishedFifths } from './config.js';
 import { getNotesToPlayForChord } from './audio.js';
 
 export function updateWaveformDisplay() {
@@ -97,66 +97,55 @@ export function setSlotContent(slotIndex) {
   }
 }
 
-// This is the new function that implements the display rules.
 function getNotesToDisplayForChord(chordName, isSplit, slotIndex) {
     if (!chordName || chordName === "empty") return [];
 
     const progData = getProgressionData(appState.currentToggle);
     if (!progData) return [];
 
-    // Determine which set of modifiers to use
+    const aug = isSplit ? progData.splitAug[slotIndex] : progData.aug[slotIndex];
     const s7 = isSplit ? progData.splitS7[slotIndex] : progData.s7[slotIndex];
     const maj7 = isSplit ? progData.splitMaj7[slotIndex] : progData.maj7[slotIndex];
     const s2 = isSplit ? progData.splitS2[slotIndex] : progData.s2[slotIndex];
     const s4 = isSplit ? progData.splitS4[slotIndex] : progData.s4[slotIndex];
     const m = isSplit ? progData.splitM[slotIndex] : progData.m[slotIndex];
     const sus = isSplit ? progData.splitSus[slotIndex] : progData.sus[slotIndex];
-    const aug = isSplit ? progData.splitAug[slotIndex] : progData.aug[slotIndex];
     
     const baseTones = chordTones[chordName] || [];
     let notes = new Map();
 
-    // Rule 1: Add Root
     notes.set('root', baseTones[0]);
 
-    // Rule 4: Add Fifth (conditionally augmented)
-    if (aug && chordAugmentedFifths[chordName]) {
+    if (aug === 'aug' && chordAugmentedFifths[chordName]) {
         notes.set('fifth', chordAugmentedFifths[chordName]);
+    } else if (aug === 'dim' && chordDiminishedFifths[chordName]) {
+        notes.set('fifth', chordDiminishedFifths[chordName]);
     } else {
         notes.set('fifth', baseTones[2]);
     }
 
-    // Rule 2: The Third is Conditional
     if (!sus) {
         if (m === 'major' && chordAlternateThirds[chordName]) {
             notes.set('third', chordAlternateThirds[chordName].major);
         } else if (m === 'minor' && chordAlternateThirds[chordName]) {
             notes.set('third', chordAlternateThirds[chordName].minor);
         } else {
-            notes.set('third', baseTones[1]); // Default third
+            notes.set('third', baseTones[1]);
         }
     }
 
-    // Rule 3: Add other notes
-    if (s2 && chordSeconds[chordName]) {
-        notes.set('second', chordSeconds[chordName]);
-    }
-    if (s4 && chordFourths[chordName]) {
-        notes.set('fourth', chordFourths[chordName]);
-    }
+    if (s2 && chordSeconds[chordName]) notes.set('second', chordSeconds[chordName]);
+    if (s4 && chordFourths[chordName]) notes.set('fourth', chordFourths[chordName]);
     if (maj7 && chordMajorSevenths[chordName]) {
         notes.set('seventh', chordMajorSevenths[chordName]);
     } else if (s7 && chordSevenths[chordName]) {
         notes.set('seventh', chordSevenths[chordName]);
     }
     
-    // Rule 5: Final Sorting
     const sortOrder = ['root', 'second', 'third', 'fourth', 'fifth', 'seventh'];
-    const sortedNotes = Array.from(notes.entries())
+    return Array.from(notes.entries())
         .sort(([keyA], [keyB]) => sortOrder.indexOf(keyA) - sortOrder.indexOf(keyB))
         .map(([, value]) => value);
-
-    return sortedNotes;
 }
 
 
@@ -242,6 +231,21 @@ export function updateModifierButtonVisuals(modifierKey, className, states) {
   document.querySelectorAll(`.${className}`).forEach((btn, idx) => {
     btn.classList.toggle('active', states[idx]);
   });
+}
+
+export function updateAugButtonVisuals(states) {
+    document.querySelectorAll('.aug-btn').forEach((btn, idx) => {
+        const state = states[idx];
+        btn.classList.remove('active', 'diminished');
+        btn.innerHTML = '+';
+
+        if (state === 'aug') {
+            btn.classList.add('active');
+        } else if (state === 'dim') {
+            btn.classList.add('active', 'diminished');
+            btn.innerHTML = 'o';
+        }
+    });
 }
 
 export function _updateQualityButtonVisualForSlot(idx, quality) {
