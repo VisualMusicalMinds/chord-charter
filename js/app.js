@@ -84,10 +84,29 @@ function initializeScaleSelector() {
 
 
 function initializeWaveformDial() {
-    document.getElementById("wave-left").onclick = () => handleWaveformDial(-1);
+    document.getElementById("wave-left").onclick  = () => handleWaveformDial(-1);
     document.getElementById("wave-right").onclick = () => handleWaveformDial(1);
-    document.getElementById("wave-left").addEventListener("keydown", (e) => { if (e.key===" "||e.key==="Enter"||e.key==="ArrowLeft") { e.preventDefault(); handleWaveformDial(-1); e.target.focus(); }});
-    document.getElementById("wave-right").addEventListener("keydown", (e) => { if (e.key===" "||e.key==="Enter"||e.key==="ArrowRight") { e.preventDefault(); handleWaveformDial(1); e.target.focus(); }});
+
+    document
+      .getElementById("wave-left")
+      .addEventListener("keydown", (e) => {
+          if (e.key === " " || e.key === "Enter" || e.key === "ArrowLeft") {
+              e.preventDefault();
+              handleWaveformDial(-1);
+              e.target.focus();
+          }
+      });
+
+    document
+      .getElementById("wave-right")
+      .addEventListener("keydown", (e) => {
+          if (e.key === " " || e.key === "Enter" || e.key === "ArrowRight") {
+              e.preventDefault();
+              handleWaveformDial(1);
+              e.target.focus();
+          }
+      });
+
     updateWaveformDisplay();
 }
 
