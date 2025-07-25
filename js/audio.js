@@ -28,8 +28,14 @@ export function ensureAudio() {
 function noteToFrequency(note) {
     const noteFrequencies = {
         'C': 261.63, 'C#': 277.18, 'Db': 277.18, 'D': 293.66, 'D#': 311.13, 'Eb': 311.13, 'E': 329.63, 'Fb': 329.63,
-        'F': 349.23, 'F#': 369.99, 'Gb': 369.99, 'G': 392.00, 'G#': 415.30, 'Ab': 415.30, 'A': 440.00, 'A#': 466.16,
-        'Bb': 466.16, 'B': 493.88, 'Cb': 493.88, 'B#': 523.25
+        'E#': 349.23, 'F': 349.23, 'F#': 369.99, 'Gb': 369.99, 'G': 392.00, 'G#': 415.30, 'Ab': 415.30, 'A': 440.00, 
+        'A#': 466.16, 'Bb': 466.16, 'B': 493.88, 'Cb': 493.88, 'B#': 523.25,
+        // Double sharps for augmented chords
+        'C##': 293.66, // C## is D
+        'D##': 329.63, // D## is E
+        'F##': 392.00, // F## is G
+        'G##': 440.00, // G## is A
+        'A##': 493.88, // A## is B
     };
 
     // Normalize the note name to handle both #/b and ♯/♭
