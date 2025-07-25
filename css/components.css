@@ -176,15 +176,16 @@
 .abcd-toggle-container {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 8px; /* Increased gap */
   width: 100%;
   padding: 0 5px;
   box-sizing: border-box;
+  margin-top: 5px; /* Added margin */
 }
 
 .abcd-toggle-row {
   display: flex;
-  gap: 5px;
+  gap: 8px; /* Increased gap */
   justify-content: center;
 }
 
@@ -193,8 +194,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  padding: 5px;
+  gap: 8px; /* Increased gap */
+  padding: 8px; /* Increased padding */
   border: 1px solid #ccc;
   border-radius: 6px;
   background-color: #fff;
@@ -205,13 +206,13 @@
 
 .abcd-letter {
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 1.4em; /* Increased font size */
   color: #aaa; /* Inactive color */
   transition: color 0.2s ease;
 }
 
 .abcd-link-icon {
-  font-size: 0.8em;
+  font-size: 1em; /* Increased font size */
   opacity: 0.5;
   transition: opacity 0.2s ease;
 }
@@ -243,10 +244,6 @@
   background-color: #c8e6c9; /* Darker light green */
   border-color: #81c784;
   transform: scale(1.05);
-}
-
-.abcd-toggle-btn.progression-linked.abcd-active .abcd-letter {
-  color: #000;
 }
 
 /* --- Component: Playback Controls --- */
