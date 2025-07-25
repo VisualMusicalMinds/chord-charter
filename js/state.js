@@ -1,3 +1,5 @@
+import { waveforms, keyMap } from './config.js';
+
 export const appState = {
   // Playback State
   isPlaying: false,
@@ -11,13 +13,11 @@ export const appState = {
   // Musical Context
   currentWaveformIndex: 0,
   get currentWaveform() {
-    const { waveforms } = require('./config.js');
     return waveforms[this.currentWaveformIndex];
   },
   currentKeyIndex: 0,
   currentDisplayKey: 'C',
   get musicalKey() {
-    const { keyMap } = require('./config.js');
     return keyMap[this.currentDisplayKey][this.currentScale.replace(' ', '')] || keyMap[this.currentDisplayKey].Major;
   },
   availableScales: ['Major', 'Natural Minor'],
