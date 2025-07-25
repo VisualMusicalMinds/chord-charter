@@ -1,5 +1,5 @@
 import { appState, getProgressionData } from './state.js';
-import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass, chordTones, chordAlternateThirds, chordSevenths, chordMajorSevenths, chordSeconds, chordFourths } from './config.js';
+import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass, chordTones, chordAlternateThirds, chordSevenths, chordMajorSevenths, chordSeconds, chordFourths, chordAugmentedFifths } from './config.js';
 import { getNotesToPlayForChord } from './audio.js';
 
 export function updateWaveformDisplay() {
@@ -111,6 +111,7 @@ function getNotesToDisplayForChord(chordName, isSplit, slotIndex) {
     const s4 = isSplit ? progData.splitS4[slotIndex] : progData.s4[slotIndex];
     const m = isSplit ? progData.splitM[slotIndex] : progData.m[slotIndex];
     const sus = isSplit ? progData.splitSus[slotIndex] : progData.sus[slotIndex];
+    const aug = isSplit ? progData.splitAug[slotIndex] : progData.aug[slotIndex];
     
     const baseTones = chordTones[chordName] || [];
     let notes = new Map();
@@ -118,8 +119,12 @@ function getNotesToDisplayForChord(chordName, isSplit, slotIndex) {
     // Rule 1: Add Root
     notes.set('root', baseTones[0]);
 
-    // Rule 4: Add Fifth (almost always present)
-    notes.set('fifth', baseTones[2]);
+    // Rule 4: Add Fifth (conditionally augmented)
+    if (aug && chordAugmentedFifths[chordName]) {
+        notes.set('fifth', chordAugmentedFifths[chordName]);
+    } else {
+        notes.set('fifth', baseTones[2]);
+    }
 
     // Rule 2: The Third is Conditional
     if (!sus) {
