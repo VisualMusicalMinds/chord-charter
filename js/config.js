@@ -614,3 +614,145 @@ export const chordSevenths = {
 export const chordMajorSevenths = { 
   'C': 'B', 'Dm': 'C♯', 'Em': 'D♯', 'F': 'E', 'G': 'F♯', 'Am': 'G♯', 'Bb': 'A',
   'Db': 'C', 'Ebm': 'D', 'Fm': 'E', 'Gb': 'F', 'Ab': 'G', 'Bbm': 'A', 
+'D': 'C♯', 'F#m': 'E♯', 'Bm': 'A♯',
+  'Eb': 'D', 'Gm': 'F♯', 'Cm': 'B',
+  'E': 'D♯', 'G#m': 'F𝄪', 'C#m': 'B♯',
+  'Fb': 'E♭', 'Abm': 'G', 
+  'B': 'A♯', 'D#m': 'C𝄪', 'F#': 'E♯', 'A': 'G♯',
+  'Bdim': 'A♯', 'Cdim': 'B', 'C#dim': 'B♯', 'Ddim': 'C♯', 'D#dim': 'C𝄪', 'Edim': 'D♯', 'Fdim': 'E', 'F#dim': 'E♯', 'Gdim': 'F♯', 'G#dim': 'F𝄪', 'Adim': 'G♯', 'A#dim': 'G𝄪'
+};
+export const chordSeconds = { 
+  'C': 'D', 'Dm': 'E', 'Em': 'F♯', 'F': 'G', 'G': 'A', 'Am': 'B', 'Bb': 'C',
+  'Db': 'E♭', 'Ebm': 'F', 'Fm': 'G', 'Gb': 'A♭', 'Ab': 'B♭', 'Bbm': 'C', 'Cb': 'D♭',
+  'D': 'E', 'F#m': 'G♯', 'Bm': 'C♯',
+  'Eb': 'F', 'Gm': 'A', 'Cm': 'D',
+  'E': 'F♯', 'G#m': 'A♯', 'C#m': 'D♯',
+  'Fb': 'G♭', 'Abm': 'B♭', 
+  'B': 'C♯', 'D#m': 'E♯', 'F#': 'G♯', 'A': 'B',
+  'Bdim': 'C♯', 'Cdim': 'D', 'C#dim': 'D♯', 'Ddim': 'E', 'D#dim': 'E♯', 'Edim': 'F♯', 'Fdim': 'G', 'F#dim': 'G♯', 'Gdim': 'A', 'G#dim': 'A♯', 'Adim': 'B', 'A#dim': 'B♯'
+};
+export const chordFourths = { 
+  'C': 'F', 'Dm': 'G', 'Em': 'A', 'F': 'B♭', 'G': 'C', 'Am': 'D', 'Bb': 'E♭',
+  'Db': 'G♭', 'Ebm': 'A♭', 'Fm': 'B♭', 'Gb': 'C♭', 'Ab': 'D♭', 'Bbm': 'E♭', 'Cb': 'F♭',
+  'D': 'G', 'F#m': 'B', 'Bm': 'E',
+  'Eb': 'A♭', 'Gm': 'C', 'Cm': 'F',
+  'E': 'A', 'G#m': 'C♯', 'C#m': 'F♯',
+  'Fb': 'B𝄫', 'Abm': 'D♭', 
+  'B': 'E', 'D#m': 'G♯', 'F#': 'B', 'A': 'D',
+  'Bdim': 'E', 'Cdim': 'F', 'C#dim': 'F♯', 'Ddim': 'G', 'D#dim': 'G♯', 'Edim': 'A', 'Fdim': 'B♭', 'F#dim': 'B', 'Gdim': 'C', 'G#dim': 'C♯', 'Adim': 'D', 'A#dim': 'D♯'
+};
+export const chordSixths = {
+    'C': 'A', 'Dm': 'B', 'Em': 'C♯', 'F': 'D', 'G': 'E', 'Am': 'F♯', 'Bb': 'G',
+    'Db': 'B♭', 'Ebm': 'C', 'Fm': 'D', 'Gb': 'E♭', 'Ab': 'F', 'Bbm': 'G', 'Cb': 'A♭',
+    'D': 'B', 'F#m': 'D♯', 'Bm': 'G♯',
+    'Eb': 'C', 'Gm': 'E', 'Cm': 'A',
+    'E': 'C♯', 'G#m': 'E♯', 'C#m': 'A♯',
+    'Fb': 'D♭', 'Abm': 'F',
+    'B': 'G♯', 'D#m': 'B♯', 'F#': 'D♯', 'A': 'F♯',
+    'Bdim': 'G', 'Cdim': 'A', 'C#dim': 'A♯', 'Ddim': 'B', 'D#dim': 'B♯', 'Edim': 'C♯', 'Fdim': 'D', 'F#dim': 'D♯', 'Gdim': 'E', 'G#dim': 'E♯', 'Adim': 'F', 'A#dim': 'F♯'
+};
+export const chordAugmentedFifths = {
+    'C': 'G#', 'Dm': 'A#', 'Em': 'B#', 'F': 'C#', 'G': 'D#', 'Am': 'E#', 'Bb': 'F#',
+    'Db': 'A', 'Ebm': 'B', 'Fm': 'C#', 'Gb': 'D', 'Ab': 'E', 'Bbm': 'F#', 'Cb': 'G',
+    'D': 'A#', 'F#m': 'C𝄪', 'Bm': 'F𝄪',
+    'Eb': 'B', 'Gm': 'D#', 'Cm': 'G#',
+    'E': 'B#', 'G#m': 'D𝄪', 'C#m': 'G𝄪',
+    'Fb': 'C', 'Abm': 'E',
+    'B': 'F𝄪', 'D#m': 'A𝄪', 'F#': 'C𝄪', 'A': 'E#',
+    'Bdim': 'G', 'Cdim': 'Ab', 'C#dim': 'A', 'Ddim': 'Bb', 'D#dim': 'B', 'Edim': 'C', 'Fdim': 'Db', 'F#dim': 'D', 'Gdim': 'Eb', 'G#dim': 'E', 'Adim': 'F', 'A#dim': 'F#'
+};
+export const chordDiminishedFifths = {
+    'C': 'G♭', 'Dm': 'A♭', 'Em': 'B♭', 'F': 'C♭', 'G': 'D♭', 'Am': 'E♭', 'Bb': 'F♭',
+    'Db': 'A𝄫', 'Ebm': 'B𝄫', 'Fm': 'C♭', 'Gb': 'D𝄫', 'Ab': 'E𝄫', 'Bbm': 'F♭', 'Cb': 'G𝄫',
+    'D': 'A♭', 'F#m': 'C', 'Bm': 'F',
+    'Eb': 'B𝄫', 'Gm': 'D♭', 'Cm': 'G♭',
+    'E': 'B♭', 'G#m': 'D', 'C#m': 'G',
+    'Fb': 'C𝄫', 'Abm': 'E𝄫',
+    'B': 'F', 'D#m': 'A', 'F#': 'C', 'A': 'E♭',
+    'Bdim': 'F♭', 'Cdim': 'G𝄫', 'C#dim': 'G♭', 'Ddim': 'A𝄫', 'D#dim': 'A♭', 'Edim': 'B𝄫', 'Fdim': 'C𝄫', 'F#dim': 'C♭', 'Gdim': 'D𝄫', 'G#dim': 'D♭', 'Adim': 'E𝄫', 'A#dim': 'E♭'
+};
+
+export const rhythmChordNotes = { 
+  'C': ['C3', 'C4', 'E4', 'G4', 'C5'], 'Dm': ['D3', 'D4', 'F4', 'A4', 'D5'], 'Em': ['E3', 'E4', 'G4', 'B4', 'E5'], 'F':  ['F3', 'F4', 'A4', 'C5', 'F5'],  'G':  ['G3', 'G4', 'B4', 'D5', 'G5'], 'Am': ['A2', 'A3', 'C4', 'E4', 'A4'], 'Bb': ['Bb2', 'Bb3', 'D4', 'F4', 'Bb4'],
+  'Db': ['Db3','Db4','F4','Ab4','Db5'], 'Ebm':['Eb3','Eb4','Gb4','Bb4','Eb5'], 'Fm': ['F3','F4','Ab4','C5','F5'], 'Gb': ['Gb3', 'Gb4', 'Bb3', 'Db4', 'Gb5'], 'Ab': ['Ab2','Ab3','C4','Eb4','Ab4'], 'Bbm':['Bb2','Bb3','Db4','F4','Bb4'], 'Cb': ['Cb3','Cb4','Eb4','Gb4','Cb5'],
+  'D':  ['D3', 'D4', 'F#4', 'A4', 'D5'], 'F#m':['F#3','F#4','A4','C#5','F#5'], 'Bm': ['B2','B3','D4','F#4','B4'],
+  'Eb': ['Eb3','Eb4','G4','Bb4','Eb5'], 'Gm': ['G3','G4','Bb4','D5','G5'], 'Cm': ['C3','C4','Eb4','G4','C5'],
+  'E':  ['E3', 'E4', 'G#4', 'B4', 'E5'], 'G#m':['G#3','G#4','B4','D#5','G#5'], 'C#m':['C#3','C#4','E4','G#4','C#5'],
+  'Fb': ['Fb3','Fb4','Ab4','Cb4','Fb5'], 'Abm':['Ab2','Ab3','Cb4','Eb4','Ab4'], 
+  'B':  ['B2', 'B3', 'D#4', 'F#4', 'B4'], 'D#m':['D#3','D#4','F#4','A#4','D#5'], 'F#': ['F#3','F#4','A#4','C#5','F#5'], 'A': ['A2','A3','C#4','E4','A4'],
+  'Bdim': ['B2', 'B3', 'D4', 'F4', 'B4'], 'Cdim': ['C3', 'C4', 'Eb4', 'Gb4', 'C5'], 'C#dim': ['C#3', 'C#4', 'E4', 'G4', 'C#5'], 'Ddim': ['D3', 'D4', 'F4', 'Ab4', 'D5'], 'D#dim': ['D#3', 'D#4', 'F#4', 'A4', 'D#5'], 'Edim': ['E3', 'E4', 'G4', 'Bb4', 'E5'], 'Fdim': ['F3', 'F4', 'Ab4', 'C5', 'F5'], 'F#dim': ['F#3', 'F#4', 'A4', 'C4', 'F#4'], 'Gdim': ['G3', 'G4', 'Bb4', 'Db5', 'G5'], 'G#dim': ['G#3', 'G#4', 'B4', 'D5', 'G#5'], 'Adim': ['A2', 'A3', 'C4', 'Eb4', 'A4'], 'A#dim': ['A#2', 'A#3', 'C#4', 'E4', 'A#4'],
+  'Ddim7': ['D3', 'D4', 'F4', 'Ab4', 'Cb5'], 'D#dim7': ['D#3', 'D#4', 'F#4', 'A4', 'C5'], 'Edim7': ['E3', 'E4', 'G4', 'Bb4', 'Db5'], 'Fdim7': ['F3', 'F4', 'Ab4', 'Cb5', 'Ebb5'], 'F#dim7': ['F#3', 'F#4', 'A4', 'C5', 'E5'], 'Gdim7': ['G3', 'G4', 'Bb4', 'Db5', 'Fb5'], 'G#dim7': ['G#3', 'G#4', 'B4', 'D5', 'F5'], 'Adim7': ['A2', 'A3', 'C4', 'Eb4', 'Gb4'], 'A#dim7': ['A#2', 'A#3', 'C#4', 'E4', 'G4'], 'Bdim7': ['B2', 'B3', 'D4', 'F4', 'Ab4'], 'Cdim7': ['C3', 'C4', 'Eb4', 'Gb4', 'Bbb4'], 'C#dim7': ['C#3', 'C#4', 'E4', 'G4', 'Bb4']
+};
+export const rhythmChordSeventhNotes = { 
+  'C': 'Bb4', 'Dm': 'C5', 'Em': 'D5', 'F': 'Eb5', 'G': 'F5', 'Am': 'G4', 'Bb': 'Ab4',
+  'Db':'Cb4', 'Ebm':'Db5', 'Fm':'Eb5', 'Gb':'Fb5', 'Ab':'Gb4', 'Bbm':'Ab4', 'Cb':'Bbb4',
+  'D': 'C5', 'F#m':'E5', 'Bm':'A4',
+  'Eb':'Db5', 'Gm':'F5', 'Cm':'Bb4',
+  'E': 'D5', 'G#m':'F#5', 'C#m':'B4',
+  'Fb':'Ebb5', 'Abm': 'Gb4', 
+  'B': 'A4', 'D#m':'C#5', 'F#':'E5', 'A':'G4',
+  'Bdim': 'A4', 'Cdim': 'Bb4', 'C#dim': 'B4', 'Ddim': 'C5', 'D#dim': 'C#5', 'Edim': 'D5', 'Fdim': 'Eb5', 'F#dim': 'E5', 'Gdim': 'F5', 'G#dim': 'F#5', 'Adim': 'G4', 'A#dim': 'G#4'
+};
+export const rhythmChordMajorSeventhNotes = { 
+  'C': 'B4', 'Dm': 'C#5', 'Em': 'D#5', 'F': 'E5', 'G': 'F#4', 'Am': 'G#4', 'Bb': 'A4',
+  'Db':'C5', 'Ebm':'D5', 'Fm':'E5', 'Gb':'F4', 'Ab':'G4', 'Bbm':'A4', 'Cb':'Bb4',
+  'D': 'C#5', 'F#m':'E#5', 'Bm':'A#4', 
+  'Eb':'D5', 'Gm':'F#5', 'Cm':'B4',
+  'E': 'D#5', 'G#m':'F##5', 'C#m':'B#5', 
+  'Fb':'Eb5', 'Abm': 'G4', 
+  'B': 'A#4', 'D#m':'C##5', 'F#':'E#5', 'A':'G#4',
+  'Bdim': 'A#4', 'Cdim': 'B4', 'C#dim': 'B#4', 'Ddim': 'C#5', 'D#dim': 'C##5', 'Edim': 'D#5', 'Fdim': 'E5', 'F#dim': 'E#5', 'Gdim': 'F#5', 'G#dim': 'F##5', 'Adim': 'G#4', 'A#dim': 'G##4'
+};
+export const rhythmChordSecondNotes = {
+  'C': 'D4', 'Dm': 'E4', 'Em': 'F#4', 'F': 'G4', 'G': 'A4', 'Am': 'B4', 'Bb': 'C4',
+  'Db':'Eb4', 'Ebm':'F4', 'Fm':'G4', 'Gb':'Ab4', 'Ab':'Bb4', 'Bbm':'C4', 'Cb':'Db4',
+  'D': 'E4', 'F#m':'G#4', 'Bm':'C#4',
+  'Eb':'F4', 'Gm':'A4', 'Cm':'D4',
+  'E': 'F#4', 'G#m':'A#4', 'C#m':'D#4',
+  'Fb':'Gb4', 'Abm': 'Bb3', 
+  'B': 'C#4', 'D#m':'E#4', 'F#':'G#4', 'A':'B3',
+  'Bdim': 'C#4', 'Cdim': 'D4', 'C#dim': 'D#4', 'Ddim': 'E4', 'D#dim': 'E#4', 'Edim': 'F#4', 'Fdim': 'G4', 'F#dim': 'G#4', 'Gdim': 'A4', 'G#dim': 'A#4', 'Adim': 'B3', 'A#dim': 'B#3'
+};
+export const rhythmChordFourthNotes = {
+  'C': 'F4', 'Dm': 'G4', 'Em': 'A4', 'F': 'Bb4', 'G': 'C5', 'Am': 'D5', 'Bb': 'Eb4',
+  'Db':'Gb4', 'Ebm':'Ab4', 'Fm':'Bb4', 'Gb':'Cb4', 'Ab':'Db5', 'Bbm':'Eb4', 'Cb':'Fb4',
+  'D': 'G4', 'F#m':'B4', 'Bm':'E4',
+  'Eb':'Ab4', 'Gm':'C5', 'Cm':'F4',
+  'E': 'A4', 'G#m':'C#5', 'C#m':'F#4',
+  'Fb':'Bbb4', 'Abm': 'Db5', 
+  'B': 'E4', 'D#m':'G#4', 'F#':'B3', 'A':'D4',
+  'Bdim': 'E4', 'Cdim': 'F4', 'C#dim': 'F#4', 'Ddim': 'G4', 'D#dim': 'G#4', 'Edim': 'A4', 'Fdim': 'Bb4', 'F#dim': 'B3', 'Gdim': 'C5', 'G#dim': 'C#5', 'Adim': 'D4', 'A#dim': 'D#4'
+};
+export const rhythmChordSixthNotes = {
+  'C': 'A4', 'Dm': 'B4', 'Em': 'C#5', 'F': 'D5', 'G': 'E5', 'Am': 'F#4', 'Bb': 'G4',
+  'Db': 'Bb4', 'Ebm': 'C5', 'Fm': 'D5', 'Gb': 'Eb5', 'Ab': 'F4', 'Bbm': 'G4', 'Cb': 'Ab4',
+  'D': 'B4', 'F#m': 'D#5', 'Bm': 'G#4',
+  'Eb': 'C5', 'Gm': 'E5', 'Cm': 'A4',
+  'E': 'C#5', 'G#m': 'E#5', 'C#m': 'A#4',
+  'Fb': 'Db5', 'Abm': 'F4',
+  'B': 'G#4', 'D#m': 'B#4', 'F#': 'D#5', 'A': 'F#4',
+  'Bdim': 'G4', 'Cdim': 'A4', 'C#dim': 'A#4', 'Ddim': 'B4', 'D#dim': 'B#4', 'Edim': 'C#5', 'Fdim': 'D5', 'F#dim': 'D#5', 'Gdim': 'E5', 'G#dim': 'E#5', 'Adim': 'F4', 'A#dim': 'F#4'
+};
+
+
+export const noteColorClass = {
+  'C': 'note-C', 'D': 'note-D', 'E': 'note-E', 'F': 'note-F', 'G': 'note-G', 'A': 'note-A', 'B': 'note-B',
+  'F♯': 'note-F', 'G♯': 'note-G', 'B♭': 'note-B', 'E♭': 'note-E', 'A♭': 'note-A', 'C♯': 'note-C', 'D♭': 'note-D',
+  'F#': 'note-F', 'G#': 'note-G', 'Bb': 'note-B', 'Eb': 'note-E', 'Ab': 'note-A', 'C#': 'note-C', 'Db': 'note-D', 
+  'Cb': 'note-B', 'Fb': 'note-E', 
+  'Abm': 'note-A', 'Ebm': 'note-E', 'Bbm': 'note-B', 'F#m': 'note-F', 'C#m': 'note-C', 'G#m': 'note-G', 'D#m': 'note-D' 
+};
+
+export const restDashImgUrl = "https://eagleviewmusic.com/images/CartoonRhythmBox5.svg";
+export const dashImgUrl = "https://eagleviewmusic.com/images/CartoonRhythmBox1.svg";
+export const rhythmBox2 = "https://eagleviewmusic.com/images/CartoonRhythmBox2.svg";
+export const rhythmBox3 = "https://eagleviewmusic.com/images/CartoonRhythmBox3.svg";
+export const rhythmBox4 = "https://eagleviewmusic.com/images/CartoonRhythmBox4.svg";
+
+export const soundProfiles = {
+  sine: { duration: 0.4, attack: 0.04, hold: 0.2, release: 0.16, filterFreq: 3000, filterQ: 0.5, gain: 0.27, vibrato: false }, // Halfway between 0.36 and 0.18
+  triangle: { duration: 0.29, attack: 0.015, hold: 0.07, release: 0.2, filterFreq: 1200, filterQ: 1, gain: 0.285, vibrato: false }, // Halfway between 0.38 and 0.19
+  square: { duration: 0.25, attack: 0.005, hold: 0.02, release: 0.225, filterFreq: 900, filterQ: 2, gain: 0.225, vibrato: false }, // Halfway between 0.30 and 0.15
+  saw: { duration: 0.33, attack: 0.02, hold: 0.05, release: 0.26, filterFreq: 1600, filterQ: 1.5, gain: 0.21, pitchBend: true, bendAmount: 30, bendTime: 0.08, vibrato: false }, // Halfway between 0.28 and 0.14
+  voice: { duration: 0.5, attack: 0.08, hold: 0.3, release: 0.12, filterFreq: 1000, filterQ: 1, gain: 0.27, vibrato: true, vibratoFreq: 5, vibratoAmount: 4 } // Halfway between 0.36 and 0.18
+};
