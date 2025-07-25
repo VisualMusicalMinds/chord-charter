@@ -488,6 +488,16 @@ export const chordAugmentedFifths = {
     'B': 'F𝄪', 'D#m': 'A𝄪', 'F#': 'C𝄪', 'A': 'E#',
     'Bdim': 'G', 'Cdim': 'Ab', 'C#dim': 'A', 'Ddim': 'Bb', 'D#dim': 'B', 'Edim': 'C', 'Fdim': 'Db', 'F#dim': 'D', 'Gdim': 'Eb', 'G#dim': 'E', 'Adim': 'F', 'A#dim': 'F#'
 };
+export const chordDiminishedFifths = {
+    'C': 'G♭', 'Dm': 'A♭', 'Em': 'B♭', 'F': 'C♭', 'G': 'D♭', 'Am': 'E♭', 'Bb': 'F♭',
+    'Db': 'A♭♭', 'Ebm': 'B♭♭', 'Fm': 'C♭', 'Gb': 'D♭♭', 'Ab': 'E♭♭', 'Bbm': 'F♭', 'Cb': 'G♭♭',
+    'D': 'A♭', 'F#m': 'C', 'Bm': 'F',
+    'Eb': 'B♭♭', 'Gm': 'D♭', 'Cm': 'G♭',
+    'E': 'B♭', 'G#m': 'D', 'C#m': 'G',
+    'Fb': 'C♭♭', 'Abm': 'E♭♭',
+    'B': 'F', 'D#m': 'A', 'F#': 'C', 'A': 'E♭',
+    'Bdim': 'F♭', 'Cdim': 'G♭♭', 'C#dim': 'G♭', 'Ddim': 'A♭♭', 'D#dim': 'A♭', 'Edim': 'B♭♭', 'Fdim': 'C♭♭', 'F#dim': 'C♭', 'Gdim': 'D♭♭', 'G#dim': 'D♭', 'Adim': 'E♭♭', 'A#dim': 'E♭'
+};
 
 export const rhythmChordNotes = { 
   'C': ['C3', 'C4', 'E4', 'G4', 'C5'], 'Dm': ['D3', 'D4', 'F4', 'A4', 'D5'], 'Em': ['E3', 'E4', 'G4', 'B4', 'E5'], 'F':  ['F3', 'F4', 'A4', 'C5', 'F5'],  'G':  ['G3', 'G4', 'B4', 'D5', 'G5'], 'Am': ['A2', 'A3', 'C4', 'E4', 'A4'], 'Bb': ['Bb2', 'Bb3', 'D4', 'F4', 'Bb4'],
