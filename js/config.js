@@ -394,10 +394,10 @@ export const chordAlternateThirds = {
   'Db': { 'major': 'F', 'minor': 'F♭', 'majorNote': 'F4', 'minorNote': 'Fb4' }, 
   'Ebm':{ 'major': 'G', 'minor': 'G♭', 'majorNote': 'G4', 'minorNote': 'Gb4' },
   'Fm': { 'major': 'A', 'minor': 'A♭', 'majorNote': 'A4', 'minorNote': 'Ab4' },
-  'Gb': { 'major': 'B♭','minor': 'B♭♭','majorNote': 'Bb4','minorNote': 'Bbb4'}, 
+  'Gb': { 'major': 'B♭','minor': 'B𝄫','majorNote': 'Bb4','minorNote': 'Bbb4'}, 
   'Ab': { 'major': 'C', 'minor': 'C♭', 'majorNote': 'C5', 'minorNote': 'Cb5' }, 
   'Bbm':{ 'major': 'D', 'minor': 'D♭', 'majorNote': 'D4', 'minorNote': 'Db4' },
-  'Cb': { 'major': 'E♭','minor': 'E♭♭','majorNote': 'Eb4','minorNote': 'Ebb4'}, 
+  'Cb': { 'major': 'E♭','minor': 'E𝄫','majorNote': 'Eb4','minorNote': 'Ebb4'}, 
   'D':  { 'major': 'F♯','minor': 'F',  'majorNote': 'F#4','minorNote': 'F4'  },
   'F#m':{ 'major': 'A♯','minor': 'A',  'majorNote': 'A#4','minorNote': 'A4'  },
   'A':  { 'major': 'C♯','minor': 'C',  'majorNote': 'C#5','minorNote': 'C5'  },
@@ -410,7 +410,7 @@ export const chordAlternateThirds = {
   'C#m':{ 'major': 'E♯','minor': 'E',  'majorNote': 'E#5','minorNote': 'E5'  }, 
   'B':  { 'major': 'D♯','minor': 'D',  'majorNote': 'D#5','minorNote': 'D5'  },
   'D#m':{ 'major': 'F𝄪','minor':'F♯','majorNote': 'F##5','minorNote':'F#5'}, 
-  'Fb': { 'major': 'A♭','minor': 'A♭♭','majorNote': 'Ab4','minorNote': 'Abb4'}, 
+  'Fb': { 'major': 'A♭','minor': 'A𝄫','majorNote': 'Ab4','minorNote': 'Abb4'}, 
   'F#': { 'major': 'A♯','minor': 'A',  'majorNote': 'A#4','minorNote': 'A4'  },
   'Abm':{ 'major': 'C', 'minor': 'C♭', 'majorNote': 'C5', 'minorNote': 'Cb4' },
   'Bdim': { 'major': 'D♯', 'minor': 'D', 'majorNote': 'D#4', 'minorNote': 'D4' },
@@ -440,11 +440,11 @@ export const chordTones = {
 
 export const chordSevenths = { 
   'C': 'B♭', 'Dm': 'C', 'Em': 'D', 'F': 'E♭', 'G': 'F', 'Am': 'G', 'Bb': 'A♭',
-  'Db': 'C♭', 'Ebm': 'D♭', 'Fm': 'E♭', 'Gb': 'F♭', 'Ab': 'G♭', 'Bbm': 'A♭', 'Cb': 'B♭♭',
+  'Db': 'C♭', 'Ebm': 'D♭', 'Fm': 'E♭', 'Gb': 'F♭', 'Ab': 'G♭', 'Bbm': 'A♭', 'Cb': 'B𝄫',
   'D': 'C', 'F#m': 'E', 'Bm': 'A',
   'Eb': 'D♭', 'Gm': 'F', 'Cm': 'B♭',
   'E': 'D', 'G#m': 'F♯', 'C#m': 'B',
-  'Fb': 'E♭♭', 'Abm': 'G♭', 
+  'Fb': 'E𝄫', 'Abm': 'G♭', 
   'B': 'A', 'D#m': 'C♯', 'F#': 'E', 'A': 'G',
   'Bdim': 'A', 'Cdim': 'B♭', 'C#dim': 'B', 'Ddim': 'C', 'D#dim': 'C♯', 'Edim': 'D', 'Fdim': 'E♭', 'F#dim': 'E', 'Gdim': 'F', 'G#dim': 'F♯', 'Adim': 'G', 'A#dim': 'G♯'
 };
@@ -474,7 +474,7 @@ export const chordFourths = {
   'D': 'G', 'F#m': 'B', 'Bm': 'E',
   'Eb': 'A♭', 'Gm': 'C', 'Cm': 'F',
   'E': 'A', 'G#m': 'C♯', 'C#m': 'F♯',
-  'Fb': 'B♭♭', 'Abm': 'D♭', 
+  'Fb': 'B𝄫', 'Abm': 'D♭', 
   'B': 'E', 'D#m': 'G♯', 'F#': 'B', 'A': 'D',
   'Bdim': 'E', 'Cdim': 'F', 'C#dim': 'F♯', 'Ddim': 'G', 'D#dim': 'G♯', 'Edim': 'A', 'Fdim': 'B♭', 'F#dim': 'B', 'Gdim': 'C', 'G#dim': 'C♯', 'Adim': 'D', 'A#dim': 'D♯'
 };
@@ -490,13 +490,13 @@ export const chordAugmentedFifths = {
 };
 export const chordDiminishedFifths = {
     'C': 'G♭', 'Dm': 'A♭', 'Em': 'B♭', 'F': 'C♭', 'G': 'D♭', 'Am': 'E♭', 'Bb': 'F♭',
-    'Db': 'A♭♭', 'Ebm': 'B♭♭', 'Fm': 'C♭', 'Gb': 'D♭♭', 'Ab': 'E♭♭', 'Bbm': 'F♭', 'Cb': 'G♭♭',
+    'Db': 'A𝄫', 'Ebm': 'B𝄫', 'Fm': 'C♭', 'Gb': 'D𝄫', 'Ab': 'E𝄫', 'Bbm': 'F♭', 'Cb': 'G𝄫',
     'D': 'A♭', 'F#m': 'C', 'Bm': 'F',
-    'Eb': 'B♭♭', 'Gm': 'D♭', 'Cm': 'G♭',
+    'Eb': 'B𝄫', 'Gm': 'D♭', 'Cm': 'G♭',
     'E': 'B♭', 'G#m': 'D', 'C#m': 'G',
-    'Fb': 'C♭♭', 'Abm': 'E♭♭',
+    'Fb': 'C𝄫', 'Abm': 'E𝄫',
     'B': 'F', 'D#m': 'A', 'F#': 'C', 'A': 'E♭',
-    'Bdim': 'F♭', 'Cdim': 'G♭♭', 'C#dim': 'G♭', 'Ddim': 'A♭♭', 'D#dim': 'A♭', 'Edim': 'B♭♭', 'Fdim': 'C♭♭', 'F#dim': 'C♭', 'Gdim': 'D♭♭', 'G#dim': 'D♭', 'Adim': 'E♭♭', 'A#dim': 'E♭'
+    'Bdim': 'F♭', 'Cdim': 'G𝄫', 'C#dim': 'G♭', 'Ddim': 'A𝄫', 'D#dim': 'A♭', 'Edim': 'B𝄫', 'Fdim': 'C𝄫', 'F#dim': 'C♭', 'Gdim': 'D𝄫', 'G#dim': 'D♭', 'Adim': 'E𝄫', 'A#dim': 'E♭'
 };
 
 export const rhythmChordNotes = { 
