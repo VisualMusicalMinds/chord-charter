@@ -94,35 +94,35 @@ function initializeABCDToggles() {
     const container = document.querySelector('.abcd-toggle-container');
     if (!container) return;
 
-    ['A', 'B', 'C', 'D'].forEach(t => { 
-        const btn = container.querySelector('#toggle' + t); 
-        if(btn) { 
-            btn.addEventListener('click', () => switchToggle(t)); 
-            btn.addEventListener('keydown', (e) => { 
-                if (e.key === " " || e.key === "Enter") { 
-                    e.preventDefault(); 
-                    // If the link icon was the specific target of the keydown, toggle link state instead
-                    if (document.activeElement === btn.querySelector('.abcd-link-icon')) {
-                         toggleLinkState(t);
+    ['A', 'B', 'C', 'D'].forEach(t => {
+        const btn = container.querySelector('#toggle' + t);
+        if (btn) {
+            btn.addEventListener('click', (event) => {
+                // Check if the click target is the link icon or its child
+                if (event.target.closest('.abcd-link-icon')) {
+                    toggleLinkState(t);
+                } else {
+                    switchToggle(t);
+                }
+            });
+
+            btn.addEventListener('keydown', (e) => {
+                if (e.key === " " || e.key === "Enter") {
+                    e.preventDefault();
+                    // Check if the focused element is the link icon
+                    if (document.activeElement.classList.contains('abcd-link-icon')) {
+                        toggleLinkState(t);
                     } else {
                         switchToggle(t);
                     }
                 }
-            }); 
+            });
         }
-        
+
         const linkIcon = container.querySelector('#linkIcon' + t);
         if (linkIcon) {
-            // Make the link icon focusable
+            // Make the link icon focusable for keyboard navigation
             linkIcon.setAttribute('tabindex', '0');
-            linkIcon.style.cursor = 'pointer';
-
-            linkIcon.addEventListener('click', (event) => {
-                event.stopPropagation(); 
-                toggleLinkState(t);
-            });
-            // Keydown is already handled on the parent button, so no need for a separate one here
-            // unless we want different behavior, which we've handled above.
         }
     });
 }
