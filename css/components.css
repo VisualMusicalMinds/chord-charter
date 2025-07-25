@@ -143,6 +143,35 @@
   justify-content: center;
 }
 
+/* --- Component: Scale Selector --- */
+.scale-selector-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 9px;
+}
+
+.scale-select {
+  font-family: 'EB Garamond', Garamond, 'Times New Roman', Times, serif;
+  font-weight: 700;
+  font-size: clamp(0.75rem, 1.3vw, 1.06em);
+  background: #fafdff;
+  border: 1.5px solid #1976d2;
+  border-radius: 0.6em;
+  padding: 0.12em 0.46em;
+  color: #444;
+  box-shadow: 0 0.5px 2px #0001;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  text-align-last: center; /* For centering the selected option text */
+  -moz-text-align-last: center; /* Firefox */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
 /* --- Component: Playback Controls --- */
 .play-controls-container {
   display: flex;
@@ -304,7 +333,7 @@ input[type="number"].bpm-input:focus {
 }
 .note-C { background: var(--color-c); }
 .note-D { background: var(--color-d); }
-.note-E { background: var(--color-e); color: #000; }
+.note-E { background: var(--color-e); }
 .note-F { background: var(--color-f); }
 .note-G { background: var(--color-g); }
 .note-A { background: var(--color-a); }
