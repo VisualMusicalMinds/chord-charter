@@ -1,5 +1,10 @@
 import { appState, getProgressionData } from './state.js';
-import { scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, rhythmBox3, rhythmBox4, noteColorClass, chordTones, chordAlternateThirds, chordSevenths, chordMajorSeven[...]
+import { 
+    scaleChordMaps, allChordOptions, optionColors, restDashImgUrl, dashImgUrl, rhythmBox2, 
+    rhythmBox3, rhythmBox4, noteColorClass, chordTones, chordAlternateThirds, 
+    chordSevenths, chordMajorSevenths, chordSixths, chordFourths, chordSeconds,
+    chordAugmentedFifths, chordDiminishedFifths
+} from './config.js';
 import { getNotesToPlayForChord } from './audio.js';
 
 export function updateWaveformDisplay() {
