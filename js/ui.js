@@ -5,7 +5,6 @@ import {
     chordSevenths, chordMajorSevenths, chordSixths, chordFourths, chordSeconds,
     chordAugmentedFifths, chordDiminishedFifths
 } from './config.js';
-import { getNotesToPlayForChord } from './audio.js';
 
 export function updateWaveformDisplay() {
   document.getElementById("waveform-name").textContent = appState.currentWaveform;
@@ -120,9 +119,9 @@ function getNotesToDisplayForChord(chordName, isSplit, slotIndex) {
 
     notes.set('root', baseTones[0]);
 
-    if (aug === 'aug' && chordAugmentedFifths[chordName]) {
+    if ((aug === 'aug' || chordName.endsWith('aug') || chordName.endsWith('+')) && chordAugmentedFifths[chordName]) {
         notes.set('fifth', chordAugmentedFifths[chordName]);
-    } else if (aug === 'dim' && chordDiminishedFifths[chordName]) {
+    } else if ((aug === 'dim' || chordName.endsWith('dim') || chordName.endsWith('°')) && chordDiminishedFifths[chordName]) {
         notes.set('fifth', chordDiminishedFifths[chordName]);
     } else {
         notes.set('fifth', baseTones[2]);
@@ -231,11 +230,11 @@ export function setPlayingUI(playing) {
 }
 
 export function updateSlotHighlights() {
+    const totalSlots = 4;
     appState.slotIds.forEach((id, index) => {
         const slot = document.getElementById(id);
         if (slot) {
-            // Apply the 'enlarged' class directly to the slot, not its parent.
-            slot.classList.toggle('enlarged', appState.isPlaying && index === (appState.slotHighlightStep % 4));
+            slot.classList.toggle('enlarged', appState.isPlaying && index === (appState.slotHighlightStep % totalSlots));
         }
     });
 }
@@ -263,7 +262,7 @@ export function updateAugButtonVisuals(states) {
             btn.classList.add('active');
         } else if (state === 'dim') {
             btn.classList.add('active', 'diminished');
-            btn.innerHTML = 'o';
+            btn.innerHTML = '°';
         }
     });
 }
