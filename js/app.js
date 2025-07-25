@@ -91,25 +91,38 @@ function initializeWaveformDial() {
 }
 
 function initializeABCDToggles() {
+    const container = document.querySelector('.abcd-toggle-container');
+    if (!container) return;
+
     ['A', 'B', 'C', 'D'].forEach(t => { 
-        const btn = document.getElementById('toggle' + t); 
+        const btn = container.querySelector('#toggle' + t); 
         if(btn) { 
             btn.addEventListener('click', () => switchToggle(t)); 
-            btn.addEventListener('keydown', (e) => { if (e.key===" "||e.key==="Enter") { e.preventDefault(); switchToggle(t); }}); 
+            btn.addEventListener('keydown', (e) => { 
+                if (e.key === " " || e.key === "Enter") { 
+                    e.preventDefault(); 
+                    // If the link icon was the specific target of the keydown, toggle link state instead
+                    if (document.activeElement === btn.querySelector('.abcd-link-icon')) {
+                         toggleLinkState(t);
+                    } else {
+                        switchToggle(t);
+                    }
+                }
+            }); 
         }
-        const linkIcon = document.getElementById('linkIcon' + t);
+        
+        const linkIcon = container.querySelector('#linkIcon' + t);
         if (linkIcon) {
+            // Make the link icon focusable
+            linkIcon.setAttribute('tabindex', '0');
+            linkIcon.style.cursor = 'pointer';
+
             linkIcon.addEventListener('click', (event) => {
                 event.stopPropagation(); 
                 toggleLinkState(t);
             });
-            linkIcon.addEventListener('keydown', (event) => {
-                if (event.key === " " || event.key === "Enter") {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    toggleLinkState(t);
-                }
-            });
+            // Keydown is already handled on the parent button, so no need for a separate one here
+            // unless we want different behavior, which we've handled above.
         }
     });
 }
