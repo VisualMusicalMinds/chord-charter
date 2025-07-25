@@ -92,37 +92,37 @@ function initializeWaveformDial() {
 
 function initializeABCDToggles() {
     const container = document.querySelector('.abcd-toggle-container');
-    if (!container) return;
+    if (!container) {
+        console.error("ABCD toggle container not found!");
+        return;
+    }
 
     ['A', 'B', 'C', 'D'].forEach(t => {
         const btn = container.querySelector('#toggle' + t);
+        const linkIcon = container.querySelector('#linkIcon' + t);
+
         if (btn) {
             btn.addEventListener('click', (event) => {
-                // Check if the click target is the link icon or its child
-                if (event.target.closest('.abcd-link-icon')) {
+                // event.target is the specific element that was clicked.
+                // We check if the clicked element *is* the link icon.
+                if (event.target === linkIcon) {
                     toggleLinkState(t);
                 } else {
                     switchToggle(t);
                 }
             });
 
-            btn.addEventListener('keydown', (e) => {
-                if (e.key === " " || e.key === "Enter") {
-                    e.preventDefault();
-                    // Check if the focused element is the link icon
-                    if (document.activeElement.classList.contains('abcd-link-icon')) {
+            // Make the link icon focusable and handle its keyboard events separately
+            if (linkIcon) {
+                linkIcon.setAttribute('tabindex', '0'); // Allows focus
+                linkIcon.addEventListener('keydown', (e) => {
+                    if (e.key === ' ' || e.key === 'Enter') {
+                        e.preventDefault();
+                        e.stopPropagation(); // Prevent the button's keydown listener from firing
                         toggleLinkState(t);
-                    } else {
-                        switchToggle(t);
                     }
-                }
-            });
-        }
-
-        const linkIcon = container.querySelector('#linkIcon' + t);
-        if (linkIcon) {
-            // Make the link icon focusable for keyboard navigation
-            linkIcon.setAttribute('tabindex', '0');
+                });
+            }
         }
     });
 }
