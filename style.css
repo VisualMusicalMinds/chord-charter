@@ -1005,6 +1005,11 @@ input[type="number"].bpm-input:focus {
   line-height: 0;
 }
 
+.accidental.double-sharp {
+  font-size: 0.75em; /* Boost the size */
+  top: 0.4em; /* Adjust vertical position to compensate for larger size */
+}
+
 .play-btn-vertical { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; width: 100%;}
 .play-controls-container {
   display: flex;
