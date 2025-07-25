@@ -478,6 +478,16 @@ export const chordFourths = {
   'B': 'E', 'D#m': 'G♯', 'F#': 'B', 'A': 'D',
   'Bdim': 'E', 'Cdim': 'F', 'C#dim': 'F♯', 'Ddim': 'G', 'D#dim': 'G♯', 'Edim': 'A', 'Fdim': 'B♭', 'F#dim': 'B', 'Gdim': 'C', 'G#dim': 'C♯', 'Adim': 'D', 'A#dim': 'D♯'
 };
+export const chordSixths = {
+    'C': 'A', 'Dm': 'B', 'Em': 'C♯', 'F': 'D', 'G': 'E', 'Am': 'F♯', 'Bb': 'G',
+    'Db': 'B♭', 'Ebm': 'C', 'Fm': 'D', 'Gb': 'E♭', 'Ab': 'F', 'Bbm': 'G', 'Cb': 'A♭',
+    'D': 'B', 'F#m': 'D♯', 'Bm': 'G♯',
+    'Eb': 'C', 'Gm': 'E', 'Cm': 'A',
+    'E': 'C♯', 'G#m': 'E♯', 'C#m': 'A♯',
+    'Fb': 'D♭', 'Abm': 'F',
+    'B': 'G♯', 'D#m': 'B♯', 'F#': 'D♯', 'A': 'F♯',
+    'Bdim': 'G', 'Cdim': 'A', 'C#dim': 'A♯', 'Ddim': 'B', 'D#dim': 'B♯', 'Edim': 'C♯', 'Fdim': 'D', 'F#dim': 'D♯', 'Gdim': 'E', 'G#dim': 'E♯', 'Adim': 'F', 'A#dim': 'F♯'
+};
 export const chordAugmentedFifths = {
     'C': 'G#', 'Dm': 'A#', 'Em': 'B#', 'F': 'C#', 'G': 'D#', 'Am': 'E#', 'Bb': 'F#',
     'Db': 'A', 'Ebm': 'B', 'Fm': 'C#', 'Gb': 'D', 'Ab': 'E', 'Bbm': 'F#', 'Cb': 'G',
@@ -550,6 +560,17 @@ export const rhythmChordFourthNotes = {
   'B': 'E4', 'D#m':'G#4', 'F#':'B3', 'A':'D4',
   'Bdim': 'E4', 'Cdim': 'F4', 'C#dim': 'F#4', 'Ddim': 'G4', 'D#dim': 'G#4', 'Edim': 'A4', 'Fdim': 'Bb4', 'F#dim': 'B3', 'Gdim': 'C5', 'G#dim': 'C#5', 'Adim': 'D4', 'A#dim': 'D#4'
 };
+export const rhythmChordSixthNotes = {
+  'C': 'A4', 'Dm': 'B4', 'Em': 'C#5', 'F': 'D5', 'G': 'E5', 'Am': 'F#4', 'Bb': 'G4',
+  'Db': 'Bb4', 'Ebm': 'C5', 'Fm': 'D5', 'Gb': 'Eb5', 'Ab': 'F4', 'Bbm': 'G4', 'Cb': 'Ab4',
+  'D': 'B4', 'F#m': 'D#5', 'Bm': 'G#4',
+  'Eb': 'C5', 'Gm': 'E5', 'Cm': 'A4',
+  'E': 'C#5', 'G#m': 'E#5', 'C#m': 'A#4',
+  'Fb': 'Db5', 'Abm': 'F4',
+  'B': 'G#4', 'D#m': 'B#4', 'F#': 'D#5', 'A': 'F#4',
+  'Bdim': 'G4', 'Cdim': 'A4', 'C#dim': 'A#4', 'Ddim': 'B4', 'D#dim': 'B#4', 'Edim': 'C#5', 'Fdim': 'D5', 'F#dim': 'D#5', 'Gdim': 'E5', 'G#dim': 'E#5', 'Adim': 'F4', 'A#dim': 'F#4'
+};
+
 
 export const noteColorClass = {
   'C': 'note-C', 'D': 'note-D', 'E': 'note-E', 'F': 'note-F', 'G': 'note-G', 'A': 'note-A', 'B': 'note-B',
