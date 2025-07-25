@@ -587,9 +587,9 @@ export const rhythmBox3 = "https://eagleviewmusic.com/images/CartoonRhythmBox3.s
 export const rhythmBox4 = "https://eagleviewmusic.com/images/CartoonRhythmBox4.svg";
 
 export const soundProfiles = {
-  sine: { duration: 0.4, attack: 0.04, hold: 0.2, release: 0.16, filterFreq: 3000, filterQ: 0.5, gain: 0.18, vibrato: false }, // Reduced from 0.36
-  triangle: { duration: 0.29, attack: 0.015, hold: 0.07, release: 0.2, filterFreq: 1200, filterQ: 1, gain: 0.19, vibrato: false }, // Reduced from 0.38
-  square: { duration: 0.25, attack: 0.005, hold: 0.02, release: 0.225, filterFreq: 900, filterQ: 2, gain: 0.15, vibrato: false }, // Reduced from 0.30
-  saw: { duration: 0.33, attack: 0.02, hold: 0.05, release: 0.26, filterFreq: 1600, filterQ: 1.5, gain: 0.14, pitchBend: true, bendAmount: 30, bendTime: 0.08, vibrato: false }, // Reduced from 0.28
-  voice: { duration: 0.5, attack: 0.08, hold: 0.3, release: 0.12, filterFreq: 1000, filterQ: 1, gain: 0.18, vibrato: true, vibratoFreq: 5, vibratoAmount: 4 } // Reduced from 0.36
+  sine: { duration: 0.4, attack: 0.04, hold: 0.2, release: 0.16, filterFreq: 3000, filterQ: 0.5, gain: 0.27, vibrato: false }, // Halfway between 0.36 and 0.18
+  triangle: { duration: 0.29, attack: 0.015, hold: 0.07, release: 0.2, filterFreq: 1200, filterQ: 1, gain: 0.285, vibrato: false }, // Halfway between 0.38 and 0.19
+  square: { duration: 0.25, attack: 0.005, hold: 0.02, release: 0.225, filterFreq: 900, filterQ: 2, gain: 0.225, vibrato: false }, // Halfway between 0.30 and 0.15
+  saw: { duration: 0.33, attack: 0.02, hold: 0.05, release: 0.26, filterFreq: 1600, filterQ: 1.5, gain: 0.21, pitchBend: true, bendAmount: 30, bendTime: 0.08, vibrato: false }, // Halfway between 0.28 and 0.14
+  voice: { duration: 0.5, attack: 0.08, hold: 0.3, release: 0.12, filterFreq: 1000, filterQ: 1, gain: 0.27, vibrato: true, vibratoFreq: 5, vibratoAmount: 4 } // Halfway between 0.36 and 0.18
 };
