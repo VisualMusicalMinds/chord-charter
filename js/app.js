@@ -1,4 +1,4 @@
-import { songs, timeSignatureNumerators, scaleChordMaps, waveforms, displayKeys, keyMap } from './config.js';
+import { songs, timeSignatureNumerators, scaleChordMaps, waveforms, displayKeys, keyMap, allChords } from './config.js';
 import { appState, getProgressionData } from './state.js';
 import { ensureAudio, playTriangleNotes, playBrush, playBassDrum, getNotesToPlayForChord } from './audio.js';
 import { 
@@ -859,7 +859,10 @@ function generateSongSummary() {
         const linkStatus = appState.progressionLinkStates[progLetter] ? 'linked' : 'unlinked';
         
         const rhythmText = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-        const activeRhythm = progData.r.map((isActive, i) => isActive ? rhythmText[i] : '').join('').slice(0, timeSignatureNumerators[appState.currentTimeSignatureIndex] * 2);
+        const activeRhythm = progData.r
+            .map((isActive, i) => isActive ? rhythmText[i] : '')
+            .join('')
+            .slice(0, timeSignatureNumerators[appState.currentTimeSignatureIndex] * 2);
 
         const chordsSummary = progData.p.map((chord, idx) => {
             let primaryStr = _generateChordString(chord, progData, idx, false);
@@ -894,26 +897,21 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
     const parenMods = parenMatch ? parenMatch[1] : '';
     if (parenMatch) remainingToken = remainingToken.replace(parenMatch[0], '');
 
-    // Now, the base chord name might be something like "B" if the original was "Bo"
-    // Or it could be "Dm"
     const mainPartMatch = remainingToken.match(/([A-G][b#]?[m]?)(.*)/);
     if (!mainPartMatch) return;
 
     let baseChord = mainPartMatch[1];
     const appendedMods = mainPartMatch[2];
     
-    // Reconstruct 'dim' for internal state if needed
-    if (augState === 'dim' && !baseChord.endsWith('m')) {
-        // This logic assumes that a natural 'dim' chord will be parsed correctly.
-        // e.g. "Bo" -> baseChord="B", augState='dim'. We need to map this to "Bdim" for our internal config lookups.
-        // Let's find a matching chord in our list.
+    // If we parsed a diminished chord ('o'), check if it's a naturally diminished chord (like Bdim).
+    // If so, use the 'dim' version for our internal state. If not, it's a manually modified chord.
+    if (augState === 'dim') {
         const potentialDimChord = baseChord + 'dim';
-        if (appState.allChords.includes(potentialDimChord)) {
-            baseChord = potentialDimChord;
-            augState = 'none'; // It's a natural dim, not a modified one.
+        if (allChords.includes(potentialDimChord)) {
+            baseChord = potentialDimChord; // It's a natural dim chord, so use the full name.
+            augState = 'none'; // The 'dim' quality is inherent, not a modification.
         }
     }
-
 
     const s7 = appendedMods.includes('maj7') || appendedMods.includes('7');
     const maj7 = appendedMods.includes('maj7');
@@ -997,9 +995,8 @@ function parseAndLoadSongSummary(summaryText) {
                 const rhythmMap = {'1':0, '2':1, '3':2, '4':3, '5':4, '6':5, '7':6, '8':7, '9':8, '0':9};
                 progData.r.fill(false);
                 for (const char of rhythmStr) {
-                    const index = parseInt(char, 10);
-                    if (!isNaN(index) && index >= 0 && index < progData.r.length) {
-                         progData.r[index] = true;
+                    if (rhythmMap.hasOwnProperty(char)) {
+                         progData.r[rhythmMap[char]] = true;
                     }
                 }
 
