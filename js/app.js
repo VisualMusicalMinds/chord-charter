@@ -814,6 +814,11 @@ function _generateChordString(baseChord, progData, idx, isSplit) {
     const appendedMods = [];
     const parenMods = [];
 
+    // Handle inherent diminished quality first
+    if (chordStr.endsWith('dim')) {
+        chordStr = chordStr.slice(0, -3) + 'o';
+    }
+
     if (s2) appendedMods.push('2');
     if (s4) appendedMods.push('4');
     if (maj7) appendedMods.push('maj7');
@@ -827,11 +832,15 @@ function _generateChordString(baseChord, progData, idx, isSplit) {
     if (parenMods.length > 0) {
         chordStr += `(${parenMods.join(',')})`;
     }
+    
+    // Handle manual fifth modifications
     if (aug === 'aug') {
         chordStr += '+';
-    } else if (aug === 'dim') {
-        chordStr += '-';
+    } else if (aug === 'dim' && !chordStr.endsWith('o')) {
+        // Only add 'o' if it's not already there from 'dim'
+        chordStr += 'o';
     }
+
     return chordStr;
 }
 
@@ -850,7 +859,7 @@ function generateSongSummary() {
         const linkStatus = appState.progressionLinkStates[progLetter] ? 'linked' : 'unlinked';
         
         const rhythmText = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-        const activeRhythm = progData.r.map((isActive, i) => isActive ? rhythmText[i] : '').join('');
+        const activeRhythm = progData.r.map((isActive, i) => isActive ? rhythmText[i] : '').join('').slice(0, timeSignatureNumerators[appState.currentTimeSignatureIndex] * 2);
 
         const chordsSummary = progData.p.map((chord, idx) => {
             let primaryStr = _generateChordString(chord, progData, idx, false);
@@ -876,7 +885,7 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
     if (remainingToken.endsWith('+')) {
         augState = 'aug';
         remainingToken = remainingToken.slice(0, -1);
-    } else if (remainingToken.endsWith('-')) {
+    } else if (remainingToken.endsWith('o')) {
         augState = 'dim';
         remainingToken = remainingToken.slice(0, -1);
     }
@@ -885,11 +894,26 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
     const parenMods = parenMatch ? parenMatch[1] : '';
     if (parenMatch) remainingToken = remainingToken.replace(parenMatch[0], '');
 
-    const mainPartMatch = remainingToken.match(/([A-G][b#]?(?:m|dim)?)(.*)/);
+    // Now, the base chord name might be something like "B" if the original was "Bo"
+    // Or it could be "Dm"
+    const mainPartMatch = remainingToken.match(/([A-G][b#]?[m]?)(.*)/);
     if (!mainPartMatch) return;
 
-    const baseChord = mainPartMatch[1];
+    let baseChord = mainPartMatch[1];
     const appendedMods = mainPartMatch[2];
+    
+    // Reconstruct 'dim' for internal state if needed
+    if (augState === 'dim' && !baseChord.endsWith('m')) {
+        // This logic assumes that a natural 'dim' chord will be parsed correctly.
+        // e.g. "Bo" -> baseChord="B", augState='dim'. We need to map this to "Bdim" for our internal config lookups.
+        // Let's find a matching chord in our list.
+        const potentialDimChord = baseChord + 'dim';
+        if (appState.allChords.includes(potentialDimChord)) {
+            baseChord = potentialDimChord;
+            augState = 'none'; // It's a natural dim, not a modified one.
+        }
+    }
+
 
     const s7 = appendedMods.includes('maj7') || appendedMods.includes('7');
     const maj7 = appendedMods.includes('maj7');
