@@ -856,10 +856,7 @@ function _generateChordString(baseChord, progData, idx, isSplit) {
     
     let isDiminished = chordStr.endsWith('dim') || chordStr.endsWith('°');
     if (isDiminished) {
-        chordStr = chordStr.slice(0, -3);
-        if (chordStr.endsWith('m')) { // for mdim chords
-            chordStr = chordStr.slice(0, -1);
-        }
+        chordStr = chordStr.replace(/dim|°/g, '');
     }
     let isMinor = chordStr.endsWith('m');
     if (isMinor) {
@@ -867,7 +864,7 @@ function _generateChordString(baseChord, progData, idx, isSplit) {
     }
     let isAugmented = chordStr.endsWith('aug') || chordStr.endsWith('+');
      if (isAugmented) {
-        chordStr = chordStr.slice(0, -3);
+        chordStr = chordStr.replace(/aug|\+/g, '');
     }
 
     if (m === 'minor' || isMinor) {
@@ -937,26 +934,24 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
     const s2 = token.includes('2');
     const s4 = token.includes('4');
     const sus = token.includes('sus');
-    const aug = token.endsWith('+');
-    const dim = token.endsWith('°');
+    const isAug = token.endsWith('+');
+    const isDim = token.endsWith('°');
 
-    token = token.replace(/maj7|7|sus|6|2|4|\+|°/g, '');
+    let baseChord = token.replace(/maj7|7|sus|6|2|4/g, '');
     
-    let baseChord = token;
     let finalAugState = 'none';
-    let mState = 'none';
-
-    if (aug) {
+    if (isAug) {
         finalAugState = 'aug';
-        if (!baseChord.endsWith('aug')) baseChord += 'aug';
-    } else if (dim) {
+    } else if (isDim) {
         finalAugState = 'dim';
-        if (!baseChord.endsWith('dim')) baseChord += 'dim';
     }
 
-    if (baseChord.endsWith('m')) {
+    let mState = 'none';
+    if (baseChord.replace(/\+|°/g, '').endsWith('m')) {
         mState = 'minor';
     }
+    
+    const canonicalChord = allChords.find(c => c === baseChord) || baseChord;
 
     const target = {
         p: isSplit ? progData.splitVal : progData.p,
@@ -970,9 +965,6 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
         m: isSplit ? progData.splitM : progData.m,
         splitActive: progData.splitActive
     };
-
-    // Find the canonical chord name from allChords
-    const canonicalChord = allChords.find(c => c.replace(/dim/g, '°').replace(/aug/g, '+') === chordToken.replace(/m/g, '')) || baseChord;
 
     target.p[idx] = canonicalChord;
     target.s7[idx] = s7 || maj7;
