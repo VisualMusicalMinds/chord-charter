@@ -32,10 +32,16 @@ function noteToFrequency(note) {
         'Bb': 466.16, 'B': 493.88, 'Cb': 493.88, 'B#': 523.25
     };
 
-    const octave = parseInt(note.slice(-1), 10);
-    const noteName = note.slice(0, -1);
+    // Normalize the note name to handle both #/b and ♯/♭
+    const normalizedNote = note.replace('♯', '#').replace('♭', 'b');
+    const octave = parseInt(normalizedNote.slice(-1), 10);
+    const noteName = normalizedNote.slice(0, -1);
+    
     const baseFrequency = noteFrequencies[noteName];
-    if (!baseFrequency) return 0;
+    if (!baseFrequency) {
+        console.warn(`Frequency not found for note: ${noteName} (from original: ${note})`);
+        return 0;
+    }
 
     return baseFrequency * Math.pow(2, octave - 4);
 }
