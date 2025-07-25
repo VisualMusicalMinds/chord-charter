@@ -1,268 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Rhythm Chord Tool</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Chord Charting: Advanced</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="app-container">
-    <div class="top-row">
-      <div class="box-space">
-        <div class="abcd-toggle-container">
-          <div class="abcd-toggle-row">
-            <button id="toggleA" class="abcd-toggle-btn abcd-active">
-              <span class="abcd-letter">A</span>
-              <span id="linkIconA" class="abcd-link-icon">🔗</span>
+    <div class="bottom-grid-container" id="bottom-grid-container">
+      <div class="bottom-grid" id="bottom-grid">
+        <div class="play-btn-cell">
+          <div class="play-controls-container">
+            <button id="playPauseBtn" class="circle-play-btn" title="Play" aria-label="Play/Pause" tabindex="0">
+              <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="2 2 20 20" style="display:block;">
+                <polygon points="7,5 19,12 7,19" fill="white"/>
+              </svg>
+              <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="2 2 20 20" style="display:none;">
+                <rect x="7" y="5" width="4" height="14" fill="white"/>
+                <rect x="15" y="5" width="4" height="14" fill="white"/>
+              </svg>
             </button>
-            <button id="toggleB" class="abcd-toggle-btn">
-              <span class="abcd-letter">B</span>
-              <span id="linkIconB" class="abcd-link-icon">🔗</span>
-            </button>
+            
+            <div class="bpm-input-block">
+              <div class="bpm-input-row">
+                <input type="number" id="bpmInput" class="bpm-input" min="30" max="300" value="90" inputmode="numeric" autocomplete="off" />
+                <div class="bpm-stepper">
+                  <button type="button" class="bpm-arrow" id="bpmUp" tabindex="0" aria-label="Increment BPM">&#9650;</button>
+                  <button type="button" class="bpm-arrow" id="bpmDown" tabindex="0" aria-label="Decrement BPM">&#9660;</button>
+                </div>
+              </div>
+              <div class="brush-toggle">
+                <input type="checkbox" id="brushToggle" checked title="Toggle Brush Sound" aria-label="Toggle Brush Sound" />
+              </div>
+            </div>
           </div>
-          <div class="abcd-toggle-row">
-            <button id="toggleC" class="abcd-toggle-btn">
-              <span class="abcd-letter">C</span>
-              <span id="linkIconC" class="abcd-link-icon">🔗</span>
-            </button>
-            <button id="toggleD" class="abcd-toggle-btn">
-              <span class="abcd-letter">D</span>
-              <span id="linkIconD" class="abcd-link-icon">🔗</span>
-            </button>
+        </div>
+        <div class="time-signature-cell">
+          <div class="time-signature-container">
+            <button id="time-sig-top" class="time-sig-btn" aria-label="Change time signature numerator">4</button>
+            <div class="time-sig-divider"></div>
+            <div id="time-sig-bottom" class="time-sig-bottom">4</div>
           </div>
         </div>
-        <div class="instrument-waveform-dial">
-          <button id="wave-left" class="waveform-arrow" aria-label="Previous waveform" tabindex="0">◀</button>
-          <div id="waveform-name" class="waveform-name">triangle</div>
-          <button id="wave-right" class="waveform-arrow" aria-label="Next waveform" tabindex="0">▶</button>
+        <div class="bottom-picture" id="bottomPic0" style="grid-row:1; grid-column:3;">
+          <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg" alt="Rhythm Box" />
         </div>
-        <div class="key-selector-dial">
-          <button id="key-left" class="key-arrow" aria-label="Previous key" tabindex="0">◀</button>
-          <div id="current-key-name" class="key-name-display">C</div>
-          <button id="key-right" class="key-arrow" aria-label="Next key" tabindex="0">▶</button>
+        <div class="bottom-picture" id="bottomPic1" style="grid-row:1; grid-column:4;">
+          <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg" alt="Rhythm Box" />
         </div>
-        <div class="scale-selector-container">
-          <select id="scale-select" class="scale-select"></select>
+        <div class="bottom-picture" id="bottomPic2" style="grid-row:1; grid-column:5;">
+          <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg" alt="Rhythm Box" />
         </div>
-        <div class="transpose-container" style="margin-top: 5px; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 0.8em;">
-          <input type="checkbox" id="transpose-checkbox" style="width: 14px; height: 14px;">
-          <label for="transpose-checkbox">Transpose</label>
+        <div class="bottom-picture" id="bottomPic3" style="grid-row:1; grid-column:6;">
+          <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg" alt="Rhythm Box" />
+        </div>
+        <div class="bottom-picture" id="bottomPic4" style="grid-row:1; grid-column:7;">
+          <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg" alt="Rhythm Box" />
+        </div>
+        <div class="rhythm-box-pair" id="rhythm-box-pair-0" style="grid-row:2; grid-column:3;">
+          <div class="bottom-rhythm-box" data-pair="0" data-which="0"><span class="bottom-rhythm-box-text">1</span></div>
+          <div class="bottom-rhythm-box" data-pair="0" data-which="1"><span class="bottom-rhythm-box-text">&amp;</span></div>
+        </div>
+        <div class="rhythm-box-pair" id="rhythm-box-pair-1" style="grid-row:2; grid-column:4;">
+          <div class="bottom-rhythm-box" data-pair="1" data-which="0"><span class="bottom-rhythm-box-text">2</span></div>
+          <div class="bottom-rhythm-box" data-pair="1" data-which="1"><span class="bottom-rhythm-box-text">&amp;</span></div>
+        </div>
+        <div class="rhythm-box-pair" id="rhythm-box-pair-2" style="grid-row:2; grid-column:5;">
+          <div class="bottom-rhythm-box" data-pair="2" data-which="0"><span class="bottom-rhythm-box-text">3</span></div>
+          <div class="bottom-rhythm-box" data-pair="2" data-which="1"><span class="bottom-rhythm-box-text">&amp;</span></div>
+        </div>
+        <div class="rhythm-box-pair" id="rhythm-box-pair-3" style="grid-row:2; grid-column:6;">
+          <div class="bottom-rhythm-box" data-pair="3" data-which="0"><span class="bottom-rhythm-box-text">4</span></div>
+          <div class="bottom-rhythm-box" data-pair="3" data-which="1"><span class="bottom-rhythm-box-text">&amp;</span></div>
+        </div>
+        <div class="rhythm-box-pair" id="rhythm-box-pair-4" style="grid-row:2; grid-column:7;">
+          <div class="bottom-rhythm-box" data-pair="4" data-which="0"><span class="bottom-rhythm-box-text">5</span></div>
+          <div class="bottom-rhythm-box" data-pair="4" data-which="1"><span class="bottom-rhythm-box-text">&amp;</span></div>
         </div>
       </div>
-      
-      <!-- Slot 0 -->
+    </div>
+    <div class="top-row" id="top-row">
       <div class="box-space">
-        <div id="slot0" class="slot-box">
-          <div class="note-rects-container">
-            <div class="primary-note-rects note-rects"></div>
-            <div class="split-note-rects note-rects"></div>
+        <div class="bpm-clear-stack">
+          <div class="bpm-clear-stack-inner" style="display: flex; flex-direction: column; align-items: center;">
+            <button id="clear" class="refresh-btn" title="Clear All" aria-label="Clear All" tabindex="0">
+              <svg class="refresh-icon" viewBox="0 0 24 24">
+                <path d="M12 5V2L7 6.5l5 4.5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="currentColor"/>
+              </svg>
+            </button>
+            <div class="instrument-waveform-dial" id="waveform-dial">
+              <div class="waveform-arrow" id="wave-left" tabindex="0">&#9664;</div>
+              <div id="waveform-name" class="waveform-name">triangle</div>
+              <div class="waveform-arrow" id="wave-right" tabindex="0">&#9654;</div>
+            </div>
+           <div class="abcd-toggle-container">
+              <div class="abcd-toggle-row">
+                <button id="toggleA" class="abcd-toggle-btn abcd-active" title="Progression A" aria-label="Progression A" tabindex="0">
+                  <span class="abcd-letter">A</span>
+                  <span id="linkIconA" class="abcd-link-icon">🔗</span>
+                </button>
+                <button id="toggleB" class="abcd-toggle-btn" title="Progression B" aria-label="Progression B" tabindex="0">
+                  <span class="abcd-letter">B</span>
+                  <span id="linkIconB" class="abcd-link-icon">🔗</span>
+                </button>
+              </div>
+              <div class="abcd-toggle-row">
+                <button id="toggleC" class="abcd-toggle-btn" title="Progression C" aria-label="Progression C" tabindex="0">
+                  <span class="abcd-letter">C</span>
+                  <span id="linkIconC" class="abcd-link-icon">🔗</span>
+                </button>
+                <button id="toggleD" class="abcd-toggle-btn" title="Progression D" aria-label="Progression D" tabindex="0">
+                  <span class="abcd-letter">D</span>
+                  <span id="linkIconD" class="abcd-link-icon">🔗</span>
+                </button>
+              </div>
+            </div>
+            <!-- New Key Selector Dial -->
+            <div class="key-selector-dial" id="key-selector-dial">
+              <div class="key-arrow" id="key-left" tabindex="0" aria-label="Previous Key">&#9664;</div>
+              <div id="current-key-name" class="key-name-display">C</div>
+              <div class="key-arrow" id="key-right" tabindex="0" aria-label="Next Key">&#9654;</div>
+            </div>
+            <!-- End New Key Selector Dial -->
+            <!-- New Scale Selector -->
+            <div class="scale-selector-container">
+                <select id="scale-select" class="scale-select">
+                    <option value="Major" disabled selected>Scale</option>
+                </select>
+            </div>
+            <!-- End New Scale Selector -->
           </div>
-          <img src="https://eagleviewmusic.com/images/Dash.svg" class="dash-img-slot" alt="Empty slot">
+        </div>
+      </div>
+      <div class="box-space" id="box-space-0">
+        <div class="slot-box" id="slot0">
+          <div class="note-rects-container">
+            <div class="note-rects primary-note-rects"></div>
+            <div class="note-rects split-note-rects"></div>
+          </div>
+          <img class="dash-img-slot" src="https://eagleviewmusic.com/images/CartoonRhythmBox5.svg" alt="Rhythm Box Rest" />
+          <div class="mm-toggle"> 
+            <button class="quality-toggle-btn" type="button" tabindex="0" title="Toggle Chord Quality (Natural/Major/Minor)" aria-label="Toggle Chord Quality">M</button>
+          </div>
+          <button class="sus-btn" type="button" tabindex="0" title="Toggle Suspended Chord" aria-label="Toggle Suspended Chord">sus</button>
+          <button class="aug-btn" type="button" tabindex="0" title="Toggle Augmented Chord" aria-label="Toggle Augmented Chord">+</button>
+          <button class="maj-seventh-btn" type="button" tabindex="0" title="Toggle Major 7th" aria-label="Toggle Major 7th">maj</button>
           <div class="chord-selection-area">
             <div class="primary-chord-wrapper">
               <select class="chord-select primary-chord-select"></select>
-              <button class="add-split-chord-btn">+</button>
+              <button class="add-split-chord-btn" title="Add second chord to measure" aria-label="Add second chord to measure">+</button>
             </div>
             <select class="chord-select split-chord-select"></select>
           </div>
-          <button class="mm-toggle quality-toggle-btn">M</button>
-          <button class="sus-btn">sus</button>
-          <button class="maj-seventh-btn">M</button>
-          <button class="seventh-btn">7</button>
-          <button class="sixth-btn">6</button>
-          <button class="fourth-btn">4</button>
-          <button class="second-btn">2</button>
-          <button class="aug-btn">+</button>
+          <button class="second-btn" type="button" tabindex="0" title="Add 2nd" aria-label="Toggle 2nd chord">&#50;</button>
+          <button class="fourth-btn" type="button" tabindex="0" title="Add 4th" aria-label="Toggle 4th chord">4</button>
+          <button class="sixth-btn" type="button" tabindex="0" title="Add 6th" aria-label="Toggle 6th chord">6</button>
+          <button class="seventh-btn" type="button" tabindex="0" title="Add 7th" aria-label="Toggle 7th chord">&#55;</button>
         </div>
       </div>
-      
-      <!-- Slot 1 -->
-      <div class="box-space">
-        <div id="slot1" class="slot-box">
+      <div class="box-space" id="box-space-1">
+        <div class="slot-box" id="slot1">
           <div class="note-rects-container">
-            <div class="primary-note-rects note-rects"></div>
-            <div class="split-note-rects note-rects"></div>
+            <div class="note-rects primary-note-rects"></div>
+            <div class="note-rects split-note-rects"></div>
           </div>
-          <img src="https://eagleviewmusic.com/images/Dash.svg" class="dash-img-slot" alt="Empty slot">
+          <img class="dash-img-slot" src="https://eagleviewmusic.com/images/CartoonRhythmBox5.svg" alt="Rhythm Box Rest" />
+           <div class="mm-toggle">
+            <button class="quality-toggle-btn" type="button" tabindex="0" title="Toggle Chord Quality (Natural/Major/Minor)" aria-label="Toggle Chord Quality">M</button>
+          </div>
+          <button class="sus-btn" type="button" tabindex="0" title="Toggle Suspended Chord" aria-label="Toggle Suspended Chord">sus</button>
+          <button class="aug-btn" type="button" tabindex="0" title="Toggle Augmented Chord" aria-label="Toggle Augmented Chord">+</button>
+          <button class="maj-seventh-btn" type="button" tabindex="0" title="Toggle Major 7th" aria-label="Toggle Major 7th">maj</button>
           <div class="chord-selection-area">
             <div class="primary-chord-wrapper">
-                <select class="chord-select primary-chord-select"></select>
-                <button class="add-split-chord-btn">+</button>
+              <select class="chord-select primary-chord-select"></select>
+              <button class="add-split-chord-btn" title="Add second chord to measure" aria-label="Add second chord to measure">+</button>
             </div>
             <select class="chord-select split-chord-select"></select>
           </div>
-          <button class="mm-toggle quality-toggle-btn">M</button>
-          <button class="sus-btn">sus</button>
-          <button class="maj-seventh-btn">M</button>
-          <button class="seventh-btn">7</button>
-          <button class="sixth-btn">6</button>
-          <button class="fourth-btn">4</button>
-          <button class="second-btn">2</button>
-          <button class="aug-btn">+</button>
+          <button class="second-btn" type="button" tabindex="0" title="Add 2nd" aria-label="Toggle 2nd chord">&#50;</button>
+          <button class="fourth-btn" type="button" tabindex="0" title="Add 4th" aria-label="Toggle 4th chord">4</button>
+          <button class="sixth-btn" type="button" tabindex="0" title="Add 6th" aria-label="Toggle 6th chord">6</button>
+          <button class="seventh-btn" type="button" tabindex="0" title="Add 7th" aria-label="Toggle 7th chord">&#55;</button>
         </div>
       </div>
-
-      <!-- Slot 2 -->
-      <div class="box-space">
-        <div id="slot2" class="slot-box">
+      <div class="box-space" id="box-space-2">
+        <div class="slot-box" id="slot2">
           <div class="note-rects-container">
-            <div class="primary-note-rects note-rects"></div>
-            <div class="split-note-rects note-rects"></div>
+            <div class="note-rects primary-note-rects"></div>
+            <div class="note-rects split-note-rects"></div>
           </div>
-          <img src="https://eagleviewmusic.com/images/Dash.svg" class="dash-img-slot" alt="Empty slot">
+          <img class="dash-img-slot" src="https://eagleviewmusic.com/images/CartoonRhythmBox5.svg" alt="Rhythm Box Rest" />
+           <div class="mm-toggle">
+            <button class="quality-toggle-btn" type="button" tabindex="0" title="Toggle Chord Quality (Natural/Major/Minor)" aria-label="Toggle Chord Quality">M</button>
+          </div>
+          <button class="sus-btn" type="button" tabindex="0" title="Toggle Suspended Chord" aria-label="Toggle Suspended Chord">sus</button>
+          <button class="aug-btn" type="button" tabindex="0" title="Toggle Augmented Chord" aria-label="Toggle Augmented Chord">+</button>
+          <button class="maj-seventh-btn" type="button" tabindex="0" title="Toggle Major 7th" aria-label="Toggle Major 7th">maj</button>
           <div class="chord-selection-area">
             <div class="primary-chord-wrapper">
-                <select class="chord-select primary-chord-select"></select>
-                <button class="add-split-chord-btn">+</button>
+              <select class="chord-select primary-chord-select"></select>
+              <button class="add-split-chord-btn" title="Add second chord to measure" aria-label="Add second chord to measure">+</button>
             </div>
             <select class="chord-select split-chord-select"></select>
           </div>
-          <button class="mm-toggle quality-toggle-btn">M</button>
-          <button class="sus-btn">sus</button>
-          <button class="maj-seventh-btn">M</button>
-          <button class="seventh-btn">7</button>
-          <button class="sixth-btn">6</button>
-          <button class="fourth-btn">4</button>
-          <button class="second-btn">2</button>
-          <button class="aug-btn">+</button>
+          <button class="second-btn" type="button" tabindex="0" title="Add 2nd" aria-label="Toggle 2nd chord">&#50;</button>
+          <button class="fourth-btn" type="button" tabindex="0" title="Add 4th" aria-label="Toggle 4th chord">4</button>
+          <button class="sixth-btn" type="button" tabindex="0" title="Add 6th" aria-label="Toggle 6th chord">6</button>
+          <button class="seventh-btn" type="button" tabindex="0" title="Add 7th" aria-label="Toggle 7th chord">&#55;</button>
         </div>
       </div>
-
-      <!-- Slot 3 -->
-      <div class="box-space">
-        <div id="slot3" class="slot-box">
+      <div class="box-space" id="box-space-3">
+        <div class="slot-box" id="slot3">
           <div class="note-rects-container">
-            <div class="primary-note-rects note-rects"></div>
-            <div class="split-note-rects note-rects"></div>
+            <div class="note-rects primary-note-rects"></div>
+            <div class="note-rects split-note-rects"></div>
           </div>
-          <img src="https://eagleviewmusic.com/images/Dash.svg" class="dash-img-slot" alt="Empty slot">
+          <img class="dash-img-slot" src="https://eagleviewmusic.com/images/CartoonRhythmBox5.svg" alt="Rhythm Box Rest" />
+           <div class="mm-toggle">
+            <button class="quality-toggle-btn" type="button" tabindex="0" title="Toggle Chord Quality (Natural/Major/Minor)" aria-label="Toggle Chord Quality">M</button>
+          </div>
+          <button class="sus-btn" type="button" tabindex="0" title="Toggle Suspended Chord" aria-label="Toggle Suspended Chord">sus</button>
+          <button class="aug-btn" type="button" tabindex="0" title="Toggle Augmented Chord" aria-label="Toggle Augmented Chord">+</button>
+          <button class="maj-seventh-btn" type="button" tabindex="0" title="Toggle Major 7th" aria-label="Toggle Major 7th">maj</button>
           <div class="chord-selection-area">
             <div class="primary-chord-wrapper">
-                <select class="chord-select primary-chord-select"></select>
-                <button class="add-split-chord-btn">+</button>
+              <select class="chord-select primary-chord-select"></select>
+              <button class="add-split-chord-btn" title="Add second chord to measure" aria-label="Add second chord to measure">+</button>
             </div>
             <select class="chord-select split-chord-select"></select>
           </div>
-          <button class="mm-toggle quality-toggle-btn">M</button>
-          <button class="sus-btn">sus</button>
-          <button class="maj-seventh-btn">M</button>
-          <button class="seventh-btn">7</button>
-          <button class="sixth-btn">6</button>
-          <button class="fourth-btn">4</button>
-          <button class="second-btn">2</button>
-          <button class="aug-btn">+</button>
+          <button class="second-btn" type="button" tabindex="0" title="Add 2nd" aria-label="Toggle 2nd chord">&#50;</button>
+          <button class="fourth-btn" type="button" tabindex="0" title="Add 4th" aria-label="Toggle 4th chord">4</button>
+          <button class="sixth-btn" type="button" tabindex="0" title="Add 6th" aria-label="Toggle 6th chord">6</button>
+          <button class="seventh-btn" type="button" tabindex="0" title="Add 7th" aria-label="Toggle 7th chord">&#55;</button>
         </div>
       </div>
     </div>
 
-    <div id="bottom-grid-container" class="bottom-grid-container">
-        <div class="play-btn-cell">
-            <div class="play-btn-vertical">
-                <div class="bpm-clear-stack">
-                    <div class="bpm-clear-stack-inner">
-                        <div class="bpm-input-block">
-                            <div class="bpm-input-row">
-                                <input type="number" id="bpmInput" class="bpm-input" value="120" min="40" max="240">
-                                <div class="bpm-stepper">
-                                    <button id="bpmUp" class="bpm-arrow">▲</button>
-                                    <button id="bpmDown" class="bpm-arrow">▼</button>
-                                </div>
-                            </div>
-                        </div>
-                        <button id="clear" class="refresh-btn" aria-label="Clear all settings">
-                            <svg class="refresh-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
-                        </button>
-                    </div>
-                </div>
-                <div class="play-controls-container">
-                    <button id="playPauseBtn" class="circle-play-btn" aria-label="Play or Pause">
-                        <svg id="playIcon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        <svg id="pauseIcon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="time-signature-cell">
-            <div class="time-signature-container">
-                <button id="time-sig-top" class="time-sig-btn">4</button>
-                <div class="time-sig-divider"></div>
-                <div id="time-sig-bottom" class="time-sig-bottom">4</div>
-            </div>
-        </div>
-        <div id="bottom-grid" class="bottom-grid">
-            <div id="bottomPic1" class="bottom-picture">
-                <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
-            </div>
-            <div id="bottomPic2" class="bottom-picture">
-                <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
-            </div>
-            <div id="bottomPic3" class="bottom-picture">
-                <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
-            </div>
-            <div id="bottomPic4" class="bottom-picture">
-                <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
-            </div>
-            <div id="bottomPic5" class="bottom-picture" style="display: none;">
-                <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
-            </div>
-            <div id="rhythm-box-pair-1" class="rhythm-box-pair">
-                <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-                <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-            </div>
-            <div id="rhythm-box-pair-2" class="rhythm-box-pair">
-                <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-                <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-            </div>
-            <div id="rhythm-box-pair-3" class="rhythm-box-pair">
-                <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-                <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-            </div>
-            <div id="rhythm-box-pair-4" class="rhythm-box-pair">
-                <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-                <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-            </div>
-            <div id="rhythm-box-pair-5" class="rhythm-box-pair" style="display: none;">
-                <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-                <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-            </div>
-        </div>
-    </div>
-    
     <div class="bottom-controls-container">
       <div class="song-selector-container">
-          <label for="song-select" class="song-select-label">Song:</label>
-          <select id="song-select" class="song-select-dropdown">
-              <option value="">Select a song</option>
-              <option value="eagle-view-song">Eagle View</option>
-              <option value="shake-the-papaya">Shake the Papaya</option>
-              <option value="count-on-me">Count On Me</option>
-              <option value="country-roads">Country Roads</option>
-              <option value="yesterday">Yesterday</option>
-          </select>
+        <label for="song-select" class="song-select-label">Load Song:</label>
+        <select id="song-select" name="song-select" class="song-select-dropdown">
+          <option value="">-- Select a Song --</option>
+           <option value="count-on-me">Count on Me</option>
+          <option value="country-roads">Country Roads</option>
+          <option value="eagle-view-song">The Eagle View Song</option>
+          <option value="shake-the-papaya">Shake the Papaya Down</option>
+          <option value="yesterday">Yesterday</option>
+        </select>
       </div>
-      <button id="save-song-btn" class="control-btn save-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+      <button id="save-song-btn" class="control-btn save-btn" title="Save Song" aria-label="Save Song">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+          <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+        </svg>
       </button>
     </div>
+
   </div>
 
+  <!-- Save Song Modal -->
   <div id="save-modal-overlay" class="modal-overlay modal-hidden">
-    <div class="modal">
-        <button id="close-modal-btn" class="modal-close-btn">&times;</button>
-        <h2>Save/Load Song</h2>
-        <div class="modal-content">
-            <label for="song-summary-textarea">Copy, paste, or edit your song's text summary:</label>
-            <textarea id="song-summary-textarea"></textarea>
-        </div>
+    <div id="save-modal" class="modal">
+      <button id="close-modal-btn" class="modal-close-btn" aria-label="Close">&times;</button>
+      <h2>Save Song</h2>
+      <div class="modal-content">
+        <label for="song-summary-textarea">Song Summary:</label>
+        <textarea id="song-summary-textarea" placeholder="Your song summary..."></textarea>
         <div class="modal-buttons">
-            <button id="copy-summary-btn" class="modal-btn copy-btn">
-                <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                <svg class="check-icon" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </button>
-            <button id="cancel-save-btn" class="modal-btn cancel-btn">Cancel</button>
-            <button id="submit-save-btn" class="modal-btn submit-btn">Load This Song</button>
+          <button id="copy-summary-btn" class="modal-btn copy-btn" title="Copy to Clipboard" aria-label="Copy to Clipboard">
+            <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M4 1.5H3a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-11a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1h1v-1z"/>
+              <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h[...]
+            </svg>
+            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="display: none;">
+              <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+            </svg>
+          </button>
+          <button id="cancel-save-btn" class="modal-btn cancel-btn">Cancel</button>
+          <button id="submit-save-btn" class="modal-btn submit-btn">Submit</button>
         </div>
+      </div>
     </div>
   </div>
 
