@@ -26,6 +26,7 @@ function main() {
   initializeSongLoader();
   initializeTimeSignature();
   initializeSaveModal();
+  initializeBeatSwingToggles(); // New initializer
 
   // Initial UI setup
   updateKeyDisplay();
@@ -284,6 +285,25 @@ function initializeSaveModal() {
     });
 }
 
+function initializeBeatSwingToggles() {
+    const beatBtn = document.getElementById('beat-toggle');
+    const swingBtn = document.getElementById('swing-toggle');
+
+    if (beatBtn) {
+        beatBtn.addEventListener('click', () => {
+            appState.beatEnabled = !appState.beatEnabled;
+            beatBtn.classList.toggle('active', appState.beatEnabled);
+        });
+    }
+
+    if (swingBtn) {
+        swingBtn.addEventListener('click', () => {
+            appState.swingEnabled = !appState.swingEnabled;
+            swingBtn.classList.toggle('active', appState.swingEnabled);
+        });
+    }
+}
+
 // --- CORE LOGIC ---
 
 function saveCurrentProgression() {
@@ -403,7 +423,7 @@ function playEighthNoteStep() {
         }
     }
 
-    if (appState.rhythmStep % 2 === 0) {
+    if (appState.rhythmStep % 2 === 0 && appState.beatEnabled) { // Check beatEnabled state
         playBrush();
     }
 
@@ -490,6 +510,12 @@ function clearAll() {
     updateLinkVisuals(progLetter); 
   });
   updateLinkedProgressionSequence(); 
+
+  // Reset Beat/Swing toggles
+  appState.beatEnabled = true;
+  appState.swingEnabled = false;
+  document.getElementById('beat-toggle')?.classList.add('active');
+  document.getElementById('swing-toggle')?.classList.remove('active');
 
   // Reset UI
   appState.currentToggle = 'A';
