@@ -159,20 +159,34 @@ function _createNoteRects(chordName, isSplit, slotIndex, container) {
 
         const baseNote = noteName.charAt(0);
         const colorClass = noteColorClass[baseNote] || `note-${baseNote}`;
-        const accidentals = noteName.substring(1).replace('b', '♭').replace('#', '♯');
-        
+        // Prioritize double accidentals, then single ones
+        let accidentals = '';
+        if (noteName.includes('𝄫')) {
+            accidentals = '𝄫';
+        } else if (noteName.includes('𝄪')) {
+            accidentals = '𝄪';
+        } else if (noteName.includes('♭')) {
+            accidentals = '♭';
+        } else if (noteName.includes('♯')) {
+            accidentals = '♯';
+        } else if (noteName.includes('b')) {
+            accidentals = '♭';
+        } else if (noteName.includes('#')) {
+            accidentals = '♯';
+        }
+
         const rect = document.createElement('div');
         rect.className = `note-rect ${colorClass}`;
         
-        let displayAccidental = accidentals;
         let accidentalClass = 'accidental';
-
-        if (accidentals.includes('𝄪')) {
+        if (accidentals === '𝄪') {
             accidentalClass += ' double-sharp';
+        } else if (accidentals === '𝄫') {
+            accidentalClass += ' double-flat';
         }
         
-        if (displayAccidental) {
-            rect.innerHTML = `${baseNote}<span class="${accidentalClass}">${displayAccidental}</span>`;
+        if (accidentals) {
+            rect.innerHTML = `${baseNote}<span class="${accidentalClass}">${accidentals}</span>`;
         } else {
             rect.innerHTML = baseNote;
         }
