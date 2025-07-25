@@ -562,8 +562,12 @@ function handleKeyDial(direction) {
   const transposeCheckbox = document.getElementById('transpose-checkbox');
   const oldKey = appState.musicalKey;
   
-  let newIndex = (appState.currentKeyIndex + direction + displayKeys.length) % displayKeys.length;
-  appState.currentDisplayKey = displayKeys[newIndex];
+  // Update the currentKeyIndex properly
+  appState.currentKeyIndex = (appState.currentKeyIndex + direction + displayKeys.length) % displayKeys.length;
+  
+  // Update the currentDisplayKey based on the new index
+  appState.currentDisplayKey = displayKeys[appState.currentKeyIndex];
+  
   const newKey = appState.musicalKey;
 
   if (transposeCheckbox && transposeCheckbox.checked) {
