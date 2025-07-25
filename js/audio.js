@@ -7,7 +7,8 @@ import {
     rhythmChordSecondNotes, 
     rhythmChordFourthNotes,
     chordAlternateThirds,
-    chordAugmentedFifths
+    chordAugmentedFifths,
+    chordDiminishedFifths
 } from './config.js';
 
 let audioContext;
@@ -30,12 +31,9 @@ function noteToFrequency(note) {
         'C': 261.63, 'C#': 277.18, 'Db': 277.18, 'D': 293.66, 'D#': 311.13, 'Eb': 311.13, 'E': 329.63, 'Fb': 329.63,
         'E#': 349.23, 'F': 349.23, 'F#': 369.99, 'Gb': 369.99, 'G': 392.00, 'G#': 415.30, 'Ab': 415.30, 'A': 440.00, 
         'A#': 466.16, 'Bb': 466.16, 'B': 493.88, 'Cb': 493.88, 'B#': 523.25,
-        // Double sharps for augmented chords
-        'C##': 293.66, // C## is D
-        'D##': 329.63, // D## is E
-        'F##': 392.00, // F## is G
-        'G##': 440.00, // G## is A
-        'A##': 493.88, // A## is B
+        'C##': 293.66, 'D##': 329.63, 'F##': 392.00, 'G##': 440.00, 'A##': 493.88,
+        'Bbb': 440.00, 'Ebb': 293.66, 'Abb': 392.00, 'Dbb': 261.63, 'Gbb': 349.23,
+        'Cbb': 466.16, 'Fbb': 329.63
     };
 
     // Normalize the note name to handle all accidental symbols
@@ -100,44 +98,45 @@ function playTone(frequency, waveform, soundProfile) {
 export function getNotesToPlayForChord(chordName, isSplit, slotIndex, progData) {
     if (!chordName || chordName === "empty") return [];
 
-    // Determine which set of modifiers to use based on whether it's a split chord
+    const aug = isSplit ? progData.splitAug[slotIndex] : progData.aug[slotIndex];
     const s7 = isSplit ? progData.splitS7[slotIndex] : progData.s7[slotIndex];
     const maj7 = isSplit ? progData.splitMaj7[slotIndex] : progData.maj7[slotIndex];
     const s2 = isSplit ? progData.splitS2[slotIndex] : progData.s2[slotIndex];
     const s4 = isSplit ? progData.splitS4[slotIndex] : progData.s4[slotIndex];
     const m = isSplit ? progData.splitM[slotIndex] : progData.m[slotIndex];
     const sus = isSplit ? progData.splitSus[slotIndex] : progData.sus[slotIndex];
-    const aug = isSplit ? progData.splitAug[slotIndex] : progData.aug[slotIndex];
 
     const baseNotes = rhythmChordNotes[chordName] || [];
-    let notesToPlay = [baseNotes[0], baseNotes[1]]; // Root and octave root are always played
+    let notesToPlay = [baseNotes[0], baseNotes[1]];
 
-    // Add the third based on the quality button state
     if (!sus) {
         if (m === 'major' && chordAlternateThirds[chordName]) {
             notesToPlay.push(chordAlternateThirds[chordName].majorNote);
         } else if (m === 'minor' && chordAlternateThirds[chordName]) {
             notesToPlay.push(chordAlternateThirds[chordName].minorNote);
         } else {
-            notesToPlay.push(baseNotes[2]); // Default third
+            notesToPlay.push(baseNotes[2]);
         }
     }
 
-    // Add the fifth - check for augmentation
-    if (aug && chordAugmentedFifths[chordName]) {
+    if (aug === 'aug' && chordAugmentedFifths[chordName]) {
         const augFifthNoteName = chordAugmentedFifths[chordName];
-        // Find the octave from the original 5th to apply to the augmented 5th
         const originalFifth = baseNotes[3];
         if (originalFifth) {
             const octave = originalFifth.slice(-1);
             notesToPlay.push(augFifthNoteName + octave);
         }
+    } else if (aug === 'dim' && chordDiminishedFifths[chordName]) {
+        const dimFifthNoteName = chordDiminishedFifths[chordName];
+        const originalFifth = baseNotes[3];
+        if (originalFifth) {
+            const octave = originalFifth.slice(-1);
+            notesToPlay.push(dimFifthNoteName + octave);
+        }
     } else {
-        notesToPlay.push(baseNotes[3]); // Default fifth
+        notesToPlay.push(baseNotes[3]);
     }
 
-
-    // Add other modifiers
     if (maj7 && rhythmChordMajorSeventhNotes[chordName]) {
         notesToPlay.push(rhythmChordMajorSeventhNotes[chordName]);
     } else if (s7 && rhythmChordSeventhNotes[chordName]) {
@@ -151,7 +150,7 @@ export function getNotesToPlayForChord(chordName, isSplit, slotIndex, progData) 
         notesToPlay.push(rhythmChordFourthNotes[chordName]);
     }
     
-    return notesToPlay.filter(note => note); // Filter out any undefined notes
+    return notesToPlay.filter(note => note);
 }
 
 export function playTriangleNotes(notes) {
@@ -165,7 +164,7 @@ export function playTriangleNotes(notes) {
 }
 
 function createNoiseBuffer() {
-    const bufferSize = audioContext.sampleRate * 0.5; // 0.5 seconds of noise
+    const bufferSize = audioContext.sampleRate * 0.5;
     const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
     const output = buffer.getChannelData(0);
     for (let i = 0; i < bufferSize; i++) {
