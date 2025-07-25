@@ -156,75 +156,76 @@
       </div>
     </div>
 
-    <div class="bottom-grid-container">
-      <div class="play-btn-vertical box-space">
-        <div class="bpm-clear-stack">
-          <div class="bpm-clear-stack-inner">
-            <div class="bpm-input-block">
-              <div class="bpm-input-row">
-                <input type="number" id="bpmInput" class="bpm-input" value="120" min="40" max="240">
-                <div class="bpm-stepper">
-                  <button id="bpmUp" class="bpm-arrow">▲</button>
-                  <button id="bpmDown" class="bpm-arrow">▼</button>
+    <div id="bottom-grid-container" class="bottom-grid-container">
+      <div class="play-btn-cell">
+        <div class="play-btn-vertical">
+            <div class="bpm-clear-stack">
+                <div class="bpm-clear-stack-inner">
+                    <div class="bpm-input-block">
+                        <div class="bpm-input-row">
+                            <input type="number" id="bpmInput" class="bpm-input" value="120" min="40" max="240">
+                            <div class="bpm-stepper">
+                                <button id="bpmUp" class="bpm-arrow">▲</button>
+                                <button id="bpmDown" class="bpm-arrow">▼</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="clear" class="refresh-btn" aria-label="Clear all settings">
+                        <svg class="refresh-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                    </button>
                 </div>
-              </div>
             </div>
-            <button id="clear" class="refresh-btn" aria-label="Clear all settings">
-              <svg class="refresh-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
-            </button>
-          </div>
+            <div class="play-controls-container">
+                <button id="playPauseBtn" class="circle-play-btn" aria-label="Play or Pause">
+                    <svg id="playIcon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg id="pauseIcon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+            </div>
         </div>
-        <div class="play-controls-container">
-          <button id="playPauseBtn" class="circle-play-btn" aria-label="Play or Pause">
-            <svg id="playIcon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            <svg id="pauseIcon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-          </button>
+      </div>
+      <div class="time-signature-cell">
+        <div class="time-signature-container">
+          <button id="time-sig-top" class="time-sig-btn">4</button>
+          <div class="time-sig-divider"></div>
+          <div id="time-sig-bottom" class="time-sig-bottom">4</div>
         </div>
       </div>
       <div id="bottom-grid" class="bottom-grid">
-        <div class="time-signature-cell">
-          <div class="time-signature-container">
-            <button id="time-sig-top" class="time-sig-btn">4</button>
-            <div class="time-sig-divider"></div>
-            <div id="time-sig-bottom" class="time-sig-bottom">4</div>
-          </div>
-        </div>
         <div id="bottomPic1" class="bottom-picture">
-          <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
+            <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
         </div>
         <div id="bottomPic2" class="bottom-picture">
-          <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
+            <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
         </div>
         <div id="bottomPic3" class="bottom-picture">
-          <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
+            <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
         </div>
         <div id="bottomPic4" class="bottom-picture">
-          <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
+            <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
         </div>
         <div id="bottomPic5" class="bottom-picture" style="display: none;">
-          <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
+            <img class="bottom-picture-img" src="https://eagleviewmusic.com/images/CartoonRhythmBox1.svg">
         </div>
 
-        <!-- Rhythm Box Pairs -->
         <div id="rhythm-box-pair-1" class="rhythm-box-pair">
-          <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-          <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
+            <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
+            <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
         </div>
         <div id="rhythm-box-pair-2" class="rhythm-box-pair">
-          <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-          <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
+            <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
+            <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
         </div>
         <div id="rhythm-box-pair-3" class="rhythm-box-pair">
-          <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-          <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
+            <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
+            <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
         </div>
         <div id="rhythm-box-pair-4" class="rhythm-box-pair">
-          <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-          <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
+            <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
+            <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
         </div>
         <div id="rhythm-box-pair-5" class="rhythm-box-pair" style="display: none;">
-          <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
-          <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
+            <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
+            <div class="bottom-rhythm-box"><span class="bottom-rhythm-box-text"></span></div>
         </div>
       </div>
     </div>
