@@ -85,8 +85,8 @@ function initializeScaleSelector() {
 function initializeWaveformDial() {
     document.getElementById("wave-left").onclick = () => handleWaveformDial(-1);
     document.getElementById("wave-right").onclick = () => handleWaveformDial(1);
-    document.getElementById("wave-left").addEventListener("keydown", (e) => { if (e.key===" "||e.key==="Enter"||e.key==="ArrowLeft") { e.preventDefault(); handleWaveformDial(-1); e.target.focus(); }})[...]
-    document.getElementById("wave-right").addEventListener("keydown", (e) => { if (e.key===" "||e.key==="Enter"||e.key==="ArrowRight") { e.preventDefault(); handleWaveformDial(1); e.target.focus(); }}[...]
+    document.getElementById("wave-left").addEventListener("keydown", (e) => { if (e.key===" "||e.key==="Enter"||e.key==="ArrowLeft") { e.preventDefault(); handleWaveformDial(-1); e.target.focus(); }});
+    document.getElementById("wave-right").addEventListener("keydown", (e) => { if (e.key===" "||e.key==="Enter"||e.key==="ArrowRight") { e.preventDefault(); handleWaveformDial(1); e.target.focus(); }});
     updateWaveformDisplay();
 }
 
@@ -589,12 +589,12 @@ function _createToggleFunction(modifierKey, updateBtnStatesFn, dependencies = nu
   };
 }
 
-const toggleSeventh = _createToggleFunction('s7', (s7Arr) => updateModifierButtonVisuals('s7', 'seventh-btn', s7Arr), { updateFnMaj7: (maj7Arr) => updateModifierButtonVisuals('maj7', 'maj-seventh-btn'[...]
+const toggleSeventh = _createToggleFunction('s7', (s7Arr) => updateModifierButtonVisuals('s7', 'seventh-btn', s7Arr), { updateFnMaj7: (maj7Arr) => updateModifierButtonVisuals('maj7', 'maj-seventh-btn', maj7Arr) });
 const toggleSecond = _createToggleFunction('s2', (s2Arr) => updateModifierButtonVisuals('s2', 'second-btn', s2Arr)); 
 const toggleFourth = _createToggleFunction('s4', (s4Arr) => updateModifierButtonVisuals('s4', 'fourth-btn', s4Arr)); 
 const toggleSus = _createToggleFunction('sus', (susArr) => updateModifierButtonVisuals('sus', 'sus-btn', susArr));
 const toggleAug = _createToggleFunction('aug', (augArr) => updateModifierButtonVisuals('aug', 'aug-btn', augArr));
-const toggleMajSeventh = _createToggleFunction('maj7', (maj7Arr) => updateModifierButtonVisuals('maj7', 'maj-seventh-btn', maj7Arr), { updateFnS7: (s7Arr) => updateModifierButtonVisuals('s7', 'seventh[...]
+const toggleMajSeventh = _createToggleFunction('maj7', (maj7Arr) => updateModifierButtonVisuals('maj7', 'maj-seventh-btn', maj7Arr), { updateFnS7: (s7Arr) => updateModifierButtonVisuals('s7', 'seventh-btn', s7Arr) });
 
 function getBpmInputValue() { let val = parseInt(document.getElementById('bpmInput').value, 10); return isNaN(val) ? 90 : val; }
 function setBpmInputValue(val) { document.getElementById('bpmInput').value = val; }
