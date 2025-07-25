@@ -38,8 +38,8 @@ function noteToFrequency(note) {
         'A##': 493.88, // A## is B
     };
 
-    // Normalize the note name to handle both #/b and ♯/♭
-    const normalizedNote = note.replace('♯', '#').replace('♭', 'b');
+    // Normalize the note name to handle all accidental symbols
+    const normalizedNote = note.replace('♯', '#').replace('♭', 'b').replace('𝄪', '##');
     const octave = parseInt(normalizedNote.slice(-1), 10);
     const noteName = normalizedNote.slice(0, -1);
     
