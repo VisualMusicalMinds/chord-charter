@@ -45,7 +45,7 @@ const majorKeyChordMap = {
   'Ab': [ { value: 'Ab', display: 'Ab / I' }, { value: 'Bbm',display: 'Bbm / ii' }, { value: 'Cm', display: 'Cm / iii' }, { value: 'Db', display: 'Db / IV' }, { value: 'Eb', display: 'Eb / V' }, { value: 'Fm', display: 'Fm / vi' }, { value: 'G°', display: 'G° / vii°' } ],
   'A': [ { value: 'A',  display: 'A / I' }, { value: 'Bm', display: 'Bm / ii' }, { value: 'C#m',display: 'C#m / iii' }, { value: 'D',  display: 'D / IV' }, { value: 'E',  display: 'E / V' }, { value: 'F#m',display: 'F#m / vi' }, { value: 'G#°',display: 'G#° / vii°' } ],
   'Bb': [ { value: 'Bb', display: 'Bb / I' }, { value: 'Cm', display: 'Cm / ii' }, { value: 'Dm', display: 'Dm / iii' }, { value: 'Eb', display: 'Eb / IV' }, { value: 'F',  display: 'F / V' }, { value: 'Gm', display: 'Gm / vi' }, { value: 'A°', display: 'A° / vii°' } ],
-  'B': [ { value: 'B',  display: 'B / I' }, { value: 'C#m',display: 'C#m / ii' }, { value: 'D#m',display: 'D#m / iii' }, { value: 'E',  display: 'E / IV' }, { value: 'F#', display: 'F# / V' }, { value: 'G#m',display: 'G#m / vi' }, { value: 'A#°',display: 'A#° / vii°' } ]
+  'B': [ { value: 'B',  display: 'B / I' }, { value: 'C#m',display: 'C#m / ii' }, { value: 'D#m',display: 'D#m / iii' }, { value: 'E',  display: 'E / IV' }, { value: 'F#', display: 'F# / V' }, { value: 'G#m',display: 'G#m / vi' }, { value: 'A#°',display: 'A#° / vii°' } ],
 };
 
 const naturalMinorKeyChordMap = {
@@ -60,7 +60,7 @@ const naturalMinorKeyChordMap = {
     'G#': [ { value: 'G#m', display: 'G#m / i' }, { value: 'A#°', display: 'A#° / ii°' }, { value: 'B', display: 'B / bIII' }, { value: 'C#m', display: 'C#m / iv' }, { value: 'D#m', display: 'D#m / v' }, { value: 'E', display: 'E / bVI' }, { value: 'F#', display: 'F# / bVII' } ],
     'A': [ { value: 'Am', display: 'Am / i' }, { value: 'B°', display: 'B° / ii°' }, { value: 'C', display: 'C / bIII' }, { value: 'Dm', display: 'Dm / iv' }, { value: 'Em', display: 'Em / v' }, { value: 'F', display: 'F / bVI' }, { value: 'G', display: 'G / bVII' } ],
     'Bb': [ { value: 'Bbm', display: 'Bbm / i' }, { value: 'C°', display: 'C° / ii°' }, { value: 'Db', display: 'Db / bIII' }, { value: 'Ebm', display: 'Ebm / iv' }, { value: 'Fm', display: 'Fm / v' }, { value: 'Gb', display: 'Gb / bVI' }, { value: 'Ab', display: 'Ab / bVII' } ],
-    'B': [ { value: 'Bm', display: 'Bm / i' }, { value: 'C#°', display: 'C#° / ii°' }, { value: 'D', display: 'D / bIII' }, { value: 'Em', display: 'Em / iv' }, { value: 'F#m', display: 'F#m / v' }, { value: 'G', display: 'G / bVI' }, { value: 'A', display: 'A / bVII' } ]
+    'B': [ { value: 'Bm', display: 'Bm / i' }, { value: 'C#°', display: 'C#° / ii°' }, { value: 'D', display: 'D / bIII' }, { value: 'Em', display: 'Em / iv' }, { value: 'F#m', display: 'F#m / v' }, { value: 'G', display: 'G / bVI' }, { value: 'A', display: 'A / bVII' } ],
 };
 
 const harmonicMinorKeyChordMap = {
@@ -75,7 +75,7 @@ const harmonicMinorKeyChordMap = {
     'G#': [ { value: 'G#m', display: 'G#m / i' }, { value: 'A#°', display: 'A#° / ii°' }, { value: 'B+', display: 'B+ / bIII+' }, { value: 'C#m', display: 'C#m / iv' }, { value: 'D#', display: 'D# / V' }, { value: 'E', display: 'E / bVI' }, { value: 'F##°', display: 'F##° / vii°' } ],
     'A': [ { value: 'Am', display: 'Am / i' }, { value: 'B°', display: 'B° / ii°' }, { value: 'C+', display: 'C+ / bIII+' }, { value: 'Dm', display: 'Dm / iv' }, { value: 'E', display: 'E / V' }, { value: 'F', display: 'F / bVI' }, { value: 'G#°', display: 'G#° / vii°' } ],
     'Bb': [ { value: 'Bbm', display: 'Bbm / i' }, { value: 'C°', display: 'C° / ii°' }, { value: 'Db+', display: 'Db+ / bIII+' }, { value: 'Ebm', display: 'Ebm / iv' }, { value: 'F', display: 'F / V' }, { value: 'Gb', display: 'Gb / bVI' }, { value: 'A°', display: 'A° / vii°' } ],
-    'B': [ { value: 'Bm', display: 'Bm / i' }, { value: 'C#°', display: 'C#° / ii°' }, { value: 'D+', display: 'D+ / bIII+' }, { value: 'Em', display: 'Em / iv' }, { value: 'F#', display: 'F# / V' }, { value: 'G', display: 'G / bVI' }, { value: 'A#°', display: 'A#° / vii°' } ]
+    'B': [ { value: 'Bm', display: 'Bm / i' }, { value: 'C#°', display: 'C#° / ii°' }, { value: 'D+', display: 'D+ / bIII+' }, { value: 'Em', display: 'Em / iv' }, { value: 'F#', display: 'F# / V' }, { value: 'G', display: 'G / bVI' }, { value: 'A#°', display: 'A#° / vii°' } ],
 };
 
 const melodicMinorKeyChordMap = {
@@ -90,7 +90,7 @@ const melodicMinorKeyChordMap = {
   'G#': [ { value: 'G#m', display: 'G#m / i' }, { value: 'A#m', display: 'A#m / ii' }, { value: 'B+', display: 'B+ / bIII+' }, { value: 'C#', display: 'C# / IV' }, { value: 'D#', display: 'D# / V' }, { value: 'E#°', display: 'E#° / vi°' }, { value: 'F##°', display: 'F##° / vii°' } ],
   'A': [ { value: 'Am', display: 'Am / i' }, { value: 'Bm', display: 'Bm / ii' }, { value: 'C+', display: 'C+ / bIII+' }, { value: 'D', display: 'D / IV' }, { value: 'E', display: 'E / V' }, { value: 'F#°', display: 'F#° / vi°' }, { value: 'G#°', display: 'G#° / vii°' } ],
   'Bb': [ { value: 'Bbm', display: 'Bbm / i' }, { value: 'Cm', display: 'Cm / ii' }, { value: 'Db+', display: 'Db+ / bIII+' }, { value: 'Eb', display: 'Eb / IV' }, { value: 'F', display: 'F / V' }, { value: 'G°', display: 'G° / vi°' }, { value: 'A°', display: 'A° / vii°' } ],
-  'B': [ { value: 'Bm', display: 'Bm / i' }, { value: 'C#m', display: 'C#m / ii' }, { value: 'D+', display: 'D+ / bIII+' }, { value: 'E', display: 'E / IV' }, { value: 'F#', display: 'F# / V' }, { value: 'G#°', display: 'G#° / vi°' }, { value: 'A#°', display: 'A#° / vii°' } ]
+  'B': [ { value: 'Bm', display: 'Bm / i' }, { value: 'C#m', display: 'C#m / ii' }, { value: 'D+', display: 'D+ / bIII+' }, { value: 'E', display: 'E / IV' }, { value: 'F#', display: 'F# / V' }, { value: 'G#°', display: 'G#° / vi°' }, { value: 'A#°', display: 'A#° / vii°' } ],
 };
 
 // --- Structure for all scale maps ---
@@ -131,281 +131,6 @@ export const allChordOptions = allChords.map(chordValue => {
     }
     return { value: chordValue, display: displayName };
 });
-
-export const songs = {
-  "eagle-view-song": {
-    key: "D",
-    bpm: 136,
-    progressions: {
-      A: { 
-        chords: ["D", "G", "A", "G"],
-        rhythm: [true, false, false, true, true, false, true, false],
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      },
-      B: { 
-        chords: ["D", "G", "A", "D"],
-        rhythm: [true, false, false, true, true, false, true, false],
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      },
-      C: { 
-        chords: ["A", "D", "A", "D"],
-        rhythm: [true, true, false, true, false, true, true, false],
-        modifiers: [ 
-          { seventh: true,  second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: true,  second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      },
-      D: { 
-        chords: ["A", "D", "E", "A"],
-        rhythm: [true, true, false, true, false, true, true, true],
-        modifiers: [ 
-          { seventh: true,  second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'major'},
-          { seventh: true,  second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      }
-    }
-  },
-  "shake-the-papaya": {
-    key: "E",
-    bpm: 120,
-    progressions: {
-      A: { 
-        chords: ["E", "F#m", "B", "E"],
-        rhythm: [true, true, false, true, true, false, true, false],
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: true, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      },
-      B: { 
-        chords: ["", "", "", ""],
-        rhythm: Array(8).fill(false),
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      },
-      C: { 
-        chords: ["", "", "", ""],
-        rhythm: Array(8).fill(false),
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      },
-      D: { 
-        chords: ["", "", "", ""],
-        rhythm: Array(8).fill(false),
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      }
-    }
-  },
-  "count-on-me": {
-    key: "C",
-    bpm: 86,
-    progressions: {
-      A: { 
-        chords: ["C", "Em", "Am", "F"],
-        splitVal: ["", "", "G", ""],
-        splitActive: [false, false, true, false],
-        rhythm: [true, false, false, true, false, true, true, true],
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      },
-      B: { 
-        chords: ["C", "Em", "Am", "F"],
-        splitVal: ["", "", "G", ""],
-        splitActive: [false, false, true, false],
-        rhythm: [true, false, false, true, false, true, true, true],
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      },
-      C: { 
-        chords: ["C", "Em", "Am", "F"],
-        splitVal: ["", "", "G", ""],
-        splitActive: [false, false, true, false],
-        rhythm: [true, false, false, true, false, true, true, true],
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      },
-      D: { 
-        chords: ["Dm", "Em", "F", "G"],
-        rhythm: [true, false, false, true, false, true, true, true],
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      }
-    }
-  },
-  "country-roads": {
-    key: "G",
-    bpm: 86,
-    progressions: {
-      A: { 
-        chords: ["G", "Em", "D", "C"],
-        splitVal: ["", "", "", "G"],
-        splitActive: [false, false, false, true],
-        rhythm: [true, false, false, true, true, false, true, false],
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      },
-      B: { 
-        chords: ["G", "Em", "D", "C"],
-        splitVal: ["", "", "", "G"],
-        splitActive: [false, false, false, true],
-        rhythm: [true, false, false, true, true, false, true, false],
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      },
-      C: { 
-        chords: ["G", "D", "Em", "C"],
-        rhythm: [true, false, false, true, true, false, true, false],
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      },
-      D: { 
-        chords: ["G", "D", "C", "G"],
-        rhythm: [true, false, false, true, true, false, true, false],
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' },
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }
-        ]
-      }
-    }
-  },
-  "yesterday": {
-    key: "C",
-    bpm: 80,
-    progressions: {
-      A: { 
-        chords: ["F", "Em", "Dm", "Bb"],
-        splitVal: ["", "A", "Dm", "C"],
-        splitActive: [false, true, true, true],
-        rhythm: [true, false, false, true, true, false, true, false],
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }, // F
-          { seventh: true, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }, // Em7
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }, // Dm
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }  // Bb
-        ],
-        splitModifiers: [
-          {}, // F
-          { seventh: true }, // A7
-          { seventh: true }, // Dm7
-          { seventh: true }  // C7
-        ]
-      },
-      B: { 
-        chords: ["F", "Dm", "Bb", "Em"],
-        splitVal: ["", "G", "F", "A"],
-        splitActive: [false, true, true, true],
-        rhythm: [true, false, false, true, true, false, true, false],
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }, // F
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }, // Dm
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }, // Bb
-          { seventh: true, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }  // Em7
-        ],
-        splitModifiers: [
-          {}, // F
-          { seventh: true }, // G7
-          {}, // F
-          { seventh: true }  // A7
-        ]
-      },
-      C: { 
-        chords: ["Dm", "Gm", "F", "Em"],
-        splitVal: ["Bb", "C", "", "A"],
-        splitActive: [true, true, false, true],
-        rhythm: [true, false, false, true, true, false, true, false],
-        modifiers: [ 
-          { seventh: true, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }, // Dm7
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }, // Gm
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }, // F
-          { seventh: true, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }  // Em7
-        ],
-        splitModifiers: [
-          {}, // Bb
-          {}, // C
-          {}, // F
-          { seventh: true }  // A7
-        ]
-      },
-      D: { 
-        chords: ["Dm", "Gm", "F", "F"],
-        splitVal: ["Bb", "C", "", ""],
-        splitActive: [true, true, false, false],
-        rhythm: [true, false, false, true, true, false, true, false],
-        modifiers: [ 
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }, // Dm
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'minor' }, // Gm
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }, // F
-          { seventh: false, second: false, fourth: false, sus: false, majSeventh: false, quality: 'none' }  // F
-        ],
-        splitModifiers: [
-          {}, // Bb
-          {}, // C
-          {}, // F
-          {}  // F
-        ]
-      }
-    }
-  }
-};
 
 export const chordTypes = {
   'C': 'major', 'Dm': 'minor', 'Em': 'minor', 'F': 'major', 'G': 'major', 'Am': 'minor', 'Bb': 'major',
@@ -541,8 +266,8 @@ export const chordDiminishedFifths = {
 };
 
 export const rhythmChordNotes = { 
-  'C': ['C3', 'C4', 'E4', 'G4', 'C5'], 'Dm': ['D3', 'D4', 'F4', 'A4', 'D5'], 'Em': ['E3', 'E4', 'G4', 'B4', 'E5'], 'F':  ['F3', 'F4', 'A4', 'C5', 'F5'],  'G':  ['G3', 'G4', 'B4', 'D5', 'G5'], 'Am': ['A2', 'A3', 'C4', 'E4', 'A4'],
-  'Db': ['Db3','Db4','F4','Ab4','Db5'], 'Ebm':['Eb3','Eb4','Gb4','Bb4','Eb5'], 'Fm': ['F3','F4','Ab4','C5','F5'], 'Gb': ['Gb3', 'Gb4', 'Bb3', 'Db4', 'Gb5'], 'Ab': ['Ab2','Ab3','C4','Eb4','Ab4'], 'Bbm':['Bb2','Bb3','Db4','F4','Bb4'],
+  'C': ['C3', 'C4', 'E4', 'G4', 'C5'], 'Dm': ['D3', 'D4', 'F4', 'A4', 'D5'], 'Em': ['E3', 'E4', 'G4', 'B4', 'E5'], 'F':  ['F3', 'F4', 'A4', 'C5', 'F5'],  'G':  ['G3', 'G4', 'B4', 'D5', 'G5'], 'Am': ['A2', 'A3', 'C4', 'E4', 'A4'], 'Bb': ['Bb2','Bb3','D4','F4','Bb4'],
+  'Db': ['Db3','Db4','F4','Ab4','Db5'], 'Ebm':['Eb3','Eb4','Gb4','Bb4','Eb5'], 'Fm': ['F3','F4','Ab4','C5','F5'], 'Gb': ['Gb3', 'Gb4', 'Bb3', 'Db4', 'Gb5'], 'Ab': ['Ab2','Ab3','C4','Eb4','Ab4'], 'Bbm':['Bb2','Bb3','Db4','F4','Bb4'], 'Cb': ['Cb3','Cb4','Eb4','Gb4','Cb5'],
   'D':  ['D3', 'D4', 'F#4', 'A4', 'D5'], 'F#m':['F#3','F#4','A4','C#5','F#5'], 'Bm': ['B2','B3','D4','F#4','B4'],
   'Eb': ['Eb3','Eb4','G4','Bb4','Eb5'], 'Gm': ['G3','G4','Bb4','D5','G5'], 'Cm': ['C3','C4','Eb4','G4','C5'],
   'E':  ['E3', 'E4', 'G#4', 'B4', 'E5'], 'G#m':['G#3','G#4','B4','D#5','G#5'], 'C#m':['C#3','C#4','E4','G#4','C#5'],
@@ -551,7 +276,7 @@ export const rhythmChordNotes = {
   'C+': ['C3','C4','E4','G#4','C5'], 'Db+': ['Db3','Db4','F4','A4','Db5'], 'D+': ['D3','D4','F#4','A#4','D5'], 'Eb+': ['Eb3','Eb4','G4','B4','Eb5'], 'E+': ['E3','E4','G#4','B#4','E5'], 'F+': ['F3','F4','A4','C#5','F5'],
   'F#+': ['F#3','F#4','A#4','C##5','F#5'], 'Gb+': ['Gb3','Gb4','Bb4','D5','Gb5'], 'G+': ['G3','G4','B4','D#5','G5'], 'Ab+': ['Ab2','Ab3','C4','E4','Ab4'], 'A+': ['A2','A3','C#4','E#4','A4'], 'Bb+': ['Bb2','Bb3','D4','F#4','Bb4'], 'B+': ['B2','B3','D#4','F##4','B4'],
   'C°': ['C3','C4','Eb4','Gb4','C5'], 'C#°': ['C#3','C#4','E4','G4','C#5'], 'D°': ['D3','D4','F4','Ab4','D5'], 'D#°': ['D#3','D#4','F#4','A4','D#5'], 'E°': ['E3','E4','G4','Bb4','E5'], 'F°': ['F3','F4','Ab4','Cb5','F5'],
-  'F#°': ['F#3','F#4','A4','C5','F#5'], 'F##°': ['F##3','F##4','A#4','C#5','F##5'], 'G°': ['G3','G4','Bb4','Db5','G5'], 'G#°': ['G#3','G#4','B4','D5','G#5'], 'A°': ['A2','A3','C4','Eb4','A4'], 'A#°': ['A#2','A#3','C#4','E4','A#4'], 'B°': ['B2','B3','D4','F4','B4'], 'B#°': ['B#2','B#3','D#4','F#4','B#4']
+  'F#°': ['F#3','F#4','A4','C5','F#5'], 'F##°': ['F##3','F##4','A#4','C#5','F##5'], 'G°': ['G3','G4','Bb4','Db5','G5'], 'G#°': ['G#3','G#4','B4','D5','G#5'], 'A°': ['A2','A3','C4','Eb4','A4'], 'A#°': ['A#2','A#3','C#4','E4','A#4'], 'B°': ['B2','B3','D4','F4','B4'], 'B#°': ['B#2','B#3','D#4','F#4','B#4'],
 };
 export const rhythmChordSeventhNotes = { 
   'C': 'Bb4', 'Dm': 'C5', 'Em': 'D5', 'F': 'Eb5', 'G': 'F5', 'Am': 'G4', 'Bb': 'Ab4',
