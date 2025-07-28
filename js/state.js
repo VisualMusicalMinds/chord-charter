@@ -11,25 +11,16 @@ export const appState = {
   swingEnabled: false, // New: For future use
 
   // Musical Context
-  currentWaveformIndex: 1, // Triangle as default
+  currentWaveformIndex: 0,
   get currentWaveform() {
     return waveforms[this.currentWaveformIndex];
   },
   currentKeyIndex: 0,
   currentDisplayKey: 'C',
   get musicalKey() {
-    // First, try to match the scale name directly (e.g., "Harmonic Minor")
-    let keyForScale = keyMap[this.currentDisplayKey][this.currentScale];
-    if (keyForScale) return keyForScale;
-  
-    // If not found, try removing spaces (e.g., "HarmonicMinor")
-    keyForScale = keyMap[this.currentDisplayKey][this.currentScale.replace(' ', '')];
-    if (keyForScale) return keyForScale;
-
-    // As a fallback, use the Major key
-    return keyMap[this.currentDisplayKey].Major;
+    return keyMap[this.currentDisplayKey][this.currentScale.replace(' ', '')] || keyMap[this.currentDisplayKey].Major;
   },
-  availableScales: ['Major', 'Natural Minor', 'Harmonic Minor', 'Melodic Minor'], // Added Melodic Minor
+  availableScales: ['Major', 'Natural Minor'],
   currentScale: 'Major',
   
   // Progression Management
@@ -134,22 +125,10 @@ export const appState = {
 
 export function getProgressionData(progLetter) {
   switch(progLetter) {
-    case 'A': return { 
-        p: appState.progressionA, r: appState.rhythmBoxesA, s7: appState.seventhA, s6: appState.sixthA, s2: appState.secondA, s4: appState.fourthA, sus: appState.susA, aug: appState.augA, maj7: appState.majSeventhA, m: appState.majorA,
-        splitActive: appState.splitChordActiveA, splitVal: appState.splitChordValueA, splitS7: appState.splitSeventhA, splitS6: appState.splitSixthA, splitS2: appState.splitSecondA, splitS4: appState.splitFourthA, splitSus: appState.splitSusA, splitAug: appState.splitAugA, splitMaj7: appState.splitMajSeventhA, splitM: appState.splitMajorA
-    };
-    case 'B': return { 
-        p: appState.progressionB, r: appState.rhythmBoxesB, s7: appState.seventhB, s6: appState.sixthB, s2: appState.secondB, s4: appState.fourthB, sus: appState.susB, aug: appState.augB, maj7: appState.majSeventhB, m: appState.majorB,
-        splitActive: appState.splitChordActiveB, splitVal: appState.splitChordValueB, splitS7: appState.splitSeventhB, splitS6: appState.splitSixthB, splitS2: appState.splitSecondB, splitS4: appState.splitFourthB, splitSus: appState.splitSusB, splitAug: appState.splitAugB, splitMaj7: appState.splitMajSeventhB, splitM: appState.splitMajorB
-    };
-    case 'C': return { 
-        p: appState.progressionC, r: appState.rhythmBoxesC, s7: appState.seventhC, s6: appState.sixthC, s2: appState.secondC, s4: appState.fourthC, sus: appState.susC, aug: appState.augC, maj7: appState.majSeventhC, m: appState.majorC,
-        splitActive: appState.splitChordActiveC, splitVal: appState.splitChordValueC, splitS7: appState.splitSeventhC, splitS6: appState.splitSixthC, splitS2: appState.splitSecondC, splitS4: appState.splitFourthC, splitSus: appState.splitSusC, splitAug: appState.splitAugC, splitMaj7: appState.splitMajSeventhC, splitM: appState.splitMajorC
-    };
-    case 'D': return { 
-        p: appState.progressionD, r: appState.rhythmBoxesD, s7: appState.seventhD, s6: appState.sixthD, s2: appState.secondD, s4: appState.fourthD, sus: appState.susD, aug: appState.augD, maj7: appState.majSeventhD, m: appState.majorD,
-        splitActive: appState.splitChordActiveD, splitVal: appState.splitChordValueD, splitS7: appState.splitSeventhD, splitS6: appState.splitSixthD, splitS2: appState.splitSecondD, splitS4: appState.splitFourthD, splitSus: appState.splitSusD, splitAug: appState.splitAugD, splitMaj7: appState.splitMajSeventhD, splitM: appState.splitMajorD
-    };
+    case 'A': return { p: appState.progressionA, r: appState.rhythmBoxesA, s7: appState.seventhA, s6: appState.sixthA, s2: appState.secondA, s4: appState.fourthA, sus: appState.susA, aug: appState.augA, maj7: appState.majSeventhA, m: appState.majorA, splitActive: appState.splitChordActiveA, splitVal: appState.splitChordValueA, splitS7: appState.splitSeventhA, splitS6: appState.splitSixthA, splitS2: appState.splitSecondA, splitS4: appState.splitFourthA, splitSus: appState.splitSusA, splitMaj7: appState.splitMajSeventhA, splitAug: appState.splitAugA, splitM: appState.splitMajorA };
+    case 'B': return { p: appState.progressionB, r: appState.rhythmBoxesB, s7: appState.seventhB, s6: appState.sixthB, s2: appState.secondB, s4: appState.fourthB, sus: appState.susB, aug: appState.augB, maj7: appState.majSeventhB, m: appState.majorB, splitActive: appState.splitChordActiveB, splitVal: appState.splitChordValueB, splitS7: appState.splitSeventhB, splitS6: appState.splitSixthB, splitS2: appState.splitSecondB, splitS4: appState.splitFourthB, splitSus: appState.splitSusB, splitMaj7: appState.splitMajSeventhB, splitAug: appState.splitAugB, splitM: appState.splitMajorB };
+    case 'C': return { p: appState.progressionC, r: appState.rhythmBoxesC, s7: appState.seventhC, s6: appState.sixthC, s2: appState.secondC, s4: appState.fourthC, sus: appState.susC, aug: appState.augC, maj7: appState.majSeventhC, m: appState.majorC, splitActive: appState.splitChordActiveC, splitVal: appState.splitChordValueC, splitS7: appState.splitSeventhC, splitS6: appState.splitSixthC, splitS2: appState.splitSecondC, splitS4: appState.splitFourthC, splitSus: appState.splitSusC, splitMaj7: appState.splitMajSeventhC, splitAug: appState.splitAugC, splitM: appState.splitMajorC };
+    case 'D': return { p: appState.progressionD, r: appState.rhythmBoxesD, s7: appState.seventhD, s6: appState.sixthD, s2: appState.secondD, s4: appState.fourthD, sus: appState.susD, aug: appState.augD, maj7: appState.majSeventhD, m: appState.majorD, splitActive: appState.splitChordActiveD, splitVal: appState.splitChordValueD, splitS7: appState.splitSeventhD, splitS6: appState.splitSixthD, splitS2: appState.splitSecondD, splitS4: appState.splitFourthD, splitSus: appState.splitSusD, splitMaj7: appState.splitMajSeventhD, splitAug: appState.splitAugD, splitM: appState.splitMajorD };
     default: return null;
   }
 }
