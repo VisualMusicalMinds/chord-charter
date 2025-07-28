@@ -1,4 +1,5 @@
-import { songs, timeSignatureNumerators, scaleChordMaps, waveforms, displayKeys, keyMap, allChords } from './config.js';
+import { songs } from './songs.js';
+import { timeSignatureNumerators, scaleChordMaps, waveforms, displayKeys, keyMap, allChords } from './config.js';
 import { appState, getProgressionData } from './state.js';
 import { ensureAudio, playTriangleNotes, playBrush, playBassDrum, getNotesToPlayForChord } from './audio.js';
 import { 
