@@ -1,5 +1,4 @@
-import { songs } from './songs.js';
-import { timeSignatureNumerators, scaleChordMaps, waveforms, displayKeys, keyMap, allChords } from './config.js';
+import { songs, timeSignatureNumerators, scaleChordMaps, waveforms, displayKeys, keyMap, allChords } from './config.js';
 import { appState, getProgressionData } from './state.js';
 import { ensureAudio, playTriangleNotes, playBrush, playBassDrum, getNotesToPlayForChord } from './audio.js';
 import { 
@@ -8,7 +7,7 @@ import {
     _updateQualityButtonVisualForSlot, setPrimarySlotColorAndStyle, setSplitSlotColorAndStyle, 
     updateChordDropdowns, updateLinkVisuals, updateGridForTimeSignature, updateAugButtonVisuals
 } from './ui.js';
-import { clampBpm, transposeChord } from './utils.js';
+import { clampBpm } from './utils.js';
 
 document.addEventListener("DOMContentLoaded", main);
 
@@ -85,29 +84,10 @@ function initializeScaleSelector() {
 
 
 function initializeWaveformDial() {
-    document.getElementById("wave-left").onclick  = () => handleWaveformDial(-1);
+    document.getElementById("wave-left").onclick = () => handleWaveformDial(-1);
     document.getElementById("wave-right").onclick = () => handleWaveformDial(1);
-
-    document
-      .getElementById("wave-left")
-      .addEventListener("keydown", (e) => {
-          if (e.key === " " || e.key === "Enter" || e.key === "ArrowLeft") {
-              e.preventDefault();
-              handleWaveformDial(-1);
-              e.target.focus();
-          }
-      });
-
-    document
-      .getElementById("wave-right")
-      .addEventListener("keydown", (e) => {
-          if (e.key === " " || e.key === "Enter" || e.key === "ArrowRight") {
-              e.preventDefault();
-              handleWaveformDial(1);
-              e.target.focus();
-          }
-      });
-
+    document.getElementById("wave-left").addEventListener("keydown", (e) => { if (e.key===" "||e.key==="Enter"||e.key==="ArrowLeft") { e.preventDefault(); handleWaveformDial(-1); e.target.focus(); }});
+    document.getElementById("wave-right").addEventListener("keydown", (e) => { if (e.key===" "||e.key==="Enter"||e.key==="ArrowRight") { e.preventDefault(); handleWaveformDial(1); e.target.focus(); }});
     updateWaveformDisplay();
 }
 
@@ -415,21 +395,19 @@ function playEighthNoteStep() {
         updatePictureHighlights();
     }
 
-    const currentSlotIdx = Math.floor(appState.slotHighlightStep / 4);
+    const currentSlotIdx = appState.slotHighlightStep % 4;
     let chordNameToPlay = progData.p[currentSlotIdx];
     let isPlayingSplit = false;
 
     if (progData.splitActive[currentSlotIdx] && progData.splitVal[currentSlotIdx]) {
-        // This logic seems a bit off, it should depend on the beat not the total eighth notes.
-        // Let's assume 4/4 time for simplicity, split happens at beat 3 (index 4 of 8 eighths)
-        const splitPoint = Math.floor(numerator * 2 / 2); // Split halfway through the measure
+        const splitPoint = Math.floor(totalEighthNotes / 2);
         if (appState.rhythmStep >= splitPoint) {
             chordNameToPlay = progData.splitVal[currentSlotIdx];
             isPlayingSplit = true;
         }
     }
 
-    const rhythmIndex = appState.rhythmStep;
+    const rhythmIndex = Math.floor(appState.rhythmStep / 2) * 2 + (appState.rhythmStep % 2);
 
     if (progData.r[rhythmIndex]) {
         if (!chordNameToPlay || chordNameToPlay === "empty") {
@@ -453,15 +431,20 @@ function playEighthNoteStep() {
     let nextStepDelay;
 
     if (appState.swingEnabled) {
-        const longDuration = beatDurationMs * (2 / 3);
-        const shortDuration = beatDurationMs * (1 / 3);
+        // Your 5:3 swing ratio
+        // 1/8 + 1/32 = 5/32 of a whole note. For a quarter note beat, this is 5/8 of the beat.
+        // 1/16 + 1/32 = 3/32 of a whole note. For a quarter note beat, this is 3/8 of the beat.
+        const longDuration = beatDurationMs * (5 / 8);
+        const shortDuration = beatDurationMs * (3 / 8);
         
+        // If current step is ON the beat (0, 2, 4...), the next delay is long.
         if (appState.rhythmStep % 2 === 0) {
             nextStepDelay = longDuration;
-        } else { 
+        } else { // If current step is OFF the beat (1, 3, 5...), the next delay is short.
             nextStepDelay = shortDuration;
         }
     } else {
+        // Straight rhythm: each eighth note is half a beat.
         nextStepDelay = beatDurationMs / 2;
     }
 
@@ -472,12 +455,13 @@ function playEighthNoteStep() {
     }
 
     if (appState.rhythmStep === 0) {
-        appState.slotHighlightStep = (appState.slotHighlightStep + 1); // This will just keep incrementing.
-        if (isLinkedMode && (appState.slotHighlightStep % 4 === 0)) {
+        appState.slotHighlightStep = (appState.slotHighlightStep + 1) % 4;
+        if (isLinkedMode && appState.slotHighlightStep === 0) {
             appState.currentLinkedProgressionIndex = (appState.currentLinkedProgressionIndex + 1) % appState.linkedProgressionSequence.length;
         }
     }
     
+    // Schedule the next call
     appState.rhythmInterval = setTimeout(playEighthNoteStep, nextStepDelay);
 }
 
@@ -575,21 +559,21 @@ function clearAll() {
 // --- EVENT HANDLERS ---
 
 function handleKeyDial(direction) {
+  const transposeCheckbox = document.getElementById('transpose-checkbox');
   const oldKey = appState.musicalKey;
-  const oldScale = appState.currentScale;
   
-  appState.currentKeyIndex = (appState.currentKeyIndex + direction + displayKeys.length) % displayKeys.length;
-  appState.currentDisplayKey = displayKeys[appState.currentKeyIndex];
-  
+  let newIndex = (appState.currentKeyIndex + direction + displayKeys.length) % displayKeys.length;
+  appState.currentDisplayKey = displayKeys[newIndex];
   const newKey = appState.musicalKey;
-  const newScale = appState.currentScale;
 
-  saveCurrentProgression();
-  ['A', 'B', 'C', 'D'].forEach(progLetter => {
-      const progData = getProgressionData(progLetter);
-      progData.p = progData.p.map(chord => transposeChord(chord, oldKey, newKey, oldScale, newScale));
-      progData.splitVal = progData.splitVal.map(chord => transposeChord(chord, oldKey, newKey, oldScale, newScale));
-  });
+  if (transposeCheckbox && transposeCheckbox.checked) {
+      saveCurrentProgression();
+      ['A', 'B', 'C', 'D'].forEach(progLetter => {
+          const progData = getProgressionData(progLetter);
+          progData.p = progData.p.map(chord => transposeChord(chord, oldKey, newKey));
+          progData.splitVal = progData.splitVal.map(chord => transposeChord(chord, oldKey, newKey));
+      });
+  }
   
   updateKeyDisplay();
   updateChordDropdowns();
@@ -722,6 +706,25 @@ function playSimpleChordPreview(chordName) {
     if (appState.isPlaying || !chordName || chordName === "" || chordName === "empty") return;
     const notesToPlay = getNotesToPlayForChord(chordName, false, -1, getProgressionData(appState.currentToggle));
     playTriangleNotes(notesToPlay);
+}
+
+function transposeChord(chord, oldKey, newKey) {
+    if (!chord || chord === "" || chord === "empty") {
+        return chord;
+    }
+    const currentKeyChords = scaleChordMaps[appState.currentScale]?.[oldKey] || [];
+    const newKeyChords = scaleChordMaps[appState.currentScale]?.[newKey] || [];
+
+    if (currentKeyChords.length === 0 || newKeyChords.length === 0) {
+        return chord;
+    }
+
+    const chordIndex = currentKeyChords.findIndex(c => c.value === chord);
+    if (chordIndex === -1) {
+        return chord;
+    }
+    const newChordData = newKeyChords[chordIndex];
+    return newChordData ? newChordData.value : chord;
 }
 
 function handleWaveformDial(dir) {
@@ -874,17 +877,13 @@ function _generateChordString(baseChord, progData, idx, isSplit) {
 
     let chordStr = baseChord;
     
-    let isDiminished = chordStr.endsWith('dim') || chordStr.endsWith('°');
+    let isDiminished = chordStr.endsWith('dim');
     if (isDiminished) {
-        chordStr = chordStr.replace(/dim|°/g, '');
+        chordStr = chordStr.slice(0, -3);
     }
     let isMinor = chordStr.endsWith('m');
     if (isMinor) {
         chordStr = chordStr.slice(0, -1);
-    }
-    let isAugmented = chordStr.endsWith('aug') || chordStr.endsWith('+');
-     if (isAugmented) {
-        chordStr = chordStr.replace(/aug|\+/g, '');
     }
 
     if (m === 'minor' || isMinor) {
@@ -899,10 +898,10 @@ function _generateChordString(baseChord, progData, idx, isSplit) {
     if (maj7) chordStr += 'maj7';
     else if (s7) chordStr += '7';
     
-    if (aug === 'aug' || isAugmented) {
+    if (aug === 'aug') {
         chordStr += '+';
     } else if (aug === 'dim' || isDiminished) {
-        chordStr += '°';
+        chordStr += 'o';
     }
 
     return chordStr;
@@ -954,24 +953,29 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
     const s2 = token.includes('2');
     const s4 = token.includes('4');
     const sus = token.includes('sus');
-    const isAug = token.endsWith('+');
-    const isDim = token.endsWith('°');
+    const aug = token.endsWith('+');
+    const dim = token.endsWith('o');
 
-    let baseChord = token.replace(/maj7|7|sus|6|2|4/g, '');
+    token = token.replace(/maj7|7|sus|6|2|4|\+|o/g, '');
     
-    let finalAugState = 'none';
-    if (isAug) {
-        finalAugState = 'aug';
-    } else if (isDim) {
-        finalAugState = 'dim';
-    }
-
-    let mState = 'none';
-    if (baseChord.replace(/\+|°/g, '').endsWith('m')) {
-        mState = 'minor';
+    const baseChordMatch = token.match(/^([A-G][b#]?)/);
+    if (!baseChordMatch) return;
+    
+    const root = baseChordMatch[0];
+    const isMinor = token.substring(root.length).startsWith('m');
+    
+    let finalBaseChord = isMinor ? root + 'm' : root;
+    let finalAugState = aug ? 'aug' : (dim ? 'dim' : 'none');
+    
+    if (dim && !isMinor) {
+        const potentialDimChord = root + 'dim';
+        if (allChords.includes(potentialDimChord)) {
+            finalBaseChord = potentialDimChord;
+            finalAugState = 'none';
+        }
     }
     
-    const canonicalChord = allChords.find(c => c === baseChord) || baseChord;
+    const mState = (finalBaseChord.endsWith('m')) ? 'none' : (isMinor ? 'minor' : 'none');
 
     const target = {
         p: isSplit ? progData.splitVal : progData.p,
@@ -986,7 +990,7 @@ function _parseAndApplyModifiers(chordToken, progData, idx, isSplit) {
         splitActive: progData.splitActive
     };
 
-    target.p[idx] = canonicalChord;
+    target.p[idx] = finalBaseChord;
     target.s7[idx] = s7 || maj7;
     target.s6[idx] = s6;
     target.maj7[idx] = maj7;
