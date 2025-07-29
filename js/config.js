@@ -374,13 +374,45 @@ export const songs = {
 };
 
 export const chordTypes = {
-  'C': 'major', 'Dm': 'minor', 'Em': 'minor', 'F': 'major', 'G': 'major', 'Am': 'minor', 'Bb': 'major',
-  'Db': 'major', 'Ebm': 'minor', 'Fm': 'minor', 'Gb': 'major', 'Ab': 'major', 'Bbm': 'minor', 'Cb': 'major',
-  'D': 'major', 'F#m': 'minor', 'Bm': 'minor', 
-  'Eb': 'major', 'Gm': 'minor', 'Cm': 'minor',
-  'E': 'major', 'G#m': 'minor', 'C#m': 'minor',
-  'Fb': 'major', 'Abm': 'minor', 
-  'B': 'major', 'D#m': 'minor', 'F#': 'major', 'A': 'major' 
+  // Chords with a MAJOR third
+  'C': 'major',   'C+': 'major',
+  'C#': 'major',  'C#+': 'major',
+  'Db': 'major',  'Db+': 'major',
+  'D': 'major',   'D+': 'major',
+  'D#': 'major',  'D#+': 'major',
+  'Eb': 'major',  'Eb+': 'major',
+  'E': 'major',   'E+': 'major',
+  'Fb': 'major',  'Fb+': 'major',
+  'F': 'major',   'F+': 'major',
+  'F#': 'major',  'F#+': 'major',
+  'Gb': 'major',  'Gb+': 'major',
+  'G': 'major',   'G+': 'major',
+  'G#': 'major',  'G#+': 'major',
+  'Ab': 'major',  'Ab+': 'major',
+  'A': 'major',   'A+': 'major',
+  'A#': 'major',  'A#+': 'major',
+  'Bb': 'major',  'Bb+': 'major',
+  'B': 'major',   'B+': 'major',
+
+  // Chords with a MINOR third
+  'Cm': 'minor',   'Cdim': 'minor',
+  'C#m': 'minor',  'C#dim': 'minor',
+  'Dbm': 'minor',  'Dbdim': 'minor',
+  'Dm': 'minor',   'Ddim': 'minor',
+  'D#m': 'minor',  'D#dim': 'minor',
+  'Ebm': 'minor',  'Ebdim': 'minor',
+  'Em': 'minor',   'Edim': 'minor',
+  'Fbm': 'minor',  'Fbdim': 'minor',
+  'Fm': 'minor',   'Fdim': 'minor',
+  'F#m': 'minor',  'F#dim': 'minor',
+  'Gbm': 'minor',  'Gbdim': 'minor',
+  'Gm': 'minor',   'Gdim': 'minor',
+  'G#m': 'minor',  'G#dim': 'minor',
+  'Abm': 'minor',  'Abdim': 'minor',
+  'Am': 'minor',   'Adim': 'minor',
+  'A#m': 'minor',  'A#dim': 'minor',
+  'Bbm': 'minor',  'Bbdim': 'minor',
+  'Bm': 'minor',   'Bdim': 'minor'
 };
 
 export const chordAlternateThirds = {
