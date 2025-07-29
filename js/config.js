@@ -416,47 +416,130 @@ export const chordTypes = {
 };
 
 export const chordAlternateThirds = {
-  'C':  { 'major': 'E', 'minor': 'E♭', 'majorNote': 'E4', 'minorNote': 'Eb4' },
-  'Dm': { 'major': 'F♯','minor': 'F',  'majorNote': 'F#4','minorNote': 'F4'  },
-  'Em': { 'major': 'G♯','minor': 'G',  'majorNote': 'G#4','minorNote': 'G4'  },
-  'F':  { 'major': 'A', 'minor': 'A♭', 'majorNote': 'A4', 'minorNote': 'Ab4' },
-  'G':  { 'major': 'B', 'minor': 'B♭', 'majorNote': 'B4', 'minorNote': 'Bb4' },
-  'Am': { 'major': 'C♯','minor': 'C',  'majorNote': 'C#5','minorNote': 'C5'  },
-  'Bb': { 'major': 'D', 'minor': 'D♭', 'majorNote': 'D4', 'minorNote': 'Db4' },
-  'Db': { 'major': 'F', 'minor': 'F♭', 'majorNote': 'F4', 'minorNote': 'Fb4' }, 
-  'Ebm':{ 'major': 'G', 'minor': 'G♭', 'majorNote': 'G4', 'minorNote': 'Gb4' },
-  'Fm': { 'major': 'A', 'minor': 'A♭', 'majorNote': 'A4', 'minorNote': 'Ab4' },
-  'Gb': { 'major': 'B♭','minor': 'B𝄫','majorNote': 'Bb4','minorNote': 'Bbb4'}, 
-  'Ab': { 'major': 'C', 'minor': 'C♭', 'majorNote': 'C5', 'minorNote': 'Cb5' }, 
-  'Bbm':{ 'major': 'D', 'minor': 'D♭', 'majorNote': 'D4', 'minorNote': 'Db4' },
-  'Cb': { 'major': 'E♭','minor': 'E𝄫','majorNote': 'Eb4','minorNote': 'Ebb4'}, 
-  'D':  { 'major': 'F♯','minor': 'F',  'majorNote': 'F#4','minorNote': 'F4'  },
-  'F#m':{ 'major': 'A♯','minor': 'A',  'majorNote': 'A#4','minorNote': 'A4'  },
-  'A':  { 'major': 'C♯','minor': 'C',  'majorNote': 'C#5','minorNote': 'C5'  },
-  'Bm': { 'major': 'D♯','minor': 'D',  'majorNote': 'D#4','minorNote': 'D4'  },
-  'Eb': { 'major': 'G', 'minor': 'G♭', 'majorNote': 'G4', 'minorNote': 'Gb4' },
-  'Gm': { 'major': 'B', 'minor': 'B♭', 'majorNote': 'B4', 'minorNote': 'Bb4' },
-  'Cm': { 'major': 'E', 'minor': 'E♭', 'majorNote': 'E5', 'minorNote': 'Eb5' },
-  'E':  { 'major': 'G♯','minor': 'G',  'majorNote': 'G#4','minorNote': 'G4'  },
-  'G#m':{ 'major': 'B♯','minor': 'B',  'majorNote': 'B#4','minorNote': 'B4'  }, 
-  'C#m':{ 'major': 'E♯','minor': 'E',  'majorNote': 'E#5','minorNote': 'E5'  }, 
-  'B':  { 'major': 'D♯','minor': 'D',  'majorNote': 'D#5','minorNote': 'D5'  },
-  'D#m':{ 'major': 'F𝄪','minor':'F♯','majorNote': 'F##5','minorNote':'F#5'}, 
-  'Fb': { 'major': 'A♭','minor': 'A𝄫','majorNote': 'Ab4','minorNote': 'Abb4'}, 
-  'F#': { 'major': 'A♯','minor': 'A',  'majorNote': 'A#4','minorNote': 'A4'  },
-  'Abm':{ 'major': 'C', 'minor': 'C♭', 'majorNote': 'C5', 'minorNote': 'Cb4' },
-  'Bdim': { 'major': 'D♯', 'minor': 'D', 'majorNote': 'D#4', 'minorNote': 'D4' },
-  'Cdim': { 'major': 'E', 'minor': 'E♭', 'majorNote': 'E4', 'minorNote': 'Eb4' },
-  'C#dim': { 'major': 'E♯', 'minor': 'E', 'majorNote': 'E#4', 'minorNote': 'E4' },
-  'Ddim': { 'major': 'F♯', 'minor': 'F', 'majorNote': 'F#4', 'minorNote': 'F4' },
-  'D#dim': { 'major': 'F𝄪', 'minor': 'F♯', 'majorNote': 'F##4', 'minorNote': 'F#4' },
-  'Edim': { 'major': 'G♯', 'minor': 'G', 'majorNote': 'G#4', 'minorNote': 'G4' },
-  'Fdim': { 'major': 'A', 'minor': 'A♭', 'majorNote': 'A4', 'minorNote': 'Ab4' },
-  'F#dim': { 'major': 'A♯', 'minor': 'A', 'majorNote': 'A#4', 'minorNote': 'A4' },
-  'Gdim': { 'major': 'B', 'minor': 'B♭', 'majorNote': 'B4', 'minorNote': 'Bb4' },
-  'G#dim': { 'major': 'B♯', 'minor': 'B', 'majorNote': 'B#4', 'minorNote': 'B4' },
-  'Adim': { 'major': 'C♯', 'minor': 'C', 'majorNote': 'C#5', 'minorNote': 'C5' },
-  'A#dim': { 'major': 'C𝄪', 'minor': 'C♯', 'majorNote': 'C##5', 'minorNote': 'C#5' }
+  // C Chords
+  'C':     { 'major': 'E',    'minor': 'E♭',  'majorNote': 'E4',   'minorNote': 'Eb4' },
+  'Cm':    { 'major': 'E',    'minor': 'E♭',  'majorNote': 'E5',   'minorNote': 'Eb5' },
+  'Cdim':  { 'major': 'E',    'minor': 'E♭',  'majorNote': 'E4',   'minorNote': 'Eb4' },
+  'C+':    { 'major': 'E',    'minor': 'E♭',  'majorNote': 'E4',   'minorNote': 'Eb4' },
+
+  // C-Sharp Chords
+  'C#':    { 'major': 'E♯',   'minor': 'E',    'majorNote': 'E#4',  'minorNote': 'E4' },
+  'C#m':   { 'major': 'E♯',   'minor': 'E',    'majorNote': 'E#5',  'minorNote': 'E5' },
+  'C#dim': { 'major': 'E♯',   'minor': 'E',    'majorNote': 'E#4',  'minorNote': 'E4' },
+  'C#+':   { 'major': 'E♯',   'minor': 'E',    'majorNote': 'E#4',  'minorNote': 'E4' },
+
+  // D-Flat Chords
+  'Db':    { 'major': 'F',    'minor': 'F♭',  'majorNote': 'F4',   'minorNote': 'Fb4' },
+  'Dbm':   { 'major': 'F',    'minor': 'F♭',  'majorNote': 'F4',   'minorNote': 'Fb4' },
+  'Dbdim': { 'major': 'F',    'minor': 'F♭',  'majorNote': 'F4',   'minorNote': 'Fb4' },
+  'Db+':   { 'major': 'F',    'minor': 'F♭',  'majorNote': 'F4',   'minorNote': 'Fb4' },
+
+  // D Chords
+  'D':     { 'major': 'F♯',   'minor': 'F',    'majorNote': 'F#4',  'minorNote': 'F4' },
+  'Dm':    { 'major': 'F♯',   'minor': 'F',    'majorNote': 'F#4',  'minorNote': 'F4' },
+  'Ddim':  { 'major': 'F♯',   'minor': 'F',    'majorNote': 'F#4',  'minorNote': 'F4' },
+  'D+':    { 'major': 'F♯',   'minor': 'F',    'majorNote': 'F#4',  'minorNote': 'F4' },
+
+  // D-Sharp Chords
+  'D#':    { 'major': 'F𝄪',   'minor': 'F♯',  'majorNote': 'F##4', 'minorNote': 'F#4' },
+  'D#m':   { 'major': 'F𝄪',   'minor': 'F♯',  'majorNote': 'F##5', 'minorNote': 'F#5' },
+  'D#dim': { 'major': 'F𝄪',   'minor': 'F♯',  'majorNote': 'F##4', 'minorNote': 'F#4' },
+  'D#+':   { 'major': 'F𝄪',   'minor': 'F♯',  'majorNote': 'F##4', 'minorNote': 'F#4' },
+
+  // E-Flat Chords
+  'Eb':    { 'major': 'G',    'minor': 'G♭',  'majorNote': 'G4',   'minorNote': 'Gb4' },
+  'Ebm':   { 'major': 'G',    'minor': 'G♭',  'majorNote': 'G4',   'minorNote': 'Gb4' },
+  'Ebdim': { 'major': 'G',    'minor': 'G♭',  'majorNote': 'G4',   'minorNote': 'Gb4' },
+  'Eb+':   { 'major': 'G',    'minor': 'G♭',  'majorNote': 'G4',   'minorNote': 'Gb4' },
+
+  // E Chords
+  'E':     { 'major': 'G♯',   'minor': 'G',    'majorNote': 'G#4',  'minorNote': 'G4' },
+  'Em':    { 'major': 'G♯',   'minor': 'G',    'majorNote': 'G#4',  'minorNote': 'G4' },
+  'Edim':  { 'major': 'G♯',   'minor': 'G',    'majorNote': 'G#4',  'minorNote': 'G4' },
+  'E+':    { 'major': 'G♯',   'minor': 'G',    'majorNote': 'G#4',  'minorNote': 'G4' },
+
+  // E-Sharp Chords
+  'E#':    { 'major': 'G𝄪',   'minor': 'G♯',  'majorNote': 'G##4', 'minorNote': 'G#4' },
+  'E#m':   { 'major': 'G𝄪',   'minor': 'G♯',  'majorNote': 'G##5', 'minorNote': 'G#5' },
+  'E#dim': { 'major': 'G𝄪',   'minor': 'G♯',  'majorNote': 'G##4', 'minorNote': 'G#4' },
+  'E#+':   { 'major': 'G𝄪',   'minor': 'G♯',  'majorNote': 'G##4', 'minorNote': 'G#4' },
+
+  // F-Flat Chords
+  'Fb':    { 'major': 'A♭',   'minor': 'A𝄫',  'majorNote': 'Ab4',  'minorNote': 'Abb4' },
+  'Fbm':   { 'major': 'A♭',   'minor': 'A𝄫',  'majorNote': 'Ab4',  'minorNote': 'Abb4' },
+  'Fbdim': { 'major': 'A♭',   'minor': 'A𝄫',  'majorNote': 'Ab4',  'minorNote': 'Abb4' },
+  'Fb+':   { 'major': 'A♭',   'minor': 'A𝄫',  'majorNote': 'Ab4',  'minorNote': 'Abb4' },
+
+  // F Chords
+  'F':     { 'major': 'A',    'minor': 'A♭',  'majorNote': 'A4',   'minorNote': 'Ab4' },
+  'Fm':    { 'major': 'A',    'minor': 'A♭',  'majorNote': 'A4',   'minorNote': 'Ab4' },
+  'Fdim':  { 'major': 'A',    'minor': 'A♭',  'majorNote': 'A4',   'minorNote': 'Ab4' },
+  'F+':    { 'major': 'A',    'minor': 'A♭',  'majorNote': 'A4',   'minorNote': 'Ab4' },
+
+  // F-Sharp Chords
+  'F#':    { 'major': 'A♯',   'minor': 'A',    'majorNote': 'A#4',  'minorNote': 'A4' },
+  'F#m':   { 'major': 'A♯',   'minor': 'A',    'majorNote': 'A#4',  'minorNote': 'A4' },
+  'F#dim': { 'major': 'A♯',   'minor': 'A',    'majorNote': 'A#4',  'minorNote': 'A4' },
+  'F#+':   { 'major': 'A♯',   'minor': 'A',    'majorNote': 'A#4',  'minorNote': 'A4' },
+
+  // G-Flat Chords
+  'Gb':    { 'major': 'B♭',   'minor': 'B𝄫',  'majorNote': 'Bb4',  'minorNote': 'Bbb4' },
+  'Gbm':   { 'major': 'B♭',   'minor': 'B𝄫',  'majorNote': 'Bb4',  'minorNote': 'Bbb4' },
+  'Gbdim': { 'major': 'B♭',   'minor': 'B𝄫',  'majorNote': 'Bb4',  'minorNote': 'Bbb4' },
+  'Gb+':   { 'major': 'B♭',   'minor': 'B𝄫',  'majorNote': 'Bb4',  'minorNote': 'Bbb4' },
+
+  // G Chords
+  'G':     { 'major': 'B',    'minor': 'B♭',  'majorNote': 'B4',   'minorNote': 'Bb4' },
+  'Gm':    { 'major': 'B',    'minor': 'B♭',  'majorNote': 'B4',   'minorNote': 'Bb4' },
+  'Gdim':  { 'major': 'B',    'minor': 'B♭',  'majorNote': 'B4',   'minorNote': 'Bb4' },
+  'G+':    { 'major': 'B',    'minor': 'B♭',  'majorNote': 'B4',   'minorNote': 'Bb4' },
+
+  // G-Sharp Chords
+  'G#':    { 'major': 'B♯',   'minor': 'B',    'majorNote': 'B#4',  'minorNote': 'B4' },
+  'G#m':   { 'major': 'B♯',   'minor': 'B',    'majorNote': 'B#4',  'minorNote': 'B4' },
+  'G#dim': { 'major': 'B♯',   'minor': 'B',    'majorNote': 'B#4',  'minorNote': 'B4' },
+  'G#+':   { 'major': 'B♯',   'minor': 'B',    'majorNote': 'B#4',  'minorNote': 'B4' },
+
+  // A-Flat Chords
+  'Ab':    { 'major': 'C',    'minor': 'C♭',  'majorNote': 'C5',   'minorNote': 'Cb5' },
+  'Abm':   { 'major': 'C',    'minor': 'C♭',  'majorNote': 'C5',   'minorNote': 'Cb5' },
+  'Abdim': { 'major': 'C',    'minor': 'C♭',  'majorNote': 'C5',   'minorNote': 'Cb5' },
+  'Ab+':   { 'major': 'C',    'minor': 'C♭',  'majorNote': 'C5',   'minorNote': 'Cb5' },
+
+  // A Chords
+  'A':     { 'major': 'C♯',   'minor': 'C',    'majorNote': 'C#5',  'minorNote': 'C5' },
+  'Am':    { 'major': 'C♯',   'minor': 'C',    'majorNote': 'C#5',  'minorNote': 'C5' },
+  'Adim':  { 'major': 'C♯',   'minor': 'C',    'majorNote': 'C#5',  'minorNote': 'C5' },
+  'A+':    { 'major': 'C♯',   'minor': 'C',    'majorNote': 'C#5',  'minorNote': 'C5' },
+
+  // A-Sharp Chords
+  'A#':    { 'major': 'C𝄪',   'minor': 'C♯',  'majorNote': 'C##5', 'minorNote': 'C#5' },
+  'A#m':   { 'major': 'C𝄪',   'minor': 'C♯',  'majorNote': 'C##5', 'minorNote': 'C#5' },
+  'A#dim': { 'major': 'C𝄪',   'minor': 'C♯',  'majorNote': 'C##5', 'minorNote': 'C#5' },
+  'A#+':   { 'major': 'C𝄪',   'minor': 'C♯',  'majorNote': 'C##5', 'minorNote': 'C#5' },
+
+  // B-Flat Chords
+  'Bb':    { 'major': 'D',    'minor': 'D♭',  'majorNote': 'D4',   'minorNote': 'Db4' },
+  'Bbm':   { 'major': 'D',    'minor': 'D♭',  'majorNote': 'D4',   'minorNote': 'Db4' },
+  'Bbdim': { 'major': 'D',    'minor': 'D♭',  'majorNote': 'D4',   'minorNote': 'Db4' },
+  'Bb+':   { 'major': 'D',    'minor': 'D♭',  'majorNote': 'D4',   'minorNote': 'Db4' },
+
+  // B Chords
+  'B':     { 'major': 'D♯',   'minor': 'D',    'majorNote': 'D#5',  'minorNote': 'D5' },
+  'Bm':    { 'major': 'D♯',   'minor': 'D',    'majorNote': 'D#4',  'minorNote': 'D4' },
+  'Bdim':  { 'major': 'D♯',   'minor': 'D',    'majorNote': 'D#4',  'minorNote': 'D4' },
+  'B+':    { 'major': 'D♯',   'minor': 'D',    'majorNote': 'D#5',  'minorNote': 'D5' },
+
+  // B-Sharp Chords
+  'B#':    { 'major': 'D𝄪',   'minor': 'D♯',  'majorNote': 'D##4', 'minorNote': 'D#4' },
+  'B#m':   { 'major': 'D𝄪',   'minor': 'D♯',  'majorNote': 'D##5', 'minorNote': 'D#5' },
+  'B#dim': { 'major': 'D𝄪',   'minor': 'D♯',  'majorNote': 'D##4', 'minorNote': 'D#4' },
+
+  // C-Flat Chords
+  'Cb':    { 'major': 'E♭',   'minor': 'E𝄫',  'majorNote': 'Eb4',  'minorNote': 'Ebb4' },
+  'Cbm':   { 'major': 'E♭',   'minor': 'E𝄫',  'majorNote': 'Eb4',  'minorNote': 'Ebb4' },
+  'Cbdim': { 'major': 'E♭',   'minor': 'E𝄫',  'majorNote': 'Eb4',  'minorNote': 'Ebb4' },
+  'Cb+':   { 'major': 'E♭',   'minor': 'E𝄫',  'majorNote': 'Eb4',  'minorNote': 'Ebb4' }
 };
 
 export const chordTones = {
