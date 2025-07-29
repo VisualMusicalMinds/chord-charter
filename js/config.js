@@ -1139,47 +1139,515 @@ export const chordFourths = {
   'Cb+':   'F♭'
 };
 export const chordSixths = {
-    'C': 'A', 'Dm': 'B', 'Em': 'C♯', 'F': 'D', 'G': 'E', 'Am': 'F♯', 'Bb': 'G',
-    'Db': 'B♭', 'Ebm': 'C', 'Fm': 'D', 'Gb': 'E♭', 'Ab': 'F', 'Bbm': 'G', 'Cb': 'A♭',
-    'D': 'B', 'F#m': 'D♯', 'Bm': 'G♯',
-    'Eb': 'C', 'Gm': 'E', 'Cm': 'A',
-    'E': 'C♯', 'G#m': 'E♯', 'C#m': 'A♯',
-    'Fb': 'D♭', 'Abm': 'F',
-    'B': 'G♯', 'D#m': 'B♯', 'F#': 'D♯', 'A': 'F♯',
-    'Bdim': 'G', 'Cdim': 'A', 'C#dim': 'A♯', 'Ddim': 'B', 'D#dim': 'B♯', 'Edim': 'C♯', 'Fdim': 'D', 'F#dim': 'D♯', 'Gdim': 'E', 'G#dim': 'E♯', 'Adim': 'F', 'A#dim': 'F♯'
+  // C Chords
+  'C':     'A',
+  'Cm':    'A',
+  'Cdim':  'A',
+  'C+':    'A',
+
+  // C-Sharp Chords
+  'C#':    'A♯',
+  'C#m':   'A♯',
+  'C#dim': 'A♯',
+  'C#+':   'A♯',
+
+  // D-Flat Chords
+  'Db':    'B♭',
+  'Dbm':   'B♭',
+  'Dbdim': 'B♭',
+  'Db+':   'B♭',
+
+  // D Chords
+  'D':     'B',
+  'Dm':    'B',
+  'Ddim':  'B',
+  'D+':    'B',
+
+  // D-Sharp Chords
+  'D#':    'B♯',
+  'D#m':   'B♯',
+  'D#dim': 'B♯',
+  'D#+':   'B♯',
+
+  // E-Flat Chords
+  'Eb':    'C',
+  'Ebm':   'C',
+  'Ebdim': 'C',
+  'Eb+':   'C',
+
+  // E Chords
+  'E':     'C♯',
+  'Em':    'C♯',
+  'Edim':  'C♯',
+  'E+':    'C♯',
+
+  // E-Sharp Chords
+  'E#':    'C𝄪',
+  'E#m':   'C𝄪',
+  'E#dim': 'C𝄪',
+  'E#+':   'C𝄪',
+
+  // F-Flat Chords
+  'Fb':    'D♭',
+  'Fbm':   'D♭',
+  'Fbdim': 'D♭',
+  'Fb+':   'D♭',
+
+  // F Chords
+  'F':     'D',
+  'Fm':    'D',
+  'Fdim':  'D',
+  'F+':    'D',
+
+  // F-Sharp Chords
+  'F#':    'D♯',
+  'F#m':   'D♯',
+  'F#dim': 'D♯',
+  'F#+':   'D♯',
+
+  // G-Flat Chords
+  'Gb':    'E♭',
+  'Gbm':   'E♭',
+  'Gbdim': 'E♭',
+  'Gb+':   'E♭',
+
+  // G Chords
+  'G':     'E',
+  'Gm':    'E',
+  'Gdim':  'E',
+  'G+':    'E',
+
+  // G-Sharp Chords
+  'G#':    'E♯',
+  'G#m':   'E♯',
+  'G#dim': 'E♯',
+  'G#+':   'E♯',
+
+  // A-Flat Chords
+  'Ab':    'F',
+  'Abm':   'F',
+  'Abdim': 'F',
+  'Ab+':   'F',
+
+  // A Chords
+  'A':     'F♯',
+  'Am':    'F♯',
+  'Adim':  'F♯',   // Corrected to major sixth
+  'A+':    'F♯',
+
+  // A-Sharp Chords
+  'A#':    'F𝄪',
+  'A#m':   'F𝄪',
+  'A#dim': 'F𝄪',   // Corrected to major sixth
+  'A#+':   'F𝄪',
+
+  // B-Flat Chords
+  'Bb':    'G',
+  'Bbm':   'G',
+  'Bbdim': 'G',
+  'Bb+':   'G',
+
+  // B Chords
+  'B':     'G♯',
+  'Bm':    'G♯',
+  'Bdim':  'G♯',   // Corrected to major sixth
+  'B+':    'G♯',
+
+  // B-Sharp Chords
+  'B#':    'G𝄪',   // Corrected to major sixth
+  'B#m':   'G𝄪',   // Corrected to major sixth
+  'B#dim': 'G𝄪',   // Corrected to major sixth
+  // (no B#+)
+
+  // C-Flat Chords
+  'Cb':    'A♭',
+  'Cbm':   'A♭',
+  'Cbdim': 'A♭',
+  'Cb+':   'A♭'
 };
 export const chordAugmentedFifths = {
-    'C': 'G#', 'Dm': 'A#', 'Em': 'B#', 'F': 'C#', 'G': 'D#', 'Am': 'E#', 'Bb': 'F#',
-    'Db': 'A', 'Ebm': 'B', 'Fm': 'C#', 'Gb': 'D', 'Ab': 'E', 'Bbm': 'F#', 'Cb': 'G',
-    'D': 'A#', 'F#m': 'C𝄪', 'Bm': 'F𝄪',
-    'Eb': 'B', 'Gm': 'D#', 'Cm': 'G#',
-    'E': 'B#', 'G#m': 'D𝄪', 'C#m': 'G𝄪',
-    'Fb': 'C', 'Abm': 'E',
-    'B': 'F𝄪', 'D#m': 'A𝄪', 'F#': 'C𝄪', 'A': 'E#',
-    'Bdim': 'G', 'Cdim': 'Ab', 'C#dim': 'A', 'Ddim': 'Bb', 'D#dim': 'B', 'Edim': 'C', 'Fdim': 'Db', 'F#dim': 'D', 'Gdim': 'Eb', 'G#dim': 'E', 'Adim': 'F', 'A#dim': 'F#'
+  // C Chords
+  'C':     'G♯',
+  'Cm':    'G♯',
+  'Cdim':  'G♯',
+  'C+':    'G♯',
+
+  // C-Sharp Chords
+  'C#':    'G𝄪',
+  'C#m':   'G𝄪',
+  'C#dim': 'G𝄪',
+  'C#+':   'G𝄪',
+
+  // D-Flat Chords
+  'Db':    'A',
+  'Dbm':   'A',
+  'Dbdim': 'A',
+  'Db+':   'A',
+
+  // D Chords
+  'D':     'A♯',
+  'Dm':    'A♯',
+  'Ddim':  'A♯',
+  'D+':    'A♯',
+
+  // D-Sharp Chords
+  'D#':    'A𝄪',
+  'D#m':   'A𝄪',
+  'D#dim': 'A𝄪',
+  'D#+':   'A𝄪',
+
+  // E-Flat Chords
+  'Eb':    'B',
+  'Ebm':   'B',
+  'Ebdim': 'B',
+  'Eb+':   'B',
+
+  // E Chords
+  'E':     'B♯',
+  'Em':    'B♯',
+  'Edim':  'B♯',
+  'E+':    'B♯',
+
+  // E-Sharp Chords
+  'E#':    'B𝄪',
+  'E#m':   'B𝄪',
+  'E#dim': 'B𝄪',
+  'E#+':   'B𝄪',
+
+  // F-Flat Chords
+  'Fb':    'C',
+  'Fbm':   'C',
+  'Fbdim': 'C',
+  'Fb+':   'C',
+
+  // F Chords
+  'F':     'C♯',
+  'Fm':    'C♯',
+  'Fdim':  'C♯',
+  'F+':    'C♯',
+
+  // F-Sharp Chords
+  'F#':    'C𝄪',
+  'F#m':   'C𝄪',
+  'F#dim': 'C𝄪',
+  'F#+':   'C𝄪',
+
+  // G-Flat Chords
+  'Gb':    'D',
+  'Gbm':   'D',
+  'Gbdim': 'D',
+  'Gb+':   'D',
+
+  // G Chords
+  'G':     'D♯',
+  'Gm':    'D♯',
+  'Gdim':  'D♯',
+  'G+':    'D♯',
+
+  // G-Sharp Chords
+  'G#':    'D𝄪',
+  'G#m':   'D𝄪',
+  'G#dim': 'D𝄪',
+  'G#+':   'D𝄪',
+
+  // A-Flat Chords
+  'Ab':    'E',
+  'Abm':   'E',
+  'Abdim': 'E',
+  'Ab+':   'E',
+
+  // A Chords
+  'A':     'E♯',
+  'Am':    'E♯',
+  'Adim':  'E♯',
+  'A+':    'E♯',
+
+  // A-Sharp Chords
+  'A#':    'E𝄪',
+  'A#m':   'E𝄪',
+  'A#dim': 'E𝄪',
+  'A#+':   'E𝄪',
+
+  // B-Flat Chords
+  'Bb':    'F♯',
+  'Bbm':   'F♯',
+  'Bbdim': 'F♯',
+  'Bb+':   'F♯',
+
+  // B Chords
+  'B':     'F𝄪',
+  'Bm':    'F𝄪',
+  'Bdim':  'F𝄪',
+  'B+':    'F𝄪',
+
+  // B-Sharp Chords
+  'B#':    'F𝄪', // Note: This is a triple-sharp
+  'B#m':   'F𝄪',
+  'B#dim': 'F𝄪',
+  // (no B#+)
+
+  // C-Flat Chords
+  'Cb':    'G',
+  'Cbm':   'G',
+  'Cbdim': 'G',
+  'Cb+':   'G'
 };
 export const chordDiminishedFifths = {
-    'C': 'G♭', 'Dm': 'A♭', 'Em': 'B♭', 'F': 'C♭', 'G': 'D♭', 'Am': 'E♭', 'Bb': 'F♭',
-    'Db': 'A𝄫', 'Ebm': 'B𝄫', 'Fm': 'C♭', 'Gb': 'D𝄫', 'Ab': 'E𝄫', 'Bbm': 'F♭', 'Cb': 'G𝄫',
-    'D': 'A♭', 'F#m': 'C', 'Bm': 'F',
-    'Eb': 'B𝄫', 'Gm': 'D♭', 'Cm': 'G♭',
-    'E': 'B♭', 'G#m': 'D', 'C#m': 'G',
-    'Fb': 'C𝄫', 'Abm': 'E𝄫',
-    'B': 'F', 'D#m': 'A', 'F#': 'C', 'A': 'E♭',
-    'Bdim': 'F♭', 'Cdim': 'G𝄫', 'C#dim': 'G♭', 'Ddim': 'A𝄫', 'D#dim': 'A♭', 'Edim': 'B𝄫', 'Fdim': 'C𝄫', 'F#dim': 'C♭', 'Gdim': 'D𝄫', 'G#dim': 'D♭', 'Adim': 'E𝄫', 'A#dim': 'E♭'
+  // C Chords
+  'C':     'G♭',
+  'Cm':    'G♭',
+  'Cdim':  'G♭',
+  'C+':    'G♭',
+
+  // C-Sharp Chords
+  'C#':    'G',
+  'C#m':   'G',
+  'C#dim': 'G',
+  'C#+':   'G',
+
+  // D-Flat Chords
+  'Db':    'A𝄫',
+  'Dbm':   'A𝄫',
+  'Dbdim': 'A𝄫',
+  'Db+':   'A𝄫',
+
+  // D Chords
+  'D':     'A♭',
+  'Dm':    'A♭',
+  'Ddim':  'A♭',
+  'D+':    'A♭',
+
+  // D-Sharp Chords
+  'D#':    'A',
+  'D#m':   'A',
+  'D#dim': 'A',
+  'D#+':   'A',
+
+  // E-Flat Chords
+  'Eb':    'B𝄫',
+  'Ebm':   'B𝄫',
+  'Ebdim': 'B𝄫',
+  'Eb+':   'B𝄫',
+
+  // E Chords
+  'E':     'B♭',
+  'Em':    'B♭',
+  'Edim':  'B♭',
+  'E+':    'B♭',
+
+  // E-Sharp Chords
+  'E#':    'B',
+  'E#m':   'B',
+  'E#dim': 'B',
+  'E#+':   'B',
+
+  // F-Flat Chords
+  'Fb':    'C𝄫',
+  'Fbm':   'C𝄫',
+  'Fbdim': 'C𝄫',
+  'Fb+':   'C𝄫',
+
+  // F Chords
+  'F':     'C♭',
+  'Fm':    'C♭',
+  'Fdim':  'C♭',
+  'F+':    'C♭',
+
+  // F-Sharp Chords
+  'F#':    'C',
+  'F#m':   'C',
+  'F#dim': 'C',
+  'F#+':   'C',
+
+  // G-Flat Chords
+  'Gb':    'D𝄫',
+  'Gbm':   'D𝄫',
+  'Gbdim': 'D𝄫',
+  'Gb+':   'D𝄫',
+
+  // G Chords
+  'G':     'D♭',
+  'Gm':    'D♭',
+  'Gdim':  'D♭',
+  'G+':    'D♭',
+
+  // G-Sharp Chords
+  'G#':    'D',
+  'G#m':   'D',
+  'G#dim': 'D',
+  'G#+':   'D',
+
+  // A-Flat Chords
+  'Ab':    'E𝄫',
+  'Abm':   'E𝄫',
+  'Abdim': 'E𝄫',
+  'Ab+':   'E𝄫',
+
+  // A Chords
+  'A':     'E♭',
+  'Am':    'E♭',
+  'Adim':  'E♭',
+  'A+':    'E♭',
+
+  // A-Sharp Chords
+  'A#':    'E',
+  'A#m':   'E',
+  'A#dim': 'E',
+  'A#+':   'E',
+
+  // B-Flat Chords
+  'Bb':    'F♭',
+  'Bbm':   'F♭',
+  'Bbdim': 'F♭',
+  'Bb+':   'F♭',
+
+  // B Chords
+  'B':     'F',
+  'Bm':    'F',
+  'Bdim':  'F',
+  'B+':    'F',
+
+  // B-Sharp Chords
+  'B#':    'F♯',
+  'B#m':   'F♯',
+  'B#dim': 'F♯',
+  // (no B#+)
+
+  // C-Flat Chords
+  'Cb':    'G𝄫',
+  'Cbm':   'G𝄫',
+  'Cbdim': 'G𝄫',
+  'Cb+':   'G𝄫'
 };
 
 export const rhythmChordNotes = { 
-  'C': ['C3', 'C4', 'E4', 'G4', 'C5'], 'Dm': ['D3', 'D4', 'F4', 'A4', 'D5'], 'Em': ['E3', 'E4', 'G4', 'B4', 'E5'], 'F':  ['F3', 'F4', 'A4', 'C5', 'F5'],  'G':  ['G3', 'G4', 'B4', 'D5', 'G5'], 'Am': ['A2', 'A3', 'C4', 'E4', 'A4'], 'Bb': ['Bb2', 'Bb3', 'D4', 'F4', 'Bb4'],
-  'Db': ['Db3','Db4','F4','Ab4','Db5'], 'Ebm':['Eb3','Eb4','Gb4','Bb4','Eb5'], 'Fm': ['F3','F4','Ab4','C5','F5'], 'Gb': ['Gb3', 'Gb4', 'Bb3', 'Db4', 'Gb5'], 'Ab': ['Ab2','Ab3','C4','Eb4','Ab4'], 'Bbm':['Bb2','Bb3','Db4','F4','Bb4'], 'Cb': ['Cb3','Cb4','Eb4','Gb4','Cb5'],
-  'D':  ['D3', 'D4', 'F#4', 'A4', 'D5'], 'F#m':['F#3','F#4','A4','C#5','F#5'], 'Bm': ['B2','B3','D4','F#4','B4'],
-  'Eb': ['Eb3','Eb4','G4','Bb4','Eb5'], 'Gm': ['G3','G4','Bb4','D5','G5'], 'Cm': ['C3','C4','Eb4','G4','C5'],
-  'E':  ['E3', 'E4', 'G#4', 'B4', 'E5'], 'G#m':['G#3','G#4','B4','D#5','G#5'], 'C#m':['C#3','C#4','E4','G#4','C#5'],
-  'Fb': ['Fb3','Fb4','Ab4','Cb4','Fb5'], 'Abm':['Ab2','Ab3','Cb4','Eb4','Ab4'], 
-  'B':  ['B2', 'B3', 'D#4', 'F#4', 'B4'], 'D#m':['D#3','D#4','F#4','A#4','D#5'], 'F#': ['F#3','F#4','A#4','C#5','F#5'], 'A': ['A2','A3','C#4','E4','A4'],
-  'Bdim': ['B2', 'B3', 'D4', 'F4', 'B4'], 'Cdim': ['C3', 'C4', 'Eb4', 'Gb4', 'C5'], 'C#dim': ['C#3', 'C#4', 'E4', 'G4', 'C#5'], 'Ddim': ['D3', 'D4', 'F4', 'Ab4', 'D5'], 'D#dim': ['D#3', 'D#4', 'F#4', 'A4', 'D#5'], 'Edim': ['E3', 'E4', 'G4', 'Bb4', 'E5'], 'Fdim': ['F3', 'F4', 'Ab4', 'C5', 'F5'], 'F#dim': ['F#3', 'F#4', 'A4', 'C4', 'F#4'], 'Gdim': ['G3', 'G4', 'Bb4', 'Db5', 'G5'], 'G#dim': ['G#3', 'G#4', 'B4', 'D5', 'G#5'], 'Adim': ['A2', 'A3', 'C4', 'Eb4', 'A4'], 'A#dim': ['A#2', 'A#3', 'C#4', 'E4', 'A#4'],
-  'Ddim7': ['D3', 'D4', 'F4', 'Ab4', 'Cb5'], 'D#dim7': ['D#3', 'D#4', 'F#4', 'A4', 'C5'], 'Edim7': ['E3', 'E4', 'G4', 'Bb4', 'Db5'], 'Fdim7': ['F3', 'F4', 'Ab4', 'Cb5', 'Ebb5'], 'F#dim7': ['F#3', 'F#4', 'A4', 'C5', 'E5'], 'Gdim7': ['G3', 'G4', 'Bb4', 'Db5', 'Fb5'], 'G#dim7': ['G#3', 'G#4', 'B4', 'D5', 'F5'], 'Adim7': ['A2', 'A3', 'C4', 'Eb4', 'Gb4'], 'A#dim7': ['A#2', 'A#3', 'C#4', 'E4', 'G4'], 'Bdim7': ['B2', 'B3', 'D4', 'F4', 'Ab4'], 'Cdim7': ['C3', 'C4', 'Eb4', 'Gb4', 'Bbb4'], 'C#dim7': ['C#3', 'C#4', 'E4', 'G4', 'Bb4']
+  // C Chords
+  'C':     ['C3',  'C4',  'E4',  'G4',   'C5'],
+  'Cm':    ['C3',  'C4',  'Eb4', 'G4',   'C5'],
+  'Cdim':  ['C3',  'C4',  'Eb4', 'Gb4',  'C5'],
+  'C+':    ['C3',  'C4',  'E4',  'G#4',  'C5'],
+
+  // C-Sharp Chords
+  'C#':    ['C#3', 'C#4', 'E#4', 'G#4',  'C#5'],
+  'C#m':   ['C#3', 'C#4', 'E4',  'G#4',  'C#5'],
+  'C#dim': ['C#3', 'C#4', 'E4',  'G4',   'C#5'],
+  'C#+':   ['C#3', 'C#4', 'E#4', 'G𝄪4', 'C#5'],
+
+  // D-Flat Chords
+  'Db':    ['Db3', 'Db4', 'F4',  'Ab4',  'Db5'],
+  'Dbm':   ['Db3', 'Db4', 'Fb4', 'Ab4',  'Db5'],
+  'Dbdim': ['Db3', 'Db4', 'Fb4', 'Abb4', 'Db5'],
+  'Db+':   ['Db3', 'Db4', 'F4',  'A4',   'Db5'],
+
+  // D Chords
+  'D':     ['D3',  'D4',  'F#4', 'A4',   'D5'],
+  'Dm':    ['D3',  'D4',  'F4',  'A4',   'D5'],
+  'Ddim':  ['D3',  'D4',  'F4',  'Ab4',  'D5'],
+  'D+':    ['D3',  'D4',  'F#4', 'A#4',  'D5'],
+
+  // D-Sharp Chords
+  'D#':    ['D#3', 'D#4', 'F𝄪4', 'A#4',  'D#5'],
+  'D#m':   ['D#3', 'D#4', 'F#4',  'A#4',  'D#5'],
+  'D#dim': ['D#3', 'D#4', 'F#4',  'A4',   'D#5'],
+  'D#+':   ['D#3', 'D#4', 'F𝄪4', 'A𝄪4', 'D#5'],
+
+  // E-Flat Chords
+  'Eb':    ['Eb3', 'Eb4', 'G4',   'Bb4',  'Eb5'],
+  'Ebm':   ['Eb3', 'Eb4', 'Gb4',  'Bb4',  'Eb5'],
+  'Ebdim': ['Eb3', 'Eb4', 'Gb4',  'Bbb4', 'Eb5'],
+  'Eb+':   ['Eb3', 'Eb4', 'G4',   'B4',   'Eb5'],
+
+  // E Chords
+  'E':     ['E3',  'E4',  'G#4',  'B4',   'E5'],
+  'Em':    ['E3',  'E4',  'G4',   'B4',   'E5'],
+  'Edim':  ['E3',  'E4',  'G4',   'Bb4',  'E5'],
+  'E+':    ['E3',  'E4',  'G#4',  'B#4',  'E5'],
+
+  // E-Sharp Chords
+  'E#':    ['E#3', 'E#4', 'G𝄪4', 'B#4',  'E#5'],
+  'E#m':   ['E#3', 'E#4', 'G#4',  'B#4',  'E#5'],
+  'E#dim': ['E#3', 'E#4', 'G#4',  'B4',   'E#5'],
+  'E#+':   ['E#3', 'E#4', 'G𝄪4', 'B𝄪4','E#5'],
+
+  // F-Flat Chords
+  'Fb':    ['Fb3', 'Fb4', 'Ab3',  'Cb4',  'Fb4'],
+  'Fbm':   ['Fb3', 'Fb4', 'Abb3', 'Cb4',  'Fb4'],
+  'Fbdim': ['Fb3', 'Fb4', 'Abb3', 'Cbb4', 'Fb4'],
+  'Fb+':   ['Fb3', 'Fb4', 'Ab3',  'C4',   'Fb4'],
+
+  // F Chords
+  'F':     ['F3',  'F4',  'A4',   'C5',   'F5'],
+  'Fm':    ['F3',  'F4',  'Ab4',  'C5',   'F5'],
+  'Fdim':  ['F3',  'F4',  'Ab4',  'Cb5',  'F5'],
+  'F+':    ['F3',  'F4',  'A4',   'C#5',  'F5'],
+
+  // F-Sharp Chords
+  'F#':    ['F#3', 'F#4', 'A#4',  'C#5',  'F#5'],
+  'F#m':   ['F#3', 'F#4', 'A4',   'C#5',  'F#5'],
+  'F#dim': ['F#3', 'F#4', 'A4',   'C5',   'F#5'],
+  'F#+':   ['F#3', 'F#4', 'A#4',  'C𝄪5', 'F#5'],
+
+  // G-Flat Chords
+  'Gb':    ['Gb3', 'Gb4', 'Bb3',  'Db4',  'Gb4'],
+  'Gbm':   ['Gb3', 'Gb4', 'Bbb3', 'Db4',  'Gb4'],
+  'Gbdim': ['Gb3', 'Gb4', 'Bbb3', 'Dbb4', 'Gb4'],
+  'Gb+':   ['Gb3', 'Gb4', 'Bb3',  'D4',   'Gb4'],
+
+  // G Chords
+  'G':     ['G3',  'G4',  'B4',   'D5',   'G5'],
+  'Gm':    ['G3',  'G4',  'Bb4',  'D5',   'G5'],
+  'Gdim':  ['G3',  'G4',  'Bb4',  'Db5',  'G5'],
+  'G+':    ['G3',  'G4',  'B4',   'D#5',  'G5'],
+
+  // G-Sharp Chords
+  'G#':    ['G#3', 'G#4', 'B#4',  'D#5',  'G#5'],
+  'G#m':   ['G#3', 'G#4', 'B4',   'D#5',  'G#5'],
+  'G#dim': ['G#3', 'G#4', 'B4',   'D5',   'G#5'],
+  'G#+':   ['G#3', 'G#4', 'B#4',  'D𝄪5', 'G#5'],
+
+  // A-Flat Chords
+  'Ab':    ['Ab2', 'Ab3', 'C4',   'Eb4',  'Ab4'],
+  'Abm':   ['Ab2', 'Ab3', 'Cb4',  'Eb4',  'Ab4'],
+  'Abdim': ['Ab2', 'Ab3', 'Cb4',  'Ebb4', 'Ab4'],
+  'Ab+':   ['Ab2', 'Ab3', 'C4',   'E4',   'Ab4'],
+
+  // A Chords
+  'A':     ['A2',  'A3',  'C#4',  'E4',   'A4'],
+  'Am':    ['A2',  'A3',  'C4',   'E4',   'A4'],
+  'Adim':  ['A2',  'A3',  'C4',   'Eb4',  'A4'],
+  'A+':    ['A2',  'A3',  'C#4',  'E#4',  'A4'],
+
+  // A-Sharp Chords
+  'A#':    ['A#2', 'A#3', 'C𝄪4',  'E#4',  'A#4'],
+  'A#m':   ['A#2', 'A#3', 'C#4',  'E#4',  'A#4'],
+  'A#dim': ['A#2', 'A#3', 'C#4',  'E4',   'A#4'],
+  'A#+':   ['A#2', 'A#3', 'C𝄪4',  'E𝄪4', 'A#4'],
+
+  // B-Flat Chords
+  'Bb':    ['Bb2', 'Bb3', 'D4',   'F4',   'Bb4'],
+  'Bbm':   ['Bb2', 'Bb3', 'Db4',  'F4',   'Bb4'],
+  'Bbdim': ['Bb2', 'Bb3', 'Db4',  'Fb4',  'Bb4'],
+  'Bb+':   ['Bb2', 'Bb3', 'D4',   'F#4',  'Bb4'],
+
+  // B Chords
+  'B':     ['B2',  'B3',  'D#4',  'F#4',  'B4'],
+  'Bm':    ['B2',  'B3',  'D4',   'F#4',  'B4'],
+  'Bdim':  ['B2',  'B3',  'D4',   'F4',   'B4'],
+  'B+':    ['B2',  'B3',  'D#4',  'F𝄪4', 'B4'],
+
+  // B-Sharp Chords
+  'B#':    ['B#2', 'B#3', 'D𝄪4', 'F𝄪4', 'B#4'],
+  'B#m':   ['B#2', 'B#3', 'D#4',  'F𝄪4', 'B#4'],
+  'B#dim': ['B#2', 'B#3', 'D#4',  'F#4',  'B#4'],
+  // No B#+
+
+  // C-Flat Chords
+  'Cb':    ['Cb3', 'Cb4', 'Eb4',  'Gb4',  'Cb5'],
+  'Cbm':   ['Cb3', 'Cb4', 'Ebb4', 'Gb4',  'Cb5'],
+  'Cbdim': ['Cb3', 'Cb4', 'Ebb4', 'Gbb4', 'Cb5'],
+  'Cb+':   ['Cb3', 'Cb4', 'Eb4',  'G4',   'Cb5']
 };
+
 export const rhythmChordSeventhNotes = { 
   'C': 'Bb4', 'Dm': 'C5', 'Em': 'D5', 'F': 'Eb5', 'G': 'F5', 'Am': 'G4', 'Bb': 'Ab4',
   'Db':'Cb4', 'Ebm':'Db5', 'Fm':'Eb5', 'Gb':'Fb5', 'Ab':'Gb4', 'Bbm':'Ab4', 'Cb':'Bbb4',
