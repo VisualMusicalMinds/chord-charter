@@ -886,15 +886,131 @@ export const chordMajorSevenths = {
   'Cbdim': 'B♭',
   'Cb+':   'B♭'
 };
-export const chordSeconds = { 
-  'C': 'D', 'Dm': 'E', 'Em': 'F♯', 'F': 'G', 'G': 'A', 'Am': 'B', 'Bb': 'C',
-  'Db': 'E♭', 'Ebm': 'F', 'Fm': 'G', 'Gb': 'A♭', 'Ab': 'B♭', 'Bbm': 'C', 'Cb': 'D♭',
-  'D': 'E', 'F#m': 'G♯', 'Bm': 'C♯',
-  'Eb': 'F', 'Gm': 'A', 'Cm': 'D',
-  'E': 'F♯', 'G#m': 'A♯', 'C#m': 'D♯',
-  'Fb': 'G♭', 'Abm': 'B♭', 
-  'B': 'C♯', 'D#m': 'E♯', 'F#': 'G♯', 'A': 'B',
-  'Bdim': 'C♯', 'Cdim': 'D', 'C#dim': 'D♯', 'Ddim': 'E', 'D#dim': 'E♯', 'Edim': 'F♯', 'Fdim': 'G', 'F#dim': 'G♯', 'Gdim': 'A', 'G#dim': 'A♯', 'Adim': 'B', 'A#dim': 'B♯'
+export const chordSeconds = {
+  // C Chords
+  'C':     'D',
+  'Cm':    'D',
+  'Cdim':  'D',
+  'C+':    'D',
+
+  // C-Sharp Chords
+  'C#':    'D♯',
+  'C#m':   'D♯',
+  'C#dim': 'D♯',
+  'C#+':   'D♯',
+
+  // D-Flat Chords
+  'Db':    'E♭',
+  'Dbm':   'E♭',
+  'Dbdim': 'E♭',
+  'Db+':   'E♭',
+
+  // D Chords
+  'D':     'E',
+  'Dm':    'E',
+  'Ddim':  'E',
+  'D+':    'E',
+
+  // D-Sharp Chords
+  'D#':    'E♯',
+  'D#m':   'E♯',
+  'D#dim': 'E♯',
+  'D#+':   'E♯',
+
+  // E-Flat Chords
+  'Eb':    'F',
+  'Ebm':   'F',
+  'Ebdim': 'F',
+  'Eb+':   'F',
+
+  // E Chords
+  'E':     'F♯',
+  'Em':    'F♯',
+  'Edim':  'F♯',
+  'E+':    'F♯',
+
+  // E-Sharp Chords
+  'E#':    'F𝄪',
+  'E#m':   'F𝄪',
+  'E#dim': 'F𝄪',
+  'E#+':   'F𝄪',
+
+  // F-Flat Chords
+  'Fb':    'G♭',
+  'Fbm':   'G♭',
+  'Fbdim': 'G♭',
+  'Fb+':   'G♭',
+
+  // F Chords
+  'F':     'G',
+  'Fm':    'G',
+  'Fdim':  'G',
+  'F+':    'G',
+
+  // F-Sharp Chords
+  'F#':    'G♯',
+  'F#m':   'G♯',
+  'F#dim': 'G♯',
+  'F#+':   'G♯',
+
+  // G-Flat Chords
+  'Gb':    'A♭',
+  'Gbm':   'A♭',
+  'Gbdim': 'A♭',
+  'Gb+':   'A♭',
+
+  // G Chords
+  'G':     'A',
+  'Gm':    'A',
+  'Gdim':  'A',
+  'G+':    'A',
+
+  // G-Sharp Chords
+  'G#':    'A♯',
+  'G#m':   'A♯',
+  'G#dim': 'A♯',
+  'G#+':   'A♯',
+
+  // A-Flat Chords
+  'Ab':    'B♭',
+  'Abm':   'B♭',
+  'Abdim': 'B♭',
+  'Ab+':   'B♭',
+
+  // A Chords
+  'A':     'B',
+  'Am':    'B',
+  'Adim':  'B',
+  'A+':    'B',
+
+  // A-Sharp Chords
+  'A#':    'B♯',
+  'A#m':   'B♯',
+  'A#dim': 'B♯',
+  'A#+':   'B♯',
+
+  // B-Flat Chords
+  'Bb':    'C',
+  'Bbm':   'C',
+  'Bbdim': 'C',
+  'Bb+':   'C',
+
+  // B Chords
+  'B':     'C♯',
+  'Bm':    'C♯',
+  'Bdim':  'C♯',
+  'B+':    'C♯',
+
+  // B-Sharp Chords (no B#+)
+  'B#':    'C𝄪',
+  'B#m':   'C𝄪',
+  'B#dim': 'C𝄪',
+
+  // C-Flat Chords
+  'Cb':    'D♭',
+  'Cbm':   'D♭',
+  'Cbdim': 'D♭',
+  'Cb+':   'D♭'
 };
 export const chordFourths = { 
   'C': 'F', 'Dm': 'G', 'Em': 'A', 'F': 'B♭', 'G': 'C', 'Am': 'D', 'Bb': 'E♭',
