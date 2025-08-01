@@ -39,7 +39,8 @@ export function updateChordDropdowns() {
             keyChords.forEach(chord => {
                 const option = document.createElement('option');
                 option.value = chord.value;
-                option.textContent = chord.display.replace('dim', '°'); // Replace dim with °
+                // Replace both 'dim' and 'vii°' to ensure both parts get the symbol
+                option.textContent = chord.display.replace(/dim/g, '°').replace(/vii°/g, 'vii°');
                 groupInKey.appendChild(option);
             });
             select.appendChild(groupInKey);
@@ -52,7 +53,8 @@ export function updateChordDropdowns() {
             if (!keyChordValues.has(chord.value)) {
                 const option = document.createElement('option');
                 option.value = chord.value;
-                option.textContent = chord.display; // Display is already formatted with °
+                // The display property from allChordOptions is already formatted with °
+                option.textContent = chord.display; 
                 groupOutOfKey.appendChild(option);
             }
         });
@@ -341,5 +343,3 @@ export function updateGridForTimeSignature(numerator) {
     if (pair) pair.style.display = shouldShow ? 'flex' : 'none';
   }
 }
-
-
