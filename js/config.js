@@ -69,24 +69,6 @@ export const scaleChordMaps = {
   'Natural Minor': naturalMinorKeyChordMap,
 };
 
-// --- MASTER CHORD LIST ---
-// This list is now generated programmatically to ensure organization.
-const chromaticRootNotes = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B'];
-
-export const allChordOptions = chromaticRootNotes.flatMap(root => {
-    const chordsForRoot = [
-        { value: `${root}`, display: `${root}` },
-        { value: `${root}m`, display: `${root}m` },
-        { value: `${root}dim`, display: `${root}°` },
-        { value: `${root}+`, display: `${root}+` }
-    ];
-    // Filter out chords that don't exist in our `chordTones` map
-    return chordsForRoot.filter(chord => chordTones.hasOwnProperty(chord.value));
-});
-
-export const allChords = allChordOptions.map(option => option.value);
-
-
 export const songs = {
   "eagle-view-song": {
     key: "D",
@@ -2417,4 +2399,20 @@ export const soundProfiles = {
   voice: { duration: 0.5, attack: 0.08, hold: 0.3, release: 0.12, filterFreq: 1000, filterQ: 1, gain: 0.18, vibrato: true, vibratoFreq: 5, vibratoAmount: 4 } // Reduced from 0.36
 };
 
+// --- MASTER CHORD LIST (NEW - Placed at the end to avoid errors) ---
+const chromaticRootNotes = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B'];
 
+// Generate a comprehensive list of all possible chords based on roots and types.
+const allPossibleChords = chromaticRootNotes.flatMap(root => [
+    { value: `${root}`, display: `${root}` },
+    { value: `${root}m`, display: `${root}m` },
+    { value: `${root}dim`, display: `${root}°` },
+    { value: `${root}+`, display: `${root}+` }
+]);
+
+// Filter this list to only include chords that are actually defined in our chordTones map.
+// This ensures we don't offer chords we can't play.
+export const allChordOptions = allPossibleChords.filter(chord => chordTones.hasOwnProperty(chord.value));
+
+// Create a simple array of just the chord values (e.g., "C", "Cdim") for other logic.
+export const allChords = allChordOptions.map(option => option.value);
