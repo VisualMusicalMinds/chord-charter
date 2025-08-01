@@ -364,6 +364,8 @@ export const chordTypes = {
   'A#': 'major',  'A#+': 'major',
   'Bb': 'major',  'Bb+': 'major',
   'B': 'major',   'B+': 'major',
+  'Cb': 'major',  'Cb+': 'major',
+
 
   // Chords with a MINOR third
   'Cm': 'minor',   'Cdim': 'minor',
@@ -383,7 +385,8 @@ export const chordTypes = {
   'Am': 'minor',   'Adim': 'minor',
   'A#m': 'minor',  'A#dim': 'minor',
   'Bbm': 'minor',  'Bbdim': 'minor',
-  'Bm': 'minor',   'Bdim': 'minor'
+  'Bm': 'minor',   'Bdim': 'minor',
+  'Cbm': 'minor',  'Cbdim': 'minor',
 };
 
 export const chordAlternateThirds = {
@@ -602,7 +605,12 @@ export const chordTones = {
   'B':   ['B',   'D♯',  'F♯'],
   'Bm':  ['B',   'D',   'F♯'],
   'Bdim':['B',   'D',   'F'],
-  'B+':  ['B',   'D♯',  'F𝄪']
+  'B+':  ['B',   'D♯',  'F𝄪'],
+
+  'Cb':    ['C♭', 'E♭', 'G♭'],
+  'Cbm':   ['C♭', 'E𝄫', 'G♭'],
+  'Cbdim': ['C♭', 'E𝄫', 'G𝄫'],
+  'Cb+':   ['C♭', 'E♭', 'G'],
 };
 
 export const chordSevenths = {
@@ -2400,7 +2408,7 @@ export const soundProfiles = {
 };
 
 // --- MASTER CHORD LIST (NEW - Placed at the end to avoid errors) ---
-const chromaticRootNotes = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B'];
+const chromaticRootNotes = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B', 'Cb'];
 
 // Generate a comprehensive list of all possible chords based on roots and types.
 const allPossibleChords = chromaticRootNotes.flatMap(root => [
