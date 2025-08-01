@@ -563,6 +563,7 @@ function handleKeyDial(direction) {
   const oldKey = appState.musicalKey;
   
   let newIndex = (appState.currentKeyIndex + direction + displayKeys.length) % displayKeys.length;
+  appState.currentKeyIndex = newIndex; // This line was missing
   appState.currentDisplayKey = displayKeys[newIndex];
   const newKey = appState.musicalKey;
 
@@ -1081,3 +1082,5 @@ function parseAndLoadSongSummary(summaryText) {
         alert("Could not load the song from the text. Please check the format.");
     }
 }
+
+
