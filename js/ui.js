@@ -20,6 +20,7 @@ export function updateChordDropdowns() {
     const currentScale = appState.currentScale;
     
     const keyChords = scaleChordMaps[currentScale]?.[currentKey] || [];
+    const keyChordValues = new Set(keyChords.map(c => c.value));
 
     const allSelects = document.querySelectorAll('.chord-select');
     
@@ -38,7 +39,7 @@ export function updateChordDropdowns() {
             keyChords.forEach(chord => {
                 const option = document.createElement('option');
                 option.value = chord.value;
-                option.textContent = chord.display;
+                option.textContent = chord.display.replace('dim', '°'); // Replace dim with °
                 groupInKey.appendChild(option);
             });
             select.appendChild(groupInKey);
@@ -47,10 +48,11 @@ export function updateChordDropdowns() {
         const groupOutOfKey = document.createElement('optgroup');
         groupOutOfKey.label = "Other Chords";
         allChordOptions.forEach(chord => {
-            if (!keyChords.find(kc => kc.value === chord.value)) {
+            // Only add if it's not already in the in-key group
+            if (!keyChordValues.has(chord.value)) {
                 const option = document.createElement('option');
                 option.value = chord.value;
-                option.textContent = chord.display;
+                option.textContent = chord.display; // Display is already formatted with °
                 groupOutOfKey.appendChild(option);
             }
         });
@@ -339,3 +341,5 @@ export function updateGridForTimeSignature(numerator) {
     if (pair) pair.style.display = shouldShow ? 'flex' : 'none';
   }
 }
+
+
