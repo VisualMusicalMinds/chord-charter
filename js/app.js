@@ -695,6 +695,7 @@ function restartAnimationWithBpm() {
 }
 
 function playChordPreview(idx) {
+  ensureAudio();
   if (appState.isPlaying) return;
   const currentData = getProgressionData(appState.currentToggle); 
   const chordName = currentData.p[idx]; 
@@ -704,6 +705,7 @@ function playChordPreview(idx) {
 }
 
 function playSimpleChordPreview(chordName) {
+    ensureAudio();
     if (appState.isPlaying || !chordName || chordName === "" || chordName === "empty") return;
     const notesToPlay = getNotesToPlayForChord(chordName, false, -1, getProgressionData(appState.currentToggle));
     playTriangleNotes(notesToPlay);
