@@ -1,3 +1,20 @@
+@media (max-width: 768px) { /* New Breakpoint for tablets */
+  :root {
+    --base-box-size: min(100px, 16vw);
+    --box-gap: max(6px, calc(var(--box-size) * 0.20));
+  }
+  .top-row, .bottom-grid-container {
+      max-width: 100%;
+      padding-left: 10px;
+      padding-right: 10px;
+      box-sizing: border-box;
+  }
+  .bottom-grid {
+      transform: scale(0.95);
+      transform-origin: top center;
+  }
+}
+
 @media (max-width: 600px) {
   :root {
     --base-box-size: min(85px, 18vw);
@@ -11,6 +28,10 @@
   .instrument-waveform-dial, .key-selector-dial {
     font-size: clamp(0.68rem, 1.1vw, 0.96em);
     max-width: 200px;
+  }
+  .bottom-grid {
+      transform: scale(0.9);
+      transform-origin: top center;
   }
 }
 
@@ -32,6 +53,10 @@
   .top-row {
     gap: calc(var(--box-gap) * 0.6);
   }
+  .bottom-grid {
+      transform: scale(0.85);
+      transform-origin: top center;
+  }
 }
 
 @media (max-width: 400px) {
@@ -46,6 +71,10 @@
     font-size: clamp(0.60rem, 0.96vw, 0.88em);
     max-width: 140px;
     padding: 0.09em 0.19em;
+  }
+   .bottom-grid {
+      transform: scale(0.8);
+      transform-origin: top center;
   }
 }
 
