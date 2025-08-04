@@ -37,7 +37,7 @@ body {
 
 .bottom-grid-container {
   width: 100%; /* Changed from fit-content */
-  max-width: calc(var(--bottom-grid-columns) * var(--box-size) + (var(--bottom-grid-columns) - 1) * var(--box-gap));
+  max-width: calc(var(--bottom-grid-columns) * var(--box-size) + (var(--bottom-grid-columns) - 1) * var(--box-gap) + 15px); /* Added extra space */
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -63,7 +63,7 @@ body {
 
 .bottom-grid {
   display: grid;
-  grid-template-columns: var(--box-size) var(--box-size) repeat(var(--time-sig-beats), var(--box-size));
+  grid-template-columns: calc(var(--box-size) + 15px) var(--box-size) repeat(var(--time-sig-beats), var(--box-size)); /* Widen first column */
   grid-template-rows: var(--box-size) calc(var(--box-size) / 2);
   gap: 0;
   width: 100%;
