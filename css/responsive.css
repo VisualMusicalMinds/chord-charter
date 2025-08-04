@@ -74,6 +74,6 @@
   }
   .copy-btn {
     margin-right: 0;
-    order: 3;
+    order: 3; /* This will now correctly place it at the end */
   }
 }
