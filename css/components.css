@@ -253,6 +253,9 @@
   align-items: center;
   justify-content: center;
   gap: 8px; /* Adjust gap between stacked items */
+  width: 100%; /* Ensure it takes full width of the cell */
+  box-sizing: border-box; /* Include padding in width calculation */
+  padding: 0 5px; /* Add some horizontal padding */
 }
 
 .bpm-input-block { 
