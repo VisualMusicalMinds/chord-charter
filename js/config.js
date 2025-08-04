@@ -1557,7 +1557,7 @@ export const rhythmChordNotes = {
   // F Chords
   'F':     ['F3',  'F4',  'A4',   'C5',   'F5'],
   'Fm':    ['F3',  'F4',  'Ab4',  'C5',   'F5'],
-  'Fdim':  ['F3',  'F4',  'Ab4',  'Cb5',  'F5'],
+  'Fdim':  ['F3',  'F4',  'Ab4',  'Cb4',  'F5'],
   'F+':    ['F3',  'F4',  'A4',   'C#5',  'F5'],
 
   // F-Sharp Chords
