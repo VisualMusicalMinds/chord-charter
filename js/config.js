@@ -475,10 +475,10 @@ export const chordAlternateThirds = {
   'G#+':   { 'major': 'B♯',   'minor': 'B',    'majorNote': 'B#4',  'minorNote': 'B4' },
 
   // A-Flat Chords
-  'Ab':    { 'major': 'C',    'minor': 'C♭',  'majorNote': 'C5',   'minorNote': 'Cb5' },
-  'Abm':   { 'major': 'C',    'minor': 'C♭',  'majorNote': 'C5',   'minorNote': 'Cb5' },
-  'Abdim': { 'major': 'C',    'minor': 'C♭',  'majorNote': 'C5',   'minorNote': 'Cb5' },
-  'Ab+':   { 'major': 'C',    'minor': 'C♭',  'majorNote': 'C5',   'minorNote': 'Cb5' },
+  'Ab':    { 'major': 'C',    'minor': 'C♭',  'majorNote': 'C5',   'minorNote': 'Cb4' },
+  'Abm':   { 'major': 'C',    'minor': 'C♭',  'majorNote': 'C5',   'minorNote': 'Cb4' },
+  'Abdim': { 'major': 'C',    'minor': 'C♭',  'majorNote': 'C5',   'minorNote': 'Cb4' },
+  'Ab+':   { 'major': 'C',    'minor': 'C♭',  'majorNote': 'C5',   'minorNote': 'Cb4' },
 
   // A Chords
   'A':     { 'major': 'C♯',   'minor': 'C',    'majorNote': 'C#5',  'minorNote': 'C5' },
