@@ -20,7 +20,7 @@ export const appState = {
   get musicalKey() {
     return keyMap[this.currentDisplayKey][this.currentScale.replace(' ', '')] || keyMap[this.currentDisplayKey].Major;
   },
-  availableScales: ['Major', 'Natural Minor', 'Harmonic Minor', 'Melodic Minor'],
+  availableScales: ['Major', 'Natural Minor', 'Harmonic Minor', 'Melodic Minor', 'Dorian', 'Phrygian', 'Lydian', 'Mixolydian', 'Locrian'],
   currentScale: 'Major',
   
   // Progression Management
