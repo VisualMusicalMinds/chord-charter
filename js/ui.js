@@ -41,6 +41,12 @@ export function updateChordDropdowns() {
                 option.value = chord.value;
                 // Replace both 'dim' and 'vii°' to ensure both parts get the symbol
                 option.textContent = chord.display.replace(/dim/g, '°').replace(/vii°/g, 'vii°');
+                const rootNote = chord.value.charAt(0);
+                const colorInfo = optionColors[rootNote];
+                if (colorInfo) {
+                    option.style.backgroundColor = colorInfo.background;
+                    option.style.color = colorInfo.text;
+                }
                 groupInKey.appendChild(option);
             });
             select.appendChild(groupInKey);
@@ -55,6 +61,12 @@ export function updateChordDropdowns() {
                 option.value = chord.value;
                 // The display property from allChordOptions is already formatted with °
                 option.textContent = chord.display; 
+                const rootNote = chord.value.charAt(0);
+                const colorInfo = optionColors[rootNote];
+                if (colorInfo) {
+                    option.style.backgroundColor = colorInfo.background;
+                    option.style.color = colorInfo.text;
+                }
                 groupOutOfKey.appendChild(option);
             }
         });
