@@ -146,7 +146,10 @@ export function getNotesToPlayForChord(chordName, isSplit, slotIndex, progData) 
         const dimFifthNoteName = chordDiminishedFifths[chordName];
         const originalFifth = baseNotes[3];
         if (originalFifth) {
-            const octave = originalFifth.slice(-1);
+            let octave = originalFifth.slice(-1);
+            if (chordName === 'F' && dimFifthNoteName === 'C♭') {
+                octave = '4';
+            }
             notesToPlay.push(dimFifthNoteName + octave);
         }
     } else {
