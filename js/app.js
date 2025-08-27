@@ -128,14 +128,28 @@ function initializeABCDToggles() {
 function initializeSlotBoxes() {
     document.querySelectorAll('.slot-box').forEach((slot, idx) => {
         const primarySelect = slot.querySelector('.primary-chord-select');
-        primarySelect.addEventListener('change', function() { 
-            const currentData = getProgressionData(appState.currentToggle); 
-            currentData.p[idx] = this.value; 
-            setPrimarySlotColorAndStyle(idx, primarySelect, this.value);
+        primarySelect.addEventListener('change', function() {
+            const currentData = getProgressionData(appState.currentToggle);
+            let selectedChord = this.value;
+
+            if (selectedChord.endsWith('dim')) {
+                currentData.p[idx] = selectedChord.slice(0, -3) + 'm';
+                currentData.aug[idx] = 'dim';
+            } else if (selectedChord.endsWith('+')) {
+                currentData.p[idx] = selectedChord.slice(0, -1);
+                currentData.aug[idx] = 'aug';
+            } else {
+                currentData.p[idx] = selectedChord;
+                currentData.aug[idx] = 'none';
+            }
+            
+            this.value = currentData.p[idx]; // Update dropdown to show the new base chord
+            updateAugButtonVisuals(currentData.aug);
+            setPrimarySlotColorAndStyle(idx, this, this.value);
             setSlotContent(idx);
-            playChordPreview(idx); 
-            saveCurrentProgression(); 
-        }); 
+            playChordPreview(idx);
+            saveCurrentProgression();
+        });
 
         const splitSelect = slot.querySelector('.split-chord-select');
         splitSelect.addEventListener('change', function() {
