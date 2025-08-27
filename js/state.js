@@ -11,7 +11,7 @@ export const appState = {
   swingEnabled: false, // New: For future use
 
   // Musical Context
-  currentWaveformIndex: 0,
+  currentWaveformIndex: 1,
   get currentWaveform() {
     return waveforms[this.currentWaveformIndex];
   },
