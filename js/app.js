@@ -31,11 +31,12 @@ function main() {
   // Initial UI setup
   updateKeyDisplay();
   updateGridForTimeSignature(timeSignatureNumerators[appState.currentTimeSignatureIndex]);
-  loadProgression(appState.currentToggle); 
+  loadProgression(appState.currentToggle);
+  ['A', 'B', 'C', 'D'].forEach(updateLinkVisuals);
   updateRhythmPictures();
   updateSlotHighlights();
   updatePictureHighlights();
-  setPlayingUI(false); 
+  setPlayingUI(false);
 }
 
 // --- INITIALIZATION ---
