@@ -26,7 +26,7 @@ export const appState = {
   // Progression Management
   currentToggle: 'A',
   slotIds: ['slot0', 'slot1', 'slot2', 'slot3'],
-  progressionLinkStates: { 'A': false, 'B': false, 'C': false, 'D': false },
+  progressionLinkStates: { 'A': true, 'B': true, 'C': false, 'D': false },
   linkedProgressionSequence: [],
   currentLinkedProgressionIndex: 0,
 
@@ -35,8 +35,8 @@ export const appState = {
 
   // --- Progression Data ---
   // A
-  progressionA: ['', '', '', ''],
-  rhythmBoxesA: Array(10).fill(false),
+  progressionA: ['Am', 'G', 'C', 'F'],
+  rhythmBoxesA: [true, false, false, false, true, true, false, true, false, false],
   seventhA: Array(4).fill(false),
   sixthA: Array(4).fill(false),
   secondA: Array(4).fill(false),
@@ -44,7 +44,7 @@ export const appState = {
   susA: Array(4).fill(false),
   majSeventhA: Array(4).fill(false),
   augA: Array(4).fill('none'),
-  majorA: Array(4).fill('none'),
+  majorA: ['minor', 'major', 'major', 'major'],
   splitChordActiveA: Array(4).fill(false),
   splitChordValueA: ['', '', '', ''],
   splitSeventhA: Array(4).fill(false),
@@ -57,18 +57,18 @@ export const appState = {
   splitMajorA: Array(4).fill('none'),
 
   // B
-  progressionB: ['', '', '', ''],
-  rhythmBoxesB: Array(10).fill(false),
-  seventhB: Array(4).fill(false),
-  sixthB: Array(4).fill(false),
+  progressionB: ['Am', 'D', 'F', 'C'],
+  rhythmBoxesB: [true, false, false, false, true, true, false, true, false, false],
+  seventhB: [false, true, false, false],
+  sixthB: [false, false, true, false],
   secondB: Array(4).fill(false),
   fourthB: Array(4).fill(false),
   susB: Array(4).fill(false),
   majSeventhB: Array(4).fill(false),
   augB: Array(4).fill('none'),
-  majorB: Array(4).fill('none'),
-  splitChordActiveB: Array(4).fill(false),
-  splitChordValueB: ['', '', '', ''],
+  majorB: ['minor', 'major', 'major', 'major'],
+  splitChordActiveB: [false, false, false, true],
+  splitChordValueB: ['', '', '', 'E'],
   splitSeventhB: Array(4).fill(false),
   splitSixthB: Array(4).fill(false),
   splitSecondB: Array(4).fill(false),
